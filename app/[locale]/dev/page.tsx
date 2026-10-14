@@ -1,6 +1,7 @@
 import { PortfolioNav } from "@/components/portfolio/nav"
 import { PortfolioFooter } from "@/components/portfolio/footer"
 import { VariantB1aMagazineSpread } from "@/components/portfolio/prototype/variant-b1a-magazine-spread"
+import { RebrandPrototypeHost } from "@/components/portfolio/rebrand-prototype/rebrand-prototype-host"
 import { getAllEssays } from "@/lib/blog/server"
 import { BASE_URL } from "@/lib/constants"
 import { Metadata } from "next"
@@ -43,8 +44,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function DevPortfolio({ params }: PageProps) {
+export default async function DevPortfolio({
+  params,
+  searchParams,
+}: PageProps & { searchParams: Promise<{ variant?: string }> }) {
   const { locale } = await params
+  const { variant } = await searchParams
+
+  // PROTOTYPE — rebrand variants, see components/portfolio/rebrand-prototype/
+  if (variant === "B" || variant === "C") {
+    return <RebrandPrototypeHost variant={variant} locale={locale} />
+  }
 
   const allPosts = await getAllEssays(locale, false)
   const recentPosts = allPosts.slice(0, 2)
