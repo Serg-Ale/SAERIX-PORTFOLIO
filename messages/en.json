@@ -218,8 +218,8 @@
     },
     "english": {
       "label": "ENGLISH",
-      "level": "C2 Full Proficiency",
-      "certification": "EF SET 72/100"
+      "level": "EF SET 72/100",
+      "certification": "Verifiable certificate"
     },
     "experience": {
       "label": "EXPERIENCE",
@@ -343,7 +343,7 @@
       {
         "name": "EF SET ENGLISH CERTIFICATE",
         "issuer": "EF SET",
-        "details": "C2 — Full Proficiency · Score: 72/100",
+        "details": "EF SET score: 72/100",
         "date": "Dec 2024",
         "featured": true
       },
@@ -549,9 +549,11 @@
     "location": "LOCATION",
     "locationValue": "LONDRINA, PR — BRASIL",
     "english": "ENGLISH",
-    "englishValue": "C2 PROFICIENCY (EF SET 72/100)",
+    "englishValue": "EF SET 72/100",
     "availability": "AVAILABILITY",
-    "availabilityValue": "OPEN TO OPPORTUNITIES"
+    "availabilityValue": "OPEN TO OPPORTUNITIES",
+    "education": "EDUCATION",
+    "educationValue": "SYSTEMS ANALYSIS & DEVELOPMENT · UTFPR"
   },
   "footer": {
     "name": "SÉRGIO ALEXANDRE",
@@ -702,7 +704,7 @@
     },
     "languages": [
       { "name": "Portuguese", "level": "Native" },
-      { "name": "English", "level": "C2, Full Proficiency (EF SET, verifiable certificate)" }
+      { "name": "English", "level": "EF SET 72/100, verifiable certificate" }
     ],
     "lookingForFragments": [
       "Looking for what's next.",
