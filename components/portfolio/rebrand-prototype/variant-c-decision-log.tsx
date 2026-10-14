@@ -1,4 +1,4 @@
-// PROTOTYPE — throwaway. Variant C "Decision log": statement, status, contact and
+// Variant C "Decision log", the default /dev page: statement, status, contact and
 // a live section index stay pinned on the left; the whole story scrolls on the
 // right: stack → cases (decision-first) → how I work → own projects → path →
 // contact. Stack and path answer "can this person do the job?" before the long reads.
@@ -77,7 +77,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
         </div>
       </aside>
 
-      <main className="px-5 py-12 md:px-10 lg:py-20">
+      <main id="main-content" className="px-5 py-12 md:px-10 lg:py-20">
         <section id="stack" className="scroll-mt-11 lg:scroll-mt-0">
           <Label n={sectionNumber("stack")} total={index.length}>{L.stack}</Label>
           <StackSection

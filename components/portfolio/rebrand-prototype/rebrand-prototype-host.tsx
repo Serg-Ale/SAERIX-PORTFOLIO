@@ -1,6 +1,5 @@
-// PROTOTYPE — throwaway. Two full-story variants of the new DEV landing (hero →
-// cases → how I work → path → stack → own projects → contact), rendered on the
-// existing /dev route and selected with ?variant=B|C. Variant A was discarded.
+// Renders the two full-story variants of the DEV landing on the /dev route. C is
+// the default page; B (scenes) is kept behind ?variant=B until it is removed.
 
 import type { ProtoLocale } from "./copy"
 import { PrototypeSwitcher } from "./prototype-switcher"
