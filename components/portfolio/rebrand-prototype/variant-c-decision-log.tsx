@@ -124,6 +124,8 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
         <section id="how" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("how")} total={index.length}>{L.how}</Label>
           <h2 className="mb-10 text-2xl font-bold leading-tight tracking-tight md:text-[1.75rem]">{story.how.stance}</h2>
+          <p className="mb-5 max-w-prose text-base leading-relaxed text-[var(--text)]/85">{story.how.lead}</p>
+          <p className="mb-10 max-w-prose text-base leading-relaxed text-[var(--text)]/85">{story.how.focus}</p>
           <ol className="flex flex-col gap-8">
             {story.how.principles.map((p, i) => (
               <li key={p.title} className="grid gap-2 md:grid-cols-[3rem_1fr]">
@@ -155,7 +157,8 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
             <p className="mb-3 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">
               {story.setup.label}
             </p>
-            <p className="mb-8 font-mono text-sm text-[var(--text)]/80">{story.setup.tools}</p>
+            <p className="mb-3 font-mono text-sm text-[var(--text)]/80">{story.setup.tools}</p>
+            <p className="mb-8 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{story.setup.workflow}</p>
             <h3 className="mb-6 text-base font-bold">{story.setup.claudeTitle}</h3>
             <ol className="flex flex-col gap-6">
               {story.setup.claude.map((c, i) => (
@@ -179,6 +182,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
 
         <section id="projects" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("projects")} total={index.length}>{L.projects}</Label>
+          <p className="mb-6 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{story.projects.intro}</p>
           <ul className="flex flex-col">
             {story.projects.items.map((p) => (
               <li key={p.name} className="flex flex-col gap-3 border-t border-[var(--line)] py-6">

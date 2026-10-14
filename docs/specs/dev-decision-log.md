@@ -34,4 +34,6 @@ Publicar issues no GitHub; personalização por vaga; screenshots de produto; me
 13. **Casos com resultado na frente:** a manchete é o resultado (campo `outcome`); a decisão abre num bloco próprio. Sem números inventados.
 14. **Contato:** botões Email, LinkedIn e GitHub visíveis também no mobile (a coluna esquerda fica no topo no celular).
 15. **WebSocket não pode aparecer:** não existe no código do Corta-ai nem da API.
+16. **Tese de origem:** Java no ensino médio (Alura, Minecraft), faculdade em jul/2022 antes da IA escrever código, fundamentos sem IA, modelo mental do todo. Mora no parágrafo de abertura de "Como eu trabalho" e na trajetória (entradas "Escola" e 2022). Sem afirmar nada sobre AWS.
+17. **Ferramentas para a própria rotina:** introdução curta em "On my own"; setup com atalhos de janela no KDE (lógica do Vim e de tiling) e fluxo com o Claude Code.
 

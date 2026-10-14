@@ -23,12 +23,15 @@ export interface ProtoStory {
   setup: {
     label: string
     tools: string
+    workflow: string
     claudeTitle: string
     claude: { title: string; body: string }[]
     credit: { text: string; href: string }
   }
   how: {
     stance: string
+    lead: string
+    focus: string
     principles: { title: string; body: string }[]
     proofCta: string
     proofNote: string
@@ -40,6 +43,7 @@ export interface ProtoStory {
   }
   stack: { groups: StackGroup[] }
   projects: {
+    intro: string
     // `featured` items get a decision line and the narrative card; the rest stay compact rows.
     // `repo` is omitted for private repos, which show `privateLabel` instead.
     items: {
@@ -114,7 +118,8 @@ const en: ProtoStory = {
   labels: { top: "Intro", how: "How I work", proof: "Proof", journey: "Path", stack: "Stack", projects: "On my own", contact: "Contact" },
   setup: {
     label: "Setup",
-    tools: "Neovim in kitty, with fish and starship, on Linux.",
+    tools: "Neovim in kitty, with fish and starship, on Linux with KDE.",
+    workflow: "My window shortcuts in KDE follow how Vim and tiling window managers work, so I move between windows and screens without the mouse. I keep many things open at once, and knowing the whole system lets me document a bug while I fix another.",
     claudeTitle: "How I work with Claude Code",
     claude: [
       { title: "Interview before code", body: "I run a skill that grills me about the plan. It asks one question at a time, with its own recommended answer, until no decision is left open." },
@@ -126,6 +131,8 @@ const en: ProtoStory = {
   },
   how: {
     stance: "Spec-driven development, not prompt engineering.",
+    lead: "I learned Java in high school, drawn in by Minecraft, and I started college before AI wrote code. My data structures exams were on paper, and my Java was in Notepad. So I know abstraction and how memory works, and today typing is the fast part. What I bring is the mental model of the whole.",
+    focus: "I have ADHD, and in this field it works as a strength. Hyperfocus keeps the mental model loaded for me, so I can follow the logs, the deployment and a merge while I talk to Claude, and still answer a message in the gap.",
     principles: [
       { title: "Align on the whole", body: "Questions before code. A shared vision with the team and the PO before the first ticket." },
       {
@@ -133,6 +140,7 @@ const en: ProtoStory = {
         body: "AI executes and researches faster than I do, and it surfaces risks and failure modes quickly. It also has bias and doesn't always show every option. The mental model and the questions stay mine.",
       },
       { title: "Prove it in the open", body: "Spec, tickets, TDD and review in a public repository, for anyone to check." },
+      { title: "Speak up when something is off", body: "I might be in the payments module and spot an authentication problem somewhere else. I say so, and since code is cheap now, I fix it or write it up right then. The job is to solve the problem, and the technology is the tool." },
     ],
     proofCta: "Read spec #14 ↗",
     proofNote: "matrix-rain: spec #14, tickets #15 to #22, 15 merged PRs and unit tests.",
@@ -144,7 +152,8 @@ const en: ProtoStory = {
   },
   journey: {
     items: [
-      { year: "2022", title: "UTFPR + TCS, intern", body: "Started the degree and the first job together. Front end, back end, tests and Scrum." },
+      { year: "School", title: "High school, Java", body: "The state of Paraná gave students access to Alura, and I started learning Java, mostly because of Minecraft. I wanted to change what was around me with code." },
+      { year: "2022", title: "UTFPR + TCS, intern", body: "Started the first job in June and the degree in July, months before ChatGPT. I already knew Java, so I made class assignments bigger, with console menus and ASCII art. Data structures on paper, Java in Notepad. At work, front end, back end, tests and Scrum." },
       {
         year: "2023",
         title: "TCS, night on-call",
@@ -159,7 +168,7 @@ const en: ProtoStory = {
       },
     ],
     fundamentals:
-      "I like understanding how technology works underneath, and it never stopped being fun. With a computer and an idea, I can build something new every day.",
+      "I like understanding how technology works underneath. It is the closest thing to magic we have: with a computer and an idea, I can change what is around me.",
   },
   stack: {
     groups: stackGroups({
@@ -168,6 +177,7 @@ const en: ProtoStory = {
     }),
   },
   projects: {
+    intro: "Most of these began as tools for my own routine. I like changing what is around me, and music works the same way. When I compose, I change the room too. Many were built at night, when the ideas show up.",
     items: [
       {
         name: "gym-stuff",
@@ -217,7 +227,8 @@ const ptBR: ProtoStory = {
   labels: { top: "Início", how: "Como eu trabalho", proof: "Prova", journey: "Trajetória", stack: "Stack", projects: "Por conta própria", contact: "Contato" },
   setup: {
     label: "Setup",
-    tools: "Neovim no kitty, com fish e starship, no Linux.",
+    tools: "Neovim no kitty, com fish e starship, no Linux com KDE.",
+    workflow: "Meus atalhos de janela no KDE seguem a lógica do Vim e dos gerenciadores de janela em tiling, então eu me movo entre janelas e telas sem o mouse. Mantenho muita coisa aberta ao mesmo tempo, e conhecer o sistema inteiro me deixa documentar um bug enquanto resolvo outro.",
     claudeTitle: "Como eu trabalho com o Claude Code",
     claude: [
       { title: "Entrevista antes do código", body: "Rodo um skill que me interroga sobre o plano. Ele faz uma pergunta por vez, com a própria resposta recomendada, até não sobrar decisão em aberto." },
@@ -229,6 +240,8 @@ const ptBR: ProtoStory = {
   },
   how: {
     stance: "Desenvolvimento orientado por especificação, não engenharia de prompt.",
+    lead: "Aprendi Java no ensino médio, puxado pelo Minecraft, e entrei na faculdade antes de a IA escrever código. As provas de estrutura de dados eram no papel, e o Java era no bloco de notas. Então entendo abstração e como a memória funciona, e hoje digitar é a parte rápida. O que eu trago é o modelo mental do todo.",
+    focus: "Tenho TDAH, e nessa área isso funciona como força. O hiperfoco mantém o modelo mental carregado para mim, então acompanho os logs, o deploy e um merge enquanto converso com o Claude, e ainda respondo uma mensagem no intervalo.",
     principles: [
       { title: "Alinhar o todo", body: "Perguntas antes do código. Visão compartilhada com o time e o PO antes do primeiro ticket." },
       {
@@ -236,6 +249,7 @@ const ptBR: ProtoStory = {
         body: "A IA executa e pesquisa mais rápido que eu, e levanta riscos e modos de falha com rapidez. Mas tem viés e nem sempre mostra todas as opções. O modelo mental e as perguntas continuam sendo meus.",
       },
       { title: "Provar em aberto", body: "Spec, tickets, TDD e revisão num repositório público, para qualquer um conferir." },
+      { title: "Falar quando algo está errado", body: "Posso estar no módulo de pagamento e notar um problema de autenticação em outro lugar. Eu aviso, e como código está barato hoje, corrijo ou documento na hora. O trabalho é resolver o problema, e a tecnologia é a ferramenta." },
     ],
     proofCta: "Ler a spec #14 ↗",
     proofNote: "matrix-rain: spec #14, tickets #15 a #22, 15 PRs mergeados e testes unitários.",
@@ -247,7 +261,8 @@ const ptBR: ProtoStory = {
   },
   journey: {
     items: [
-      { year: "2022", title: "UTFPR + TCS, estágio", body: "Comecei a graduação e o primeiro emprego juntos. Front-end, back-end, testes e Scrum." },
+      { year: "Escola", title: "Ensino médio, Java", body: "O governo do Paraná liberou a Alura para os alunos, e comecei a aprender Java, muito por causa do Minecraft. Eu queria mudar o que estava ao meu redor com código." },
+      { year: "2022", title: "UTFPR + TCS, estágio", body: "Comecei o primeiro emprego em junho e a graduação em julho, meses antes do ChatGPT. Eu já sabia Java, então aumentava os trabalhos da faculdade, com menus no console e arte ASCII. Estrutura de dados no papel, Java no bloco de notas. No trabalho, front-end, back-end, testes e Scrum." },
       {
         year: "2023",
         title: "TCS, plantão noturno",
@@ -262,7 +277,7 @@ const ptBR: ProtoStory = {
       },
     ],
     fundamentals:
-      "Gosto de entender como a tecnologia funciona por baixo, e isso nunca perdeu a graça. Com um computador e uma ideia, posso criar algo novo todo dia.",
+      "Gosto de entender como a tecnologia funciona por baixo. É o mais próximo de mágica que temos: com um computador e uma ideia, posso mudar o que está ao meu redor.",
   },
   stack: {
     groups: stackGroups({
@@ -271,6 +286,7 @@ const ptBR: ProtoStory = {
     }),
   },
   projects: {
+    intro: "A maioria nasceu como ferramenta para a minha rotina. Gosto de mudar o que está ao meu redor, e a música funciona do mesmo jeito. Quando componho, mudo o ambiente também. Muitos foram feitos de madrugada, quando as ideias aparecem.",
     items: [
       {
         name: "gym-stuff",
