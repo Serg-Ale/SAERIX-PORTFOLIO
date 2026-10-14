@@ -33,6 +33,8 @@ next-env.d.ts
 /.playwright-mcp/
 
 # sisyphus runtime artifacts
-/.sisyphus/evidence/
-/.sisyphus/drafts/
+/.sisyphus/
 /.crush.json
+
+# local-only brief (personal data, repo is public)
+/docs/REBRAND-BRIEF.md
