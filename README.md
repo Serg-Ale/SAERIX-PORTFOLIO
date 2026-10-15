@@ -4,6 +4,16 @@ Personal site of Sérgio Alexandre, with two faces on one domain: a `/dev` page 
 
 **Live:** [saerix.vercel.app](https://saerix.vercel.app) · [/en/dev](https://saerix.vercel.app/en/dev) · [/pt-BR/dev](https://saerix.vercel.app/pt-BR/dev)
 
+## Preview
+
+The `/dev` page on desktop: stack, a case written as problem and decision, and side projects.
+
+![/dev hero and stack](docs/screenshots/dev-hero.png)
+
+![/dev case: Corta-ai](docs/screenshots/dev-cases.png)
+
+![/dev side projects](docs/screenshots/dev-projects.png)
+
 ## What is in it
 
 | Route | What it is |
