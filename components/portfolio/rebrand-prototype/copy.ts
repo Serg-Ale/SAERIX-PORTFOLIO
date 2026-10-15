@@ -29,6 +29,8 @@ export interface ProtoCase {
   site?: { href: string; label: string; images: MediaItem[] }
   // A step is a label, or a list of labels when the flow splits into parallel branches.
   flow: { label: string; steps: (string | string[])[] }
+  // Optional pointer to the written version of the case.
+  link?: { label: string; href: string }
 }
 
 export interface ProtoCopy {
@@ -170,6 +172,27 @@ const en: ProtoCopy = {
         steps: ["Form (React Hook Form + Zod)", "React Query", "API", "Feedback card", "SoundCloud player"],
       },
     },
+    {
+      id: "04",
+      name: "AI-for-coding timeline",
+      kind: "Personal research · LAB-007",
+      state: "shipped",
+      stateLabel: "Published",
+      outcome:
+        "I checked every date and fact of how AI changed the way I program between 2022 and 2026 against primary sources.",
+      problem:
+        "I had written my history with the AI tools from memory. Dates and the order of events needed to hold up for anyone who checked.",
+      decision:
+        "Each row of the research carries its source and a confidence level: confirmed, partial or not found. Where I found no primary source, the text says it is a gap and does not fill it with a guess. The article was corrected where the order was wrong.",
+      status:
+        "LAB-007 article with a timeline and a flow, and the full research in docs/research covering Copilot, Claude Code, Codex, Gemini CLI, OpenCode, MCP, Ralph and per-token billing.",
+      stack: ["Research", "Primary sources", "MDX", "Next.js"],
+      flow: {
+        label: "From memory to fact",
+        steps: ["Memory", "Primary source", "Date and confidence", "Text corrected", "Article published"],
+      },
+      link: { label: "Read the article ↗", href: "/laboratorio/o-codigo-virou-a-parte-que-menos-importa" },
+    },
   ],
 }
 
@@ -284,6 +307,27 @@ const ptBR: ProtoCopy = {
         label: "Do formulário ao player",
         steps: ["Formulário (React Hook Form + Zod)", "React Query", "API", "Card de feedback", "Player SoundCloud"],
       },
+    },
+    {
+      id: "04",
+      name: "Linha do tempo da IA para programar",
+      kind: "Pesquisa pessoal · LAB-007",
+      state: "shipped",
+      stateLabel: "Publicado",
+      outcome:
+        "Validei contra fontes primárias cada data e fato de como a IA mudou o meu jeito de programar entre 2022 e 2026.",
+      problem:
+        "Eu tinha escrito a minha história com as ferramentas de IA de memória. Datas e ordem de eventos precisavam resistir a quem fosse checar.",
+      decision:
+        "Cada linha da pesquisa tem a fonte e um grau de confiança: confirmado, parcial ou não encontrado. Onde não achei fonte primária, o texto diz que é lacuna e não preenche com palpite. O artigo foi corrigido onde a ordem estava errada.",
+      status:
+        "Artigo LAB-007 com linha do tempo e fluxo, e a pesquisa completa em docs/research com Copilot, Claude Code, Codex, Gemini CLI, OpenCode, MCP, Ralph e a cobrança por token.",
+      stack: ["Pesquisa", "Fontes primárias", "MDX", "Next.js"],
+      flow: {
+        label: "Da lembrança ao fato",
+        steps: ["Memória", "Fonte primária", "Data e confiança", "Correção do texto", "Artigo publicado"],
+      },
+      link: { label: "Ler o artigo ↗", href: "/laboratorio/o-codigo-virou-a-parte-que-menos-importa" },
     },
   ],
 }
