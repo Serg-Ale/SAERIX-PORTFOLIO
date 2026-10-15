@@ -1,5 +1,5 @@
 # SAERIX Portfolio - Robots.txt
-# https://lxndr.dev
+# https://saerix.vercel.app
 
 User-agent: *
 Allow: /
@@ -11,10 +11,10 @@ Disallow: /*.map$
 Crawl-delay: 10
 
 # Sitemap location
-Sitemap: https://lxndr.dev/sitemap.xml
+Sitemap: https://saerix.vercel.app/sitemap.xml
 
 # Host declaration
-Host: https://lxndr.dev
+Host: https://saerix.vercel.app
 
 # Google-specific
 User-agent: Googlebot
