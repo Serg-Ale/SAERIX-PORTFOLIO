@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://lxndr-portifolio.vercel.app"
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://saerix.vercel.app"
 
 export const BLOG_DESCRIPTIONS: Record<string, string> = {
   en: "Thoughts, ideas and research on software engineering, Next.js, React, TypeScript and modern web technologies.",

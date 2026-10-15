@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { Geist, Geist_Mono, Bebas_Neue, Inter_Tight } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { BASE_URL } from "@/lib/constants"
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import { ThemeProvider } from "@/components/shared/theme-provider"
@@ -28,8 +29,6 @@ const interTight = Inter_Tight({
   variable: "--font-space",
   weight: ["400", "500", "600", "700", "800", "900"],
 })
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://lxndr.dev"
 
 export const viewport: Viewport = {
   themeColor: [
