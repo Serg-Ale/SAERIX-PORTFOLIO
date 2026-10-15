@@ -44,7 +44,78 @@ Algumas decisões que valem registro.
 - **Modo de layout.** A tecla `L` entra num modo em que as setas movem o tile pela grade, trocando de lugar com quem já está lá.
 - **Intervalo entre janelas.** Janelas reais têm moldura, e a imagem quebra na emenda. Teclas ajustam quantas colunas ou linhas do canvas ficam escondidas em cada emenda, e o valor certo depende do seu terminal e da fonte, então se acerta olhando.
 
-O código de decisão do wall, layout dos tiles, intervalo, sucessão e protocolo de mensagens, fica em um módulo puro, sem socket e sem `curses`. É isso que torna possível testá-lo. A casca de I/O é fina e fica separada.
+## O caminho de um quadro
+
+<Flow steps="Simulação no canvas inteiro|extract por tile|JSON em linhas|load no cliente|flush no terminal" caption="O host roda a animação uma vez. Cada cliente só desenha a sua fatia." />
+
+O host trata o conjunto de janelas como um único canvas. Os modos de animação só conhecem `app.width` e `app.height`, então rodam no wall sem mudar uma linha. A cada quadro, o `Screen` do host entrega um retângulo por tile com `extract`, que devolve as células em coordenadas locais:
+
+```python
+def extract(self, top, left, height, width):
+    cells, bgs = [], []
+    for y in range(max(0, -top), min(height, self.height - top)):
+        for x in range(max(0, -left), min(width, self.width - left)):
+            cell = self._cells[top + y][left + x]
+            if cell is not None:
+                char, rgb, bold, reverse = cell
+                # Um caractere de largura dupla na última coluna
+                # invadiria o terminal vizinho, então é descartado.
+                if not (x == width - 1 and east_asian_width(char) in ('W', 'F')):
+                    cells.append((y, x, char, rgb, bold, reverse))
+                    continue
+            bg = self._bg[top + y][left + x]
+            if bg is not None:
+                bgs.append((y, x, bg))
+    return cells, bgs
+```
+
+O Katakana ocupa duas células no terminal. Esse `if` existe porque, sem ele, a metade direita de um caractere cortado aparece no começo do tile vizinho. O cliente faz o caminho inverso com `load` e escolhe true color ou 256 cores pelo suporte do próprio terminal, então um terminal sem 24 bits não degrada os outros.
+
+## Onde cada janela fica
+
+A função que posiciona os tiles é pura, sem socket e sem `curses`, e é por isso que dá para testá-la:
+
+```python
+def layout(sizes, positions=None, gap=(0, 0)):
+    gap_columns, gap_rows = gap
+    positions = resolve_positions(positions or [None] * len(sizes))
+    rows = {}
+    for index, (row, col) in enumerate(positions):
+        rows.setdefault(row, []).append((col, index))
+
+    placements = [None] * len(sizes)
+    y = canvas_width = 0
+    for row in sorted(rows):
+        x = row_height = 0
+        for _, index in sorted(rows[row]):
+            width, height = sizes[index]
+            placements[index] = (x, y)
+            x += width + gap_columns
+            row_height = max(row_height, height)
+        canvas_width = max(canvas_width, x - gap_columns)
+        y += row_height + gap_rows
+    return placements, max(y - gap_rows, 1), max(canvas_width, 1)
+```
+
+As linhas empilham de cima para baixo e, dentro de cada uma, os tiles vão da esquerda para a direita. Uma linha tem a altura do seu tile mais alto e a largura do canvas é a da linha mais larga. O `gap` esconde colunas e linhas do canvas em cada emenda, para compensar a moldura da janela. Quando as linhas têm larguras diferentes, a diferença fica sem imagem, e a spec registra isso como limite conhecido.
+
+## Quando o host fecha
+
+Se o host sai, o cliente mais antigo assume. O host informa a cada cliente o seu rank, e quem perde o host espera um tempo proporcional ao rank antes de tentar:
+
+```python
+def promotion_delay(rank):
+    """Seconds a client of this rank waits before trying to take over."""
+    return min(rank or 0, PROMOTION_MAX_RANK) * PROMOTION_STEP
+```
+
+A espera só ordena as tentativas. Quem garante um único vencedor é o `flock` exclusivo e sem bloqueio no arquivo de lock, que aceita apenas um processo mesmo se duas tentativas chegarem juntas. Quem perde reconecta ao novo host. A animação recomeça, a imagem continua.
+
+O resto da lógica de decisão do wall, intervalo, troca de posição, sucessão e protocolo de mensagens, mora no mesmo módulo puro. A casca de I/O, com o socket Unix e os laços do host e do cliente, é fina e fica separada.
+
+## Por que o frame vai inteiro
+
+Cada quadro envia todas as células da fatia, sem diferença em relação ao anterior. Foi uma decisão deliberada da primeira versão, e o custo de CPU do JSON ficou registrado na spec como risco. A revisão final fez a medição: codificar leva cerca de 1,2 ms para 2 mil células, 3 ms para 5 mil e 7 ms para 11 mil por frame, e decodificar custa o mesmo, contra um orçamento de 30 ms. O gargalo é o redesenho completo do terminal, não o codec. Se um dia pesar, o caminho é um ticket de renderização por diferença no `Screen`, sem refazer o resto.
 
 ## Como foi feito
 

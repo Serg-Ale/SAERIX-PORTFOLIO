@@ -31,13 +31,31 @@ Para trabalho que não é trivial, a ordem é esta.
 
 Quem implementou carrega as justificativas. Se eu peço a mesma sessão para revisar o próprio trabalho, ela encontra razões para cada escolha que fez. Um revisor que só recebe o diff e a spec não tem essas razões e acha o que ficou fora do lugar.
 
-## O que isso produziu
+## Um caso inteiro: o vídeo wall do matrix-rain
 
-Dois exemplos que dá para conferir.
+O [matrix-rain](/laboratorio/matrix-rain-terminal-animation) ganhou o modo vídeo wall, em que vários terminais viram uma tela só. Foi o trabalho em que mais segui o fluxo à risca, e o repositório guarda cada etapa.
 
-O `/dev` deste site saiu de uma entrevista com o `/grilling`. A conversa virou a spec `docs/specs/dev-decision-log.md`, no repositório, e só depois virou tela.
+<Flow steps="Protótipo|Spec (#14)|Prefactor (#15)|Tracer bullet (#16)|Camadas (#17 a #21)|Revisão final (#22)" caption="Oito tickets filhos da mesma spec, cada um bloqueado pelo anterior que ele precisa." />
 
-O [matrix-rain](/laboratorio/matrix-rain-terminal-animation) ganhou o modo de vídeo wall em tickets numerados, e o primeiro foi um tracer bullet que já juntava dois terminais numa tela só, ainda feio. Os tickets seguintes acrescentaram posicionamento em grade, intervalo entre janelas, sucessão de host e o resto.
+**Protótipo primeiro.** Antes de escrever qualquer spec, um protótipo descartável validou o modelo: um terminal vira host, roda a simulação no canvas inteiro e cada tile mostra a sua fatia. O veredito, escrito na própria spec, foi que com a posição declarada os terminais lado a lado parecem uma tela só, e que a única coisa que sobra é a moldura entre as janelas. O protótipo ficou numa branch e não entrou no código final.
+
+**Spec depois.** A issue #14 tem o problema, a solução, 37 histórias de usuário e uma seção de decisões de implementação. Duas delas mostram o tipo de decisão que a entrevista força a tomar antes do código:
+
+- O frame é enviado inteiro a cada quadro, sem diferença entre quadros. Se aparecer lag, vira um ticket separado.
+- O formato de mensagem é JSON em linhas, porque funciona em Python 3.6 e não depende de versão. O risco fica registrado: o custo de CPU do JSON para frames de milhares de células. Se pesar na medição, a troca é uma decisão pequena e contida.
+
+<Aside title="Um ticket de verdade, o #16">
+O ticket do tracer bullet começa assim: `./matrix-rain --wall` no primeiro terminal vira host, no segundo entra como cliente, e a animação atravessa os dois. Depois vêm onze critérios de aceite, do tipo "cada terminal usa o próprio suporte a cor, testado forçando o fallback em um deles" e "o socket só é acessível pelo usuário dono". Ele declara que está bloqueado pelo #15 e que bloqueia o #17 e o #18.
+</Aside>
+
+**Fatias verticais.** O #15 é um prefactor, sem comportamento novo: o `App` ganha a noção de canvas virtual e o `Screen` ganha o método de ser fatiado. O #16 é o tracer bullet, o menor wall que funciona, ainda feio. Os cinco tickets seguintes acrescentam uma coisa cada. Posição em grade com `--at`, entrar e sair com a tecla `J`, modo de layout, intervalo entre janelas e sucessão de host.
+
+**Revisão em contexto novo.** Cada ticket passou por revisão antes de entrar, e os commits de correção dizem o que foi achado:
+
+- #16: eleição de host com `flock`, limites de tamanho e de buffer.
+- #18: a constante `SNAPSHOT_KEYS`, os rótulos do painel e a precisão do README e do `AGENTS.md`.
+- #21: um limite máximo de rank e um prazo medido com relógio monotônico.
+- #22: vazamento de listener e de socket, e a medição do custo do JSON, que deu 7 ms para 11 mil células contra um orçamento de 30 ms.
 
 ## Onde o método falha
 
