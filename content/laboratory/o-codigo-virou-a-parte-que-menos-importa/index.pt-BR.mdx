@@ -27,7 +27,7 @@ Eu queria ter aprendido cálculo com o ChatGPT. Não tive isso. Foi na raça.
 
 ## Quando o ChatGPT apareceu
 
-Eu já tinha entrado na faculdade e já tinha feito essas bases quando ele apareceu. Depois virou um boom no Brasil, mas no começo não era uma coisa tão grande.
+Eu já tinha entrado na faculdade e já tinha feito essas bases quando ele apareceu. Depois virou um boom no Brasil, mas no começo, pelo menos pelo que eu via, não era uma coisa tão grande. Em 2025 o [Cetic.br mediu](https://cetic.br/en/noticia/50-milhoes-de-brasileiros-ja-usam-ia-mas-potenciais-beneficios-continuam-limitados-as-camadas-de-maior-renda-e-escolaridade/) pela primeira vez: 32% dos internautas brasileiros, cerca de 50 milhões de pessoas, usavam IA generativa.
 
 Isso me deu tempo de absorver as bases e apanhar bastante antes de qualquer atalho. Aí fui descobrindo a IA. Eu podia perguntar, e ela me respondia, em vez de eu ir ao Stack Overflow copiar do Google.
 
@@ -35,25 +35,31 @@ No começo era isso: perguntar, copiar a resposta com Ctrl+C, esperar, colar no 
 
 <Flow steps="Google e Stack Overflow|ChatGPT|Copilot no VS Code|CLIs (Codex e Gemini)|OpenCode|Claude" caption="O caminho, na ordem em que eu o vivi." />
 
-A primeira grande mudança depois disso foi o GitHub Copilot dentro do VS Code. Eu não precisava mais copiar e colar do ChatGPT, podia usar o assistente ali mesmo.
+Para mim, a primeira grande mudança foi o GitHub Copilot dentro do VS Code. Ele já existia desde 2021, como autocompletar. O [chat dentro do editor](https://github.blog/news-insights/product-news/github-copilot-chat-beta-now-available-for-all-individuals/) saiu em beta em setembro de 2023, e eu não precisava mais copiar e colar do ChatGPT. Podia usar o assistente ali mesmo.
 
-Também paguei a assinatura do Claude Code, que rodava dentro do VS Code. Já era um pouco mais autônomo, mas ainda não estava nesse nível. Trabalhava um arquivo por vez, e em arquitetura grande ele se embananava muito.
+Antes eu rodava o código, via o erro e voltava para contar à IA que tinha dado erro. A virada foi o [modo agente](https://code.visualstudio.com/blogs/2025/02/24/introducing-copilot-agent-mode), em preview desde fevereiro de 2025. Ele podia rodar, ver que deu erro, pensar e aplicar a correção sozinho. Eu passei a ter uma certeza bem maior de que a tarefa que eu tinha descrito ia ser concluída. Tudo mudou.
+
+Também paguei a assinatura do Claude e usei dentro do VS Code. Já era um pouco mais autônomo, mas ainda não estava nesse nível. Trabalhava um arquivo por vez, e em arquitetura grande ele se embananava muito.
 
 ## A época das CLIs
 
-Depois começaram a aparecer as ferramentas de terminal, como o Codex e o Gemini. Assinei as duas e passei a ter mais poder de fogo. Integrei tudo no OpenCode e usei o próprio OpenCode com elas.
+Depois a minha atenção foi para as ferramentas de terminal. O [Claude Code](https://www.anthropic.com/news/claude-3-7-sonnet) já tinha nascido assim, em fevereiro de 2025, e o Codex e o [Gemini](https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/) vieram em abril e junho. Assinei as duas últimas e passei a ter mais poder de fogo. Passei a usar essas assinaturas dentro do OpenCode, um [agente de terminal independente](https://opencode.ai/docs/providers/) que aceita dezenas de provedores.
 
-No OpenCode eu usava o Sisyphus, orquestração de agentes, loops no estilo Ralph, extensões, skills e agentes, e MCP para conectar as ferramentas e automatizar o que desse.
+No OpenCode eu usava o Sisyphus, o orquestrador do plugin [oh-my-opencode](https://github.com/code-yeongyu/oh-my-openagent), loops no estilo Ralph, extensões, skills e agentes, e MCP para conectar as ferramentas e automatizar o que desse. O [Ralph](https://ghuntley.com/ralph/) é a técnica que Geoffrey Huntley descreveu em julho de 2025, um loop que repete o mesmo prompt. O [MCP](https://www.anthropic.com/news/model-context-protocol) é o protocolo aberto que a Anthropic lançou em novembro de 2024.
 
-Passei pela mudança para a cobrança por token. Antes não existia isso.
+Passei pela mudança para a cobrança por token. Antes não existia isso. Um exemplo público: em 1º de junho de 2026 o [Copilot trocou as requisições premium por créditos medidos em tokens](https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/).
 
-Depois de um tempo o OpenCode foi um pouco nerfado pelas outras empresas, e eu vi tudo isso acontecendo em tempo real. A história dessas companhias, a luta entre as CLIs, o OpenClaw nascendo, o Ralph nascendo, e junto LLMs, RAGs, MCP, as integrações. O Fábio Akita me ajudou bastante a entender o que estava acontecendo, e o Theo, do canal t3, também. Fui me adaptando conforme as coisas aconteciam.
+Depois de um tempo, a Anthropic passou a barrar o uso da assinatura Claude em ferramentas de terceiros. Em março de 2026 o OpenCode [removeu o login Claude Pro e Max](https://github.com/anomalyco/opencode/pull/18186), por pedidos legais. Eu vi tudo isso acontecendo em tempo real. A história dessas companhias, a luta entre as CLIs, o OpenClaw nascendo, o Ralph nascendo, e junto LLMs, RAGs, MCP, as integrações. O Fábio Akita me ajudou bastante a entender o que estava acontecendo, e o Theo, do canal t3, também. Fui me adaptando conforme as coisas aconteciam.
 
 ## Onde cheguei
 
 Depois dessa fase das CLIs, concluí que o Claude era o melhor para mim. Hoje eu consigo fazer tudo por ele, e é mais barato.
 
 A área literalmente virou enquanto eu aprendia. Tive que aprender rápido, e para isso precisei de modelos mentais e de senso crítico.
+
+## Os fatos, com data
+
+<Timeline items="2021-06::GitHub Copilot em preview técnico, como autocompletar;2022-11::O ChatGPT é lançado ao público;2023-09::Copilot Chat em beta, dentro do editor;2024-11::A Anthropic lança o MCP como padrão aberto;2025-02::Claude Code em preview e modo agente do Copilot em preview no VS Code;2025-04::Codex CLI da OpenAI e modo agente estável no VS Code;2025-06::Gemini CLI do Google;2025-07::Geoffrey Huntley descreve o Ralph;2026-03::O OpenCode remove o login Claude Pro e Max;2026-06::O Copilot passa a cobrar por tokens" caption="Datas de anúncios e de código públicos. As fontes estão no fim do texto." />
 
 ## O que ficou de pé
 
@@ -73,3 +79,15 @@ Os testes são a outra metade, e mudaram bastante o jeito de trabalhar. A partir
 ## Transformar o processo em criação
 
 Os modelos mentais e o senso crítico que tive que desenvolver não ficaram na cabeça. Viraram as notas do [Mneme](/laboratorio/mneme-segundo-cerebro) e viraram este portfólio. Transformar o processo em criação é o que eu faço com tudo isso.
+
+## Fontes
+
+- GitHub, [apresentação do Copilot](https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/) (jun. 2021) e [Copilot Chat em beta](https://github.blog/news-insights/product-news/github-copilot-chat-beta-now-available-for-all-individuals/) (set. 2023).
+- VS Code, [modo agente do Copilot](https://code.visualstudio.com/blogs/2025/02/24/introducing-copilot-agent-mode) (fev. 2025) e [Copilot agent mode activated](https://github.blog/news-insights/product-news/github-copilot-agent-mode-activated/) (abr. 2025).
+- Anthropic, [Claude 3.7 Sonnet e Claude Code](https://www.anthropic.com/news/claude-3-7-sonnet) (fev. 2025) e [Model Context Protocol](https://www.anthropic.com/news/model-context-protocol) (nov. 2024).
+- OpenAI, [repositório do Codex CLI](https://github.com/openai/codex). Google, [Gemini CLI](https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/) (jun. 2025).
+- Geoffrey Huntley, [Ralph](https://ghuntley.com/ralph/) (jul. 2025). [oh-my-opencode](https://github.com/code-yeongyu/oh-my-openagent), com o orquestrador Sisyphus.
+- OpenCode, [provedores aceitos](https://opencode.ai/docs/providers/) e [a remoção do login Claude](https://github.com/anomalyco/opencode/pull/18186) (mar. 2026). Anthropic, [termos do Claude Code](https://code.claude.com/docs/en/legal-and-compliance).
+- GitHub, [cobrança do Copilot por uso](https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/) (a partir de 1º jun. 2026). Cetic.br, [TIC Domicílios 2025](https://cetic.br/en/noticia/50-milhoes-de-brasileiros-ja-usam-ia-mas-potenciais-beneficios-continuam-limitados-as-camadas-de-maior-renda-e-escolaridade/).
+
+A página oficial do anúncio do ChatGPT não abriu na hora da checagem, então a data de novembro de 2022 vem de fontes secundárias. A pesquisa completa, com o grau de confiança de cada linha, está em `docs/research/linha-do-tempo-ia-para-programar.md`.
