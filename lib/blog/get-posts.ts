@@ -4,7 +4,6 @@ import fs from "fs"
 import path from "path"
 import { parseFrontmatter } from "./parse-frontmatter"
 import { calculateReadingTime } from "./reading-time"
-import { highlightCodeBlocks } from "./syntax-highlighter"
 import type { Post } from "./types"
 
 type Locale = "en" | "pt-BR"
@@ -125,7 +124,6 @@ async function loadPostFromEntry({
   const fileContent = fs.readFileSync(resolvedLocaleFile.filePath, "utf8")
   const { frontmatter, content } = parseFrontmatter(fileContent)
   const readingTime = frontmatter.readingTime || calculateReadingTime(content)
-  const highlightedContent = await highlightCodeBlocks(content)
 
   return {
     ...frontmatter,
@@ -136,7 +134,7 @@ async function loadPostFromEntry({
     isLocaleFallback: resolvedLocaleFile.isLocaleFallback,
     contentType: frontmatter.contentType || contentDirectory.defaultType,
     draft: frontmatter.draft ?? contentDirectory.isDraftDirectory,
-    content: highlightedContent,
+    content,
     readingTime,
   }
 }

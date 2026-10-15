@@ -5,7 +5,7 @@ This repository now uses an **editorial-first** model with two distinct content 
 - `content/essays/` for long-form authorial essays (`ensaios`)
 - `content/laboratory/` for experimental and iterative pieces (`laboratorio`)
 
-Legacy technical blog posts remain in `content/posts/` during migration, but new editorial publication should target the roots above.
+The old `/blog` and `content/posts/` no longer exist. `/blog` redirects permanently to `/laboratorio`, and each old slug redirects to its new series.
 
 ## 1) Essays (`content/essays/`)
 
@@ -54,9 +54,14 @@ author: "Sérgio Alexandre"
 locale: "pt-BR" # or "en"
 slug: "entry-slug"
 contentType: "essay" # or "lab"
+code: "ENS-009" # stable id; ENS-nnn for essays, LAB-nnn for laboratory
 draft: false
 ---
 ```
+
+## Links make the map
+
+The vault map on the index pages and the "Cited by / Points to" lists on articles are built from real links in the text. Link another entry with a plain Markdown link, `[text](/ensaios/slug)` or `[text](/laboratorio/slug)`. No extra metadata is needed. See `lib/blog/graph.ts`.
 
 ### Optional frontmatter
 
@@ -74,8 +79,8 @@ PT-BR is allowed as the primary publication language.
 
 ## Images
 
-Place images in the entry-local `images/` folder and reference them from MDX.
+Images are served from `public/`. Put them under `public/blog/<slug>/` and reference them with an absolute path. The `alt` text is also shown as the caption.
 
 ```markdown
-![Description](/images/diagram.png)
+![Description](/blog/entry-slug/diagram.png)
 ```

@@ -138,25 +138,11 @@ export function PortfolioNav() {
               {t("laboratory")}
             </Link>
             <Link
-              href="/projetos"
+              href="/dev"
               onClick={closeMobileMenu}
               className="nav-link-purple text-lg font-semibold px-4 py-3 transition-all text-left block hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
             >
-              {t("projects")}
-            </Link>
-            <Link
-              href="/sobre"
-              onClick={closeMobileMenu}
-              className="nav-link-purple text-lg font-semibold px-4 py-3 transition-all text-left block hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
-            >
-              {t("about")}
-            </Link>
-            <Link
-              href="/contato"
-              onClick={closeMobileMenu}
-              className="nav-link-purple text-lg font-semibold px-4 py-3 transition-all text-left block hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
-            >
-              {t("contact")}
+              {t("dev")}
             </Link>
         <div className="px-4 py-2 flex items-center gap-4">
           <LanguageSwitcher />
@@ -200,22 +186,10 @@ export function PortfolioNav() {
               {t("laboratory")}
             </Link>
             <Link
-              href="/projetos"
+              href="/dev"
               className="nav-link-purple text-lg md:text-xl font-semibold px-4 py-2 transition-all hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
             >
-              {t("projects")}
-            </Link>
-            <Link
-              href="/sobre"
-              className="nav-link-purple text-lg md:text-xl font-semibold px-4 py-2 transition-all hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
-            >
-              {t("about")}
-            </Link>
-            <Link
-              href="/contato"
-              className="nav-link-purple text-lg md:text-xl font-semibold px-4 py-2 transition-all hover:text-accent-purple focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:outline-none touch-action-manipulation"
-            >
-              {t("contact")}
+              {t("dev")}
             </Link>
             <LanguageSwitcher />
             <ThemeToggle />

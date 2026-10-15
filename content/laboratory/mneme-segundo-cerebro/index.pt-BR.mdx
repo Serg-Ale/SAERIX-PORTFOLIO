@@ -1,0 +1,52 @@
+---
+title: "Mneme: um segundo cérebro em wikilinks"
+description: "Um cofre Obsidian que organiza o que sei por relações, não por pastas. Como ele funciona, por que escolhi essa forma e o que isso tem a ver com a maneira como aprendo."
+date: "2026-10-15"
+tags: ["obsidian", "notas", "conhecimento", "ferramentas"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "mneme-segundo-cerebro"
+contentType: "lab"
+code: "LAB-005"
+draft: false
+---
+
+Mneme é o nome do cofre de notas onde guardo o que penso e o que aprendo. É uma pasta com arquivos Markdown, aberta no Obsidian, versionada com git. Boa parte dos textos deste laboratório e dos ensaios nasceu lá.
+
+## Como aprendo
+
+Eu aprendo construindo, não decorando. O ciclo é: achar um problema, desmontar, investigar, construir, quebrar, entender, reconstruir. Tenho um prazer particular quando algo parece complexo à primeira vista e revela uma estrutura elegante por baixo.
+
+Uma consequência é que meu conhecimento se organiza melhor por relações do que por listas. Lembro de uma coisa porque ela conecta a outra, e quase nunca porque estava na pasta certa. Por isso o cofre usa wikilinks como estrutura principal. A forma do cofre deveria espelhar a forma de pensar, e não o contrário.
+
+## As regras que usei
+
+- **Domínios, não hierarquia.** Há cinco pastas: `trabalho`, `pessoal`, `pesquisa`, `tecnologia` e `pessoas`. O resto é link.
+- **Três notas viram subpasta.** Quando um assunto junta três ou mais notas, elas ganham uma pasta e um índice. Antes disso ficam soltas na raiz, para a estrutura não nascer antes da necessidade. É o oposto exato de [generalizar cedo demais](/laboratorio/generalizar-cedo-demais).
+- **Uma nota, uma ideia.** Título em frase curta, sem frontmatter pesado.
+- **Notas rasas são marcadas como rasas.** Quando escrevo algo que ainda não entendi, a primeira linha diz "nota rasa, a aprofundar". Isso me impede de confiar numa nota que eu mesmo sei que está incompleta.
+- **Proveniência.** Nota que é interpretação minha diz que é interpretação. Nota que vem de código, ticket ou commit diz de onde veio.
+
+## Como o Claude Code entra
+
+Tenho um comando, `/mneme`, que captura o conteúdo de uma conversa como nota do cofre, seguindo as convenções acima. Ele procura se já existe uma nota parecida antes de criar, atualiza em vez de duplicar e não faz commit sozinho. O versionamento é decisão minha.
+
+O que importa é que o cofre é meu e é legível sem o modelo. Se o Claude desaparecer amanhã, eu continuo com uma pasta de texto bem ligada. É a mesma ideia de [nada fica do jeito que veio](/laboratorio/nada-fica-do-jeito-que-veio): a ferramenta ajuda, o dado fica comigo.
+
+## Uma nota que virou várias
+
+O texto que descreve como eu penso nasceu como um documento único, gerado numa conversa com o ChatGPT e validado em agosto. Em 17 de agosto, passei esse documento por uma entrevista do `/grill-me` e ele foi quebrado em uma nota por traço. Uma sobre a pergunta "qual é o sistema que produz isso", outra sobre a recusa a aceitar ferramenta fechada, outra sobre aprender desmontando, outra sobre música como forma de programar.
+
+Cada traço passou a poder ser ligado ao que ele explica. A nota sobre generalizar o problema aponta para o caso do Corta.ai, e a sobre ferramentas moldáveis aponta para o setup. A [nota sobre generalizar cedo demais](/laboratorio/generalizar-cedo-demais) saiu dessa ligação.
+
+<Flow steps="Documento único|Entrevista com /grill-me|Uma nota por traço|Notas ligadas por wikilink" caption="Quebrar primeiro, ligar depois." />
+
+## Uma pesquisa vira ensaio
+
+A pesquisa sobre a história da informação no Brasil mostra o caminho completo. São dez notas de onda e um índice. As ondas vão da carta ao feed algorítmico, passando por jornal, rádio, televisão, chip, computador pessoal, internet discada, celular e smartphone.
+
+Todas as dez seguem a mesma estrutura: uma linha do tempo, a fricção daquele meio, quem controlava a informação e as fontes. O índice guarda a tese, de que a distância entre o fato e quem fica sabendo só diminuiu, e uma tabela de custo e contraponto para não virar um texto contra a tecnologia. Essa uniformidade facilitou juntar as notas em três ensaios: [Do jornal à TV](/ensaios/do-jornal-a-tv), [Chip, PC e lan house](/ensaios/chip-pc-lan-house) e [Do celular ao feed](/ensaios/do-celular-ao-feed).
+
+## O que saiu dele
+
+Duas séries, até agora. Os ensaios do livro, por exemplo [A captura da imaginação](/ensaios/a-captura-imaginacao). E uma pesquisa de história da informação no Brasil, que virou [Do jornal à TV](/ensaios/do-jornal-a-tv) e as duas partes seguintes. Em ambos os casos, o artigo é a ponta visível de várias notas ligadas entre si.

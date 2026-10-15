@@ -18,7 +18,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${BASE_URL}/${locale}/blog`,
+      url: `${BASE_URL}/${locale}/laboratorio`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/${locale}/ensaios`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.9,
@@ -28,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPostsPromises = routing.locales.map(async (locale) => {
     const posts = await getAllPosts(locale, false)
     return posts.map((post) => ({
-      url: `${BASE_URL}/${locale}/blog/${post.slug}`,
+      url: `${BASE_URL}/${locale}/${post.contentType === "essay" ? "ensaios" : "laboratorio"}/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: "never" as const,
       priority: 0.7,

@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
-import { Geist, Geist_Mono, Bebas_Neue, Inter_Tight } from "next/font/google"
+import { Geist, Geist_Mono, Bebas_Neue, Inter_Tight, Literata } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { BASE_URL } from "@/lib/constants"
 import { routing } from "@/i18n/routing"
@@ -28,6 +28,15 @@ const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-space",
   weight: ["400", "500", "600", "700", "800", "900"],
+})
+
+const literata = Literata({
+  subsets: ["latin"],
+  variable: "--font-literata",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
 })
 
 export const viewport: Viewport = {
@@ -166,7 +175,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${geist.variable} ${geistMono.variable} ${bebasNeue.variable} ${interTight.variable} font-sans antialiased`}>
+      <body className={`${geist.variable} ${geistMono.variable} ${bebasNeue.variable} ${interTight.variable} ${literata.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -7,6 +7,7 @@ export interface PostFrontmatter {
   locale: "en" | "pt-BR"
   slug: string
   contentType?: "essay" | "lab"
+  code?: string
   draft?: boolean
   image?: string
   coverImage?: string
