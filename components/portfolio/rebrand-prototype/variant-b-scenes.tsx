@@ -95,7 +95,7 @@ export function VariantBScenes({ locale }: { locale: ProtoLocale }) {
               <li key={p.title} className="flex flex-col gap-3 border-t border-[var(--line)] pt-5">
                 <span className="font-mono text-xs text-[var(--orange)]">0{i + 1}</span>
                 <h3 className="text-xl font-black">{p.title}</h3>
-                <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.body}</p>
+                <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{p.body}</p>
               </li>
             ))}
           </ol>
@@ -107,7 +107,7 @@ export function VariantBScenes({ locale }: { locale: ProtoLocale }) {
           <Label>{L.proof}</Label>
           <a
             href={SPEC_URL}
-            className="group flex flex-col gap-6 rounded-2xl border border-[var(--orange)]/60 bg-[var(--surface)] p-8 transition hover:border-[var(--orange)] md:p-12"
+            className="group flex flex-col gap-6 rounded-2xl border border-[color-mix(in_srgb,var(--orange)_60%,transparent)] bg-[var(--surface)] p-8 transition hover:border-[var(--orange)] md:p-12"
           >
             <p className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">Serg-Ale/matrix-rain</p>
             <p className="text-2xl font-black leading-tight md:text-4xl">{story.how.proofNote}</p>
@@ -117,7 +117,7 @@ export function VariantBScenes({ locale }: { locale: ProtoLocale }) {
           </a>
           <ul className="grid gap-4 md:grid-cols-3">
             {story.how.quality.map((q) => (
-              <li key={q} className="border-l-2 border-[var(--teal)] pl-4 text-sm leading-relaxed text-[var(--text)]/80">
+              <li key={q} className="border-l-2 border-[var(--teal)] pl-4 text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">
                 {q}
               </li>
             ))}
@@ -138,7 +138,7 @@ export function VariantBScenes({ locale }: { locale: ProtoLocale }) {
                   {it.now && <span className="h-2 w-2 rounded-full bg-[var(--teal)]" />}
                   {it.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-[var(--text)]/80">{it.body}</p>
+                <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{it.body}</p>
               </li>
             ))}
           </ol>
@@ -161,7 +161,7 @@ export function VariantBScenes({ locale }: { locale: ProtoLocale }) {
               <li key={p.name} className="grid gap-4 border-t border-[var(--line)] py-6 md:grid-cols-[14rem_1fr_auto] md:gap-8">
                 <h3 className="text-2xl font-black">{p.name}</h3>
                 <div className="flex flex-col gap-3">
-                  <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
+                  <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{p.blurb}</p>
                   <StackTags items={p.tags} />
                 </div>
                 <div className="flex gap-4 font-mono text-xs">
@@ -217,7 +217,7 @@ function Beat({ label, text, accent = false }: { label: string; text: string; ac
         className={
           accent
             ? "text-xl font-bold leading-snug md:text-3xl"
-            : "text-base leading-relaxed text-[var(--text)]/80 md:text-xl"
+            : "text-base leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)] md:text-xl"
         }
       >
         {text}

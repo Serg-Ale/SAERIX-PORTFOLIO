@@ -5,7 +5,7 @@
 import { StackIcon } from "./proto-icons"
 import { MARQUEE_ORDER, type IconKey, type StackGroup } from "./story"
 
-const BRAND: Record<IconKey, string> = {
+export const BRAND: Record<IconKey, string> = {
   ts: "#3178C6", js: "#F7DF1E", py: "#FFD43B", react: "#61DAFB", next: "#E6E6E6",
   nest: "#E0234E", fastapi: "#09B39F", node: "#5FA04E", pg: "#6F93E6", prisma: "#8C9BFF",
   trpc: "#398CCB", docker: "#2496ED", n8n: "#EA4B71", whatsapp: "#25D366", junit: "#25A162",
