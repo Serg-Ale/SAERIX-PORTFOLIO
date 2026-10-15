@@ -130,7 +130,7 @@ export function SectionNav({
         </div>
       </nav>
 
-      <div className="fixed inset-x-0 top-0 z-50 flex h-11 items-center justify-between gap-2 border-b border-[var(--line)] bg-[var(--bg)]/85 px-2 font-mono text-xs backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 top-0 z-50 flex h-11 items-center justify-between gap-2 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] px-2 font-mono text-xs backdrop-blur lg:hidden">
         <button
           onClick={() => goTo(idx - 1)}
           disabled={idx < 0}

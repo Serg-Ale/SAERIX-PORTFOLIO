@@ -39,7 +39,7 @@ export function OpenDot() {
 
 export function StateChip({ state, label }: { state: string; label: string }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[var(--teal)]/40 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-[var(--teal)]">
+    <span className="inline-flex items-center gap-2 rounded-full border border-[color-mix(in_srgb,var(--teal)_40%,transparent)] px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-[var(--teal)]">
       <span className="h-1.5 w-1.5 rounded-full bg-[var(--teal)]" data-state={state} />
       {label}
     </span>
@@ -52,7 +52,7 @@ export function StackTags({ items }: { items: string[] }) {
       {items.map((s) => (
         <li
           key={s}
-          className="rounded-md border border-[var(--line)] bg-[var(--surface)] px-2 py-1 font-mono text-[11px] text-[var(--muted)]"
+          className="rounded-[0.375rem] border border-[var(--line)] bg-[var(--surface)] px-2 py-1 font-mono text-[11px] text-[var(--muted)]"
         >
           {s}
         </li>
@@ -86,7 +86,7 @@ export function GhostCta({ href, children }: { href: string; children: ReactNode
 export function ProtoHeader({ copy, locale, fixed = false }: { copy: ProtoCopy; locale: ProtoLocale; fixed?: boolean }) {
   return (
     <header
-      className={`${fixed ? "fixed inset-x-0 top-0 z-50 bg-[var(--bg)]/70 backdrop-blur" : "relative z-20"} flex items-center justify-between px-5 py-4 font-mono text-xs md:px-10`}
+      className={`${fixed ? "fixed inset-x-0 top-0 z-50 bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] backdrop-blur" : "relative z-20"} flex items-center justify-between px-5 py-4 font-mono text-xs md:px-10`}
     >
       <span className="font-bold tracking-widest">SÉRGIO ALEXANDRE</span>
       <nav className="flex items-center gap-5 text-[var(--muted)]">
