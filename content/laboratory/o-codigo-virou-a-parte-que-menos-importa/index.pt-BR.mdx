@@ -1,0 +1,67 @@
+---
+title: "O código virou a parte que menos importa"
+description: "Entrei na faculdade copiando respostas do ChatGPT. Hoje o código é a parte que menos importa, e o que me sustenta são as bases que aprendi antes."
+date: "2026-10-15"
+tags: ["ia", "agentes", "carreira", "testes", "claude-code"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "o-codigo-virou-a-parte-que-menos-importa"
+contentType: "lab"
+code: "LAB-007"
+draft: false
+---
+
+Hoje o código é a parte que menos importa. Ainda bem que aprendi o resto antes.
+
+Aprendi Java no ensino médio, num curso da Alura que o governo do Paraná liberou. O que me puxou foi o Minecraft.
+
+## Primeiro as bases
+
+Entrei em Engenharia de Computação e fiquei até ter base sólida de computação: estrutura de dados, Java, algoritmos 1 e 2, engenharia de software. Aí troquei para Análise e Desenvolvimento de Sistemas, um curso que codifica mais, porque eu sentia que a minha base de codificação ainda era fraca.
+
+<Timeline items="2022::Estágio na TCS. Começo no front-end e passo ao back-end, em Java, Spring Boot e Node.js;2023::Analista na TCS, no suporte a sistemas críticos de um grande varejista;2024::Desenvolvedor Jr na Aeon Tech, entrando no meio da reconstrução de um MVP;2026::Pleno na Aeon Tech e sócio técnico na Kaizen" caption="O que veio depois, pelo currículo." />
+
+## Ctrl+C, Ctrl+V
+
+Comecei a faculdade no tempo em que a gente copiava com Ctrl+C, mandava para o ChatGPT, esperava a resposta e tentava executar, ou colava de volta no código com Ctrl+V.
+
+<Flow steps="Copiar e colar no ChatGPT|Copilot no VS Code|CLIs (Codex e Gemini)|OpenCode|Claude" caption="O caminho, na ordem em que eu o vivi." />
+
+A primeira grande mudança foi o GitHub Copilot dentro do VS Code. Eu não precisava mais copiar e colar do ChatGPT, podia usar o assistente ali mesmo.
+
+Também paguei a assinatura do Claude Code, que rodava dentro do VS Code. Já era um pouco mais autônomo, mas ainda não estava nesse nível. Trabalhava um arquivo por vez, e em arquitetura grande ele se embananava muito.
+
+## A época das CLIs
+
+Depois começaram a aparecer as ferramentas de terminal, como o Codex e o Gemini. Assinei as duas e passei a ter mais poder de fogo. Integrei tudo no OpenCode e usei o próprio OpenCode com elas.
+
+No OpenCode eu usava o Sisyphus, orquestração de agentes, loops no estilo Ralph, extensões, skills e agentes, e MCP para conectar as ferramentas e automatizar o que desse.
+
+Passei pela mudança para a cobrança por token. Antes não existia isso.
+
+Depois de um tempo o OpenCode foi um pouco nerfado pelas outras empresas, e eu vi tudo isso acontecendo em tempo real. A história dessas companhias, a luta entre as CLIs, o OpenClaw nascendo, o Ralph nascendo, e junto LLMs, RAGs, MCP, as integrações. O Fábio Akita me ajudou bastante a entender o que estava acontecendo, e o Theo, do canal t3, também. Fui me adaptando conforme as coisas aconteciam.
+
+## Onde cheguei
+
+Depois dessa fase das CLIs, concluí que o Claude era o melhor para mim. Hoje eu consigo fazer tudo por ele, e é mais barato.
+
+A área literalmente virou enquanto eu aprendia. Tive que aprender rápido, e para isso precisei de modelos mentais e de senso crítico.
+
+## O que ficou de pé
+
+Quando o código sai da frente, o que sobra é o que eu aprendi antes: os processos por trás, system design, arquitetura, design patterns.
+
+Sobra também saber as bases do que a ferramenta vai fazer no meu computador. Um agente que trabalha de verdade precisa de quatro coisas, e não importa quem o hospeda.
+
+- **Tool calling.** Ele age no meu computador chamando ferramentas.
+- **Memória.** Ele precisa ter uma.
+- **Contexto.** Precisa de uma forma de ter o contexto da tarefa.
+- **Tarefas organizadas.** Precisa de um jeito de se organizar.
+
+Os skills do mattpocock vão muito nesse sentido, e eu descrevo o fluxo inteiro em [como trabalho com o Claude Code](/laboratorio/como-trabalho-com-claude-code).
+
+Os testes são a outra metade, e mudaram bastante o jeito de trabalhar. A partir do momento em que existem testes, dá para validar regressão. É a mesma ideia do [sistema ao redor do modelo](/laboratorio/sistema-ao-redor-do-modelo). O modelo gera, e o que o torna utilizável é o que fica em volta dele para dizer, depressa, que ele errou.
+
+## Transformar o processo em criação
+
+Os modelos mentais e o senso crítico que tive que desenvolver não ficaram na cabeça. Viraram as notas do [Mneme](/laboratorio/mneme-segundo-cerebro) e viraram este portfólio. Transformar o processo em criação é o que eu faço com tudo isso.
