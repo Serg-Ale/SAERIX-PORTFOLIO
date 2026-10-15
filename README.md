@@ -11,7 +11,7 @@ A modern, interactive portfolio showcasing full-stack development expertise with
 
 ## 🚀 Live Demo
 
-[View Portfolio](https://lxndr-portifolio.vercel.app/) • [LinkedIn](https://linkedin.com/in/serg-alexandre) • [Email](mailto:sergioalexandre0716@gmail.com)
+[View Portfolio](https://saerix.vercel.app/en/dev) • [Versão em português](https://saerix.vercel.app/pt-BR/dev) • [LinkedIn](https://linkedin.com/in/serg-alexandre) • [Email](mailto:sergioalexandre0716@gmail.com)
 
 ## 📸 Preview
 
