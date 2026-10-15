@@ -16,7 +16,7 @@ const SIZES = "(min-width: 1024px) 720px, calc(100vw - 2.5rem)"
 
 function Media({ item }: { item: MediaItem }) {
   if (!item.video) {
-    return <Image src={item.src} alt={item.alt} width={1600} height={900} sizes={SIZES} quality={90} loading="lazy" className="h-auto w-full" />
+    return <Image src={item.src} alt={item.alt} width={1600} height={900} sizes={SIZES} loading="lazy" className="h-auto w-full" />
   }
   return (
     <>
@@ -26,7 +26,7 @@ function Media({ item }: { item: MediaItem }) {
         width={1600}
         height={900}
         sizes={SIZES}
-        quality={90}
+       
         loading="lazy"
         className="hidden h-auto w-full motion-reduce:block"
       />

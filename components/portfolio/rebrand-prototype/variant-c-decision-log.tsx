@@ -108,7 +108,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
 
         <section id="journey" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("journey")} total={index.length}>{L.journey}</Label>
-          <PathTimeline journey={story.journey} currentLabel={locale === "pt-BR" ? "atual" : "current"} />
+          <PathTimeline journey={story.journey} currentLabel={L.current} />
         </section>
 
         <section id="contact" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">

@@ -62,20 +62,20 @@ export function PathTimeline({ journey, currentLabel }: { journey: ProtoStory["j
 
   return (
     <div className="flex flex-col gap-10">
-      <ol aria-hidden="true" className="grid grid-cols-3 items-end gap-2 sm:gap-3">
+      <ol aria-hidden="true" className="grid grid-cols-4 items-end gap-1.5 sm:gap-3">
         {journey.ladder.map((step, i) => (
-          <li key={step.level} className="flex flex-col justify-end">
+          <li key={`${step.level}-${step.org}`} className="flex flex-col justify-end">
             <div
-              className="flex flex-col justify-end rounded-t-[0.75rem] border border-b-0 border-[var(--line)] p-3 sm:p-4"
+              className="flex flex-col justify-end rounded-t-[0.75rem] border border-b-0 border-[var(--line)] p-2 sm:p-4"
               style={{
-                height: `${5.5 + i * 2.25}rem`,
-                background: `color-mix(in srgb, var(--orange) ${8 + i * 9}%, var(--surface))`,
+                height: `${4.5 + i * 1.75}rem`,
+                background: `color-mix(in srgb, var(--orange) ${7 + i * 7}%, var(--surface))`,
               }}
             >
-              <span className="font-mono text-[10px] text-[var(--muted)] sm:text-[11px]">{step.org}</span>
-              <span className="text-base font-bold leading-tight sm:text-xl">{step.level}</span>
+              <span className="font-mono text-[9px] text-[var(--muted)] sm:text-[11px]">{step.org}</span>
+              <span className="text-[13px] font-bold leading-tight sm:text-xl">{step.level}</span>
             </div>
-            <span className="h-1 rounded-b bg-[var(--orange)]" style={{ opacity: 0.45 + i * 0.275 }} />
+            <span className="h-1 rounded-b bg-[var(--orange)]" style={{ opacity: 0.4 + i * 0.2 }} />
           </li>
         ))}
       </ol>

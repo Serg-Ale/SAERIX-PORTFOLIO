@@ -5,8 +5,8 @@
 // is on screen, and a tap on any step takes over. Reduced motion: no autoplay, static bars.
 
 import { AudioLines, FileText, FlaskConical, ListChecks, MessageCircleQuestion, Mic, ShieldCheck } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
 import type { ProtoStory } from "./story"
+import { useAutoStep } from "./use-auto-step"
 
 const STEP_ICONS = [MessageCircleQuestion, FileText, ListChecks, FlaskConical, ShieldCheck]
 const BARS = 36
@@ -17,30 +17,14 @@ const barHeight = (i: number) => 22 + Math.round(((Math.sin(i * 1.7) + Math.sin(
 
 export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
   const { voice, loop, review, memory } = setup
-  const rootRef = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState(0)
-  const [inView, setInView] = useState(false)
-  const [manual, setManual] = useState(false)
-  const [reduced, setReduced] = useState(true)
-
-  useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-    const el = rootRef.current
-    if (!el) return
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (reduced || manual || !inView) return
-    const t = setInterval(() => setActive((a) => (a + 1) % loop.length), STEP_MS)
-    return () => clearInterval(t)
-  }, [reduced, manual, inView, loop.length])
+  const { ref: rootRef, active, select, playing: speaking } = useAutoStep({
+    count: loop.length,
+    intervalMs: STEP_MS,
+    threshold: 0.35,
+  })
 
   const step = loop[active]
   const last = active === loop.length - 1
-  const speaking = inView && !reduced
 
   return (
     <div ref={rootRef} className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)]">
@@ -107,16 +91,12 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
                 aria-selected={on}
                 aria-controls="vp-panel"
                 tabIndex={on ? 0 : -1}
-                onClick={() => {
-                  setManual(true)
-                  setActive(i)
-                }}
+                onClick={() => select(i)}
                 onKeyDown={(e) => {
                   if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return
                   e.preventDefault()
                   const next = (i + (e.key === "ArrowRight" ? 1 : loop.length - 1)) % loop.length
-                  setManual(true)
-                  setActive(next)
+                  select(next)
                   document.getElementById(`vp-tab-${next}`)?.focus()
                 }}
                 className="group relative flex flex-col items-center gap-2 outline-none"

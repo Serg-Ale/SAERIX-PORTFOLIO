@@ -4,7 +4,7 @@
 // to that side, like my KDE tiling shortcuts. It cycles on its own while on screen and
 // a hover or tap takes over. Reduced motion: no cycling, the keys still work on tap.
 
-import { useEffect, useRef, useState } from "react"
+import { useAutoStep } from "./use-auto-step"
 
 interface Key {
   key: string
@@ -31,31 +31,7 @@ export function KeyTiler({
   combos: { keys: string; does: string }[]
   text: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState(0)
-  const [inView, setInView] = useState(false)
-  const [manual, setManual] = useState(false)
-  const [reduced, setReduced] = useState(true)
-
-  useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (reduced || manual || !inView) return
-    const t = setInterval(() => setActive((a) => (a + 1) % cluster.length), 1900)
-    return () => clearInterval(t)
-  }, [reduced, manual, inView, cluster.length])
-
-  const pick = (i: number) => {
-    setManual(true)
-    setActive(i)
-  }
+  const { ref, active, select: pick } = useAutoStep({ count: cluster.length, intervalMs: 1900, threshold: 0.4 })
   const current = cluster[active]
 
   return (
@@ -98,7 +74,7 @@ export function KeyTiler({
                   className={`flex h-12 w-full items-center justify-center rounded-[0.5rem] border bg-[var(--bg)] font-mono text-base font-bold outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--teal)] ${
                     on
                       ? "translate-y-[3px] border-[var(--orange)] border-b-[var(--orange)] text-[var(--orange)] shadow-[0_0_18px_color-mix(in_srgb,var(--orange)_35%,transparent)]"
-                      : "border-b-4 border-[var(--line)] border-b-[var(--orange)]/60"
+                      : "border-b-4 border-[var(--line)] border-b-[color-mix(in_srgb,var(--orange)_60%,transparent)]"
                   }`}
                 >
                   {k.key}
