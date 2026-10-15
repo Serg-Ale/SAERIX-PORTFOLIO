@@ -92,7 +92,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
           </Label>
           <div className="flex flex-col">
             {copy.cases.map((c, i) => (
-              <details key={c.id} open={i === 0} className="group border-t border-[var(--line)] py-8">
+              <details key={c.id} open={i === 0 || Boolean(c.site)} className="group border-t border-[var(--line)] py-8">
                 <summary className="flex cursor-pointer list-none flex-col gap-4">
                   <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
                     <span className="text-[var(--orange)]">{c.id}</span>
@@ -114,16 +114,21 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
                       href={c.site.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group md:col-span-2 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--orange)]"
+                      className="group overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--orange)] md:col-span-2"
                     >
-                      <Image
-                        src={c.site.image}
-                        alt={c.site.alt}
-                        width={1200}
-                        height={675}
-                        loading="lazy"
-                        className="h-auto w-full"
-                      />
+                      <div className={`grid ${c.site.images.length > 1 ? "md:grid-cols-2" : ""}`}>
+                        {c.site.images.map((img) => (
+                          <Image
+                            key={img.src}
+                            src={img.src}
+                            alt={img.alt}
+                            width={1200}
+                            height={675}
+                            loading="lazy"
+                            className="h-auto w-full"
+                          />
+                        ))}
+                      </div>
                       <span className="flex items-center justify-between px-5 py-3 font-mono text-xs text-[var(--muted)] transition group-hover:text-[var(--text)]">
                         <span>{c.site.label}</span>
                         <span className="text-[var(--orange)]">{locale === "pt-BR" ? "abrir o site ↗" : "open the site ↗"}</span>
