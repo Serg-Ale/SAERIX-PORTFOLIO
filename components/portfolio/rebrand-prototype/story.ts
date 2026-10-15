@@ -78,6 +78,8 @@ export interface ProtoStory {
     music: { text: string; cta: string }
     borrowed: { text: string; cta: string; href: string }
   }
+  // Four facts the resume or a public repo backs, read in five seconds before the long sections.
+  proofStrip: { value: string; label: string }[]
   contact: { line: string; location: string; languages: string }
 }
 
@@ -297,6 +299,12 @@ const en: ProtoStory = {
       href: "https://github.com/peteonrails/hushnote",
     },
   },
+  proofStrip: [
+    { value: "4+ years", label: "shipping web products, from intern to mid-level" },
+    { value: ">80%", label: "test coverage on Aeon Tech's product" },
+    { value: "Mid-level", label: "since March 2026, at Aeon Tech" },
+    { value: "72/100", label: "on the EF SET English test" },
+  ],
   contact: {
     line: "Open to work as a mid-level full-stack engineer.",
     location: "Londrina, Brazil",
@@ -463,6 +471,12 @@ const ptBR: ProtoStory = {
       href: "https://github.com/peteonrails/hushnote",
     },
   },
+  proofStrip: [
+    { value: "4+ anos", label: "entregando produtos web, de estagiário a pleno" },
+    { value: ">80%", label: "de cobertura de testes no produto da Aeon Tech" },
+    { value: "Pleno", label: "desde março de 2026, na Aeon Tech" },
+    { value: "72/100", label: "no teste de inglês EF SET" },
+  ],
   contact: {
     line: "Aberto a propostas como engenheiro full-stack pleno.",
     location: "Londrina, Brasil",

@@ -1,10 +1,12 @@
 // Variant C "Decision log", the default /dev page: statement, status, contact and
 // a live section index stay pinned on the left; the whole story scrolls on the
-// right: stack → work (cases, then own projects) → how I work → path → contact. Stack and path answer "can this person do the job?" before the long reads.
+// right: proof strip → work (cases, then own projects) → stack → how I work → path →
+// contact. Proof comes before claims: the work shows it, the stack sums it up.
 
 import Image from "next/image"
 import { getProtoCopy, PROTO_LINKS, type ProtoLocale } from "./copy"
 import { PathTimeline } from "./path-timeline"
+import { ProofStrip } from "./proof-strip"
 import { SpeakDriven } from "./speak-driven"
 import { StackSection } from "./stack-section"
 import { WorkSection } from "./work-section"
@@ -19,8 +21,8 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
   const L = story.labels
 
   const index = [
-    { id: "stack", label: L.stack },
     { id: "work", label: L.work },
+    { id: "stack", label: L.stack },
     { id: "how", label: L.how },
     { id: "journey", label: L.journey },
     { id: "contact", label: L.contact },
@@ -83,18 +85,20 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
       </aside>
 
       <main id="main-content" className="px-5 py-12 md:px-10 lg:py-20">
-        <section id="stack" className="scroll-mt-11 lg:scroll-mt-0">
+        <ProofStrip items={story.proofStrip} />
+
+        <section id="work" className="scroll-mt-11 lg:scroll-mt-0">
+          <Label n={sectionNumber("work")} total={index.length}>{L.work}</Label>
+
+          <WorkSection copy={copy} story={story} locale={locale} />
+        </section>
+
+        <section id="stack" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("stack")} total={index.length}>{L.stack}</Label>
           <StackSection
             groups={story.stack.groups}
             highlightLabel={locale === "pt-BR" ? "Usado no trabalho" : "Used at work"}
           />
-        </section>
-
-        <section id="work" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
-          <Label n={sectionNumber("work")} total={index.length}>{L.work}</Label>
-
-          <WorkSection copy={copy} story={story} locale={locale} />
         </section>
 
         <section id="how" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
