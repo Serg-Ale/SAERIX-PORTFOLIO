@@ -17,6 +17,8 @@ export interface ProtoCase {
   decision: string
   status: string
   stack: string[]
+  // Public product page, with a screenshot of it; only set when the site is live.
+  site?: { href: string; label: string; image: string; alt: string }
   // A step is a label, or a list of labels when the flow splits into parallel branches.
   flow: { label: string; steps: (string | string[])[] }
 }
@@ -77,6 +79,7 @@ const en: ProtoCopy = {
       status:
         "Login by OTP, with roles per barbershop. Owners and barbers manage schedule, services and cancellations. Billing runs daily: Pix, trial, grace period, and a block when payment is late. Analytics depend on the plan. In the chat, fixed flows handle the common commands and an LLM handles the rest. It runs on a self-hosted Evolution API, which costs less than Meta's official one.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Pix billing", "WhatsApp"],
+      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", image: "/cases/corta-ai.webp", alt: "Corta Aí landing page: the heading about scheduling through WhatsApp for barbershops, next to a demo of the chat menu." },
       flow: {
         label: "One API, two entry points",
         steps: [["Web admin", "Chat"], "BFF", "NestJS API", "Schedule, billing, analytics"],
@@ -117,6 +120,7 @@ const en: ProtoCopy = {
       status:
         "Feedback with tag filters and search, profiles, auth and the landing page. Along the way came unit and behavior tests, an accessibility pass and the move to Tailwind v4.",
       stack: ["Next.js", "React", "TypeScript", "Tailwind", "React Query", "Jest"],
+      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", image: "/cases/aeon-audio.webp", alt: "Aeon Audio landing page: a dark hero with the brand logo, the main menu and a slideshow." },
       flow: {
         label: "From form to player",
         steps: ["Form (React Hook Form + Zod)", "React Query", "API", "Feedback card", "SoundCloud player"],
@@ -160,6 +164,7 @@ const ptBR: ProtoCopy = {
       status:
         "Login por OTP, com papéis por barbearia. Donos e barbeiros gerenciam agenda, serviços e cancelamentos. A cobrança roda todo dia: Pix, trial, carência e bloqueio quando o pagamento atrasa. O analytics depende do plano. No chat, fluxos fixos cuidam dos comandos comuns e um LLM cuida do resto. Roda numa Evolution API self-hosted, que custa menos que a oficial da Meta.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Cobrança Pix", "WhatsApp"],
+      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", image: "/cases/corta-ai.webp", alt: "Landing do Corta Aí: o título sobre agendamento pelo WhatsApp para barbearias, ao lado de uma demonstração do menu do chat." },
       flow: {
         label: "Uma API, duas entradas",
         steps: [["Admin web", "Chat"], "BFF", "API NestJS", "Agenda, cobrança, analytics"],
@@ -200,6 +205,7 @@ const ptBR: ProtoCopy = {
       status:
         "Feedback com filtro por tag e busca, perfis, auth e a landing page. No caminho vieram testes unitários e de comportamento, uma passada de acessibilidade e a migração para o Tailwind v4.",
       stack: ["Next.js", "React", "TypeScript", "Tailwind", "React Query", "Jest"],
+      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", image: "/cases/aeon-audio.webp", alt: "Landing da Aeon Audio: um hero escuro com o logo, o menu principal e um slideshow." },
       flow: {
         label: "Do formulário ao player",
         steps: ["Formulário (React Hook Form + Zod)", "React Query", "API", "Card de feedback", "Player SoundCloud"],

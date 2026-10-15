@@ -109,6 +109,27 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
                   <div className="md:col-span-2">
                     <Block label={copy.labels.status} text={c.status} />
                   </div>
+                  {c.site && (
+                    <a
+                      href={c.site.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group md:col-span-2 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--orange)]"
+                    >
+                      <Image
+                        src={c.site.image}
+                        alt={c.site.alt}
+                        width={1200}
+                        height={675}
+                        loading="lazy"
+                        className="h-auto w-full"
+                      />
+                      <span className="flex items-center justify-between px-5 py-3 font-mono text-xs text-[var(--muted)] transition group-hover:text-[var(--text)]">
+                        <span>{c.site.label}</span>
+                        <span className="text-[var(--orange)]">{locale === "pt-BR" ? "abrir o site ↗" : "open the site ↗"}</span>
+                      </span>
+                    </a>
+                  )}
                   <div className="md:col-span-2">
                     <DecisionFlow label={c.flow.label} steps={c.flow.steps} />
                   </div>
