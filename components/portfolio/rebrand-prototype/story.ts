@@ -49,6 +49,8 @@ export interface ProtoStory {
     items: {
       name: string; blurb: string; decision?: string; tags: string[]
       repo?: string; live?: string; featured?: boolean
+      // A still image, or a short muted loop with a poster for people who prefer less motion.
+      media?: { src: string; alt: string; video?: string }
     }[]
     privateLabel: string
     music: { text: string; cta: string }
@@ -187,6 +189,7 @@ const en: ProtoStory = {
         tags: ["PWA", "offline-first", "Supabase", "Vercel"],
         repo: "https://github.com/Serg-Ale/gym-stuff",
         live: "https://gym-stuff-five.vercel.app",
+        media: { src: "/projects/gym-stuff.webp", alt: "Four phone screens of the workout app: the current exercise with sets and reps, the rest timer, and the list of exercises for the day." },
       },
       {
         name: "Como-Eles-Votaram",
@@ -197,15 +200,27 @@ const en: ProtoStory = {
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
       },
       {
+        name: "SAERIX portfolio",
+        featured: true,
+        blurb: "This site. Next.js 16 and React 19 with GSAP, in English and Portuguese. It holds two identities, the engineer page you are reading and SAERIX, the page for my music.",
+        decision: "Keep the two identities apart. Each has its own voice, layout and motion, and neither borrows the tone of the other.",
+        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
+        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
+        live: "https://saerix.vercel.app/en/saerix",
+        media: { src: "/projects/saerix-hero.webp", alt: "The SAERIX page: the name in large type next to a poster-style portrait, with buttons to book a set and to listen on SoundCloud." },
+      },
+      {
         name: "matrix-rain",
         blurb: "Matrix rain for the terminal in Python and curses, now becoming a multi-mode visualizer. I run it like a product. Spec first, then tickets, TDD and review, all public.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
+        media: { src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "A terminal filled with falling green Japanese characters, the Matrix rain effect." },
       },
       {
         name: "lightsync",
         blurb: "A local service that makes a smart bulb follow the screen and the music playing on the computer. It runs without the cloud and has four modes: screen sync, white, color and music.",
         tags: ["Python", "PipeWire", "Tuya"],
+        media: { src: "/projects/lightsync.webp", alt: "The lightsync terminal panel in music mode: the lamp's last 60 seconds as a color strip, the detected kick and a bass, mid and treble spectrum." },
       },
     ],
     privateLabel: "private repo",
@@ -296,6 +311,7 @@ const ptBR: ProtoStory = {
         tags: ["PWA", "offline-first", "Supabase", "Vercel"],
         repo: "https://github.com/Serg-Ale/gym-stuff",
         live: "https://gym-stuff-five.vercel.app",
+        media: { src: "/projects/gym-stuff.webp", alt: "Quatro telas de celular do app de treino: o exercício atual com séries e repetições, o timer de descanso e a lista de exercícios do dia." },
       },
       {
         name: "Como-Eles-Votaram",
@@ -306,15 +322,27 @@ const ptBR: ProtoStory = {
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
       },
       {
+        name: "SAERIX portfolio",
+        featured: true,
+        blurb: "Este site. Next.js 16 e React 19 com GSAP, em inglês e português. Ele abriga duas identidades, a página de engenharia que você está lendo e a SAERIX, a página da minha música.",
+        decision: "Manter as duas identidades separadas. Cada uma tem a própria voz, layout e movimento, e nenhuma pega o tom da outra.",
+        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
+        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
+        live: "https://saerix.vercel.app/pt-BR/saerix",
+        media: { src: "/projects/saerix-hero.webp", alt: "A página SAERIX: o nome em letras grandes ao lado de um retrato em estilo de pôster, com botões para chamar para tocar e ouvir no SoundCloud." },
+      },
+      {
         name: "matrix-rain",
         blurb: "Chuva Matrix para terminal em Python e curses, hoje virando um visualizador multi-modo. Toco como produto. Spec primeiro, depois tickets, TDD e revisão, tudo público.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
+        media: { src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "Um terminal cheio de caracteres japoneses verdes caindo, o efeito de chuva Matrix." },
       },
       {
         name: "lightsync",
         blurb: "Um serviço local que faz uma lâmpada inteligente acompanhar a tela e a música que toca no computador. Roda sem nuvem e tem quatro modos: sincronizar com a tela, branco, cor e música.",
         tags: ["Python", "PipeWire", "Tuya"],
+        media: { src: "/projects/lightsync.webp", alt: "O painel de terminal do lightsync no modo música: os últimos 60 segundos da lâmpada como faixa de cor, o kick detectado e um espectro de graves, médios e agudos." },
       },
     ],
     privateLabel: "repo privado",

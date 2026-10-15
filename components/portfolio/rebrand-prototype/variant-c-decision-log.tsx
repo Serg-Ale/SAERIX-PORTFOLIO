@@ -224,6 +224,35 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
                   </div>
                 </div>
                 <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
+                {p.media && (
+                  <figure className={`overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] ${p.featured ? "" : "md:max-w-md"}`}>
+                    {p.media.video ? (
+                      <>
+                        <Image
+                          src={p.media.src}
+                          alt={p.media.alt}
+                          width={1000}
+                          height={563}
+                          loading="lazy"
+                          className="hidden h-auto w-full motion-reduce:block"
+                        />
+                        <video
+                          className="h-auto w-full motion-reduce:hidden"
+                          src={p.media.video}
+                          poster={p.media.src}
+                          aria-label={p.media.alt}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="metadata"
+                        />
+                      </>
+                    ) : (
+                      <Image src={p.media.src} alt={p.media.alt} width={1400} height={700} loading="lazy" className="h-auto w-full" />
+                    )}
+                  </figure>
+                )}
                 {p.featured && p.decision && (
                   <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
                     <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-[var(--orange)]">

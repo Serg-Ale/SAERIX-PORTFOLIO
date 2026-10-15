@@ -88,18 +88,19 @@ const en: ProtoCopy = {
     {
       id: "02",
       name: "Kaizen",
-      kind: "Access control for condominiums",
+      kind: "Face access for condominium guests, the Atrium product",
       state: "dev",
       stateLabel: "In development",
       outcome:
-        "One flow takes a person from registration to an open door, on hardware from several makers, temporary access included. In development.",
+        "Atrium opens the door for a guest only between check-in and check-out. The host sends a link on WhatsApp, the guest registers with a selfie, and the reader does the rest. In development.",
       problem:
         "Access depends on hardware from several makers, each with its own protocol. Managers and residents just want the door to open.",
       decision:
         "I own the flow from registering a person to the door opening, including temporary access and automatic events. I build it with the founder and the other partners.",
       status:
-        "In active development. The team is spread across Madrid, Mexico City and Brazil.",
+        "In active development, with a public site at atrium.kaizentechbr.com.br. The team is spread across Madrid, Mexico City and Brazil.",
       stack: ["NestJS", "Next.js", "Prisma", "Hikvision", "Control iD"],
+      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-hero.webp", alt: "Atrium landing page: the heading \"The guest's access opens and closes by itself\" over a building entrance with a face reader, and a check-in to check-out timeline." }, { src: "/cases/atrium-flow.webp", alt: "Atrium page explaining the flow: the guest registers from a link, and the reader receives the stay period." }] },
       flow: {
         label: "From registration to the door",
         steps: ["Person registered", "Temporary access", "Automatic events", ["Hikvision", "Control iD"], "Door opens"],
@@ -173,18 +174,19 @@ const ptBR: ProtoCopy = {
     {
       id: "02",
       name: "Kaizen",
-      kind: "Controle de acesso para condomínios",
+      kind: "Acesso facial para hóspedes de condomínios, o produto Atrium",
       state: "dev",
       stateLabel: "Em desenvolvimento",
       outcome:
-        "Um fluxo leva a pessoa do cadastro até a porta aberta, com hardware de vários fabricantes e acesso temporário incluído. Em desenvolvimento.",
+        "O Atrium abre a porta para o hóspede só entre o check-in e o check-out. O anfitrião manda um link pelo WhatsApp, o hóspede se cadastra com uma selfie, e o leitor faz o resto. Em desenvolvimento.",
       problem:
         "O acesso depende de hardware de vários fabricantes, cada um com seu protocolo. Síndico e morador só querem a porta abrindo.",
       decision:
         "Sou dono do fluxo do cadastro da pessoa até a porta abrir, com acesso temporário e eventos automáticos. Construo com o fundador e os outros sócios.",
       status:
-        "Em desenvolvimento ativo. O time está espalhado entre Madrid, Cidade do México e Brasil.",
+        "Em desenvolvimento ativo, com site público em atrium.kaizentechbr.com.br. O time está espalhado entre Madrid, Cidade do México e Brasil.",
       stack: ["NestJS", "Next.js", "Prisma", "Hikvision", "Control iD"],
+      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-hero.webp", alt: "Landing do Atrium: o título \"O acesso do hóspede abre e fecha sozinho\" sobre a entrada de um prédio com leitor facial, e uma linha do tempo de check-in a check-out." }, { src: "/cases/atrium-flow.webp", alt: "Página do Atrium explicando o fluxo: o hóspede se cadastra por um link, e o leitor recebe o período da estadia." }] },
       flow: {
         label: "Do cadastro até a porta",
         steps: ["Pessoa cadastrada", "Acesso temporário", "Eventos automáticos", ["Hikvision", "Control iD"], "Porta abre"],
