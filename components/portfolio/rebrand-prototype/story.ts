@@ -3,6 +3,7 @@
 // Only facts from the brief/resume; the TCS client stays unnamed.
 
 import type { ProtoLocale } from "./copy"
+import type { MediaItem } from "./linked-media"
 
 export type IconKey =
   | "ts" | "js" | "py" | "react" | "next" | "nest" | "fastapi" | "node"
@@ -49,9 +50,11 @@ export interface ProtoStory {
     items: {
       name: string; blurb: string; decision?: string; tags: string[]
       repo?: string; live?: string; featured?: boolean
-      // A still image, or a short muted loop with a poster for people who prefer less motion.
-      media?: { src: string; alt: string; video?: string }
+      // Web apps first, then command-line tools; the image links to the live app or, for a tool, the repo.
+      group: "web" | "cli"
+      media?: MediaItem[]
     }[]
+    groups: { web: string; cli: string }
     privateLabel: string
     music: { text: string; cta: string }
     borrowed: { text: string; cta: string; href: string }
@@ -179,50 +182,56 @@ const en: ProtoStory = {
     }),
   },
   projects: {
-    intro: "Most of these began as tools for my own routine. I like changing what is around me, and music works the same way. When I compose, I change the room too. Many were built at night, when the ideas show up.",
+    intro: "Most of these began as tools for my own routine. I like changing what is around me, and music works the same way. When I compose, I change the room too. Many were built at night, when the ideas show up. An image opens the live app, or the repository when it is a command-line tool.",
     items: [
       {
         name: "gym-stuff",
         featured: true,
+        group: "web",
         blurb: "A workout assistant for the phone: one exercise at a time, set logging, an adjustable rest timer, and it works without a signal.",
         decision: "Write to the device first and sync later, so a missing signal never loses a workout. One tap per set, and only the current exercise on screen.",
         tags: ["PWA", "offline-first", "Supabase", "Vercel"],
         repo: "https://github.com/Serg-Ale/gym-stuff",
         live: "https://gym-stuff-five.vercel.app",
-        media: { src: "/projects/gym-stuff.webp", alt: "Four phone screens of the workout app: the current exercise with sets and reps, the rest timer, and the list of exercises for the day." },
+        media: [{ src: "/projects/gym-stuff.webp", alt: "Four phone screens of the workout app: the current exercise with sets and reps, the rest timer, and the list of exercises for the day." }],
+      },
+      {
+        name: "SAERIX portfolio",
+        featured: true,
+        group: "web",
+        blurb: "This site. Next.js 16 and React 19 with GSAP, in English and Portuguese. It holds two identities, the engineer page you are reading and SAERIX, the page for my music.",
+        decision: "Keep the two identities apart. Each has its own voice, layout and motion, and neither borrows the tone of the other.",
+        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
+        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
+        live: "https://saerix.vercel.app/en/saerix",
+        media: [{ src: "/projects/saerix-hero.webp", alt: "The SAERIX page: the name in large type next to a poster-style portrait, with buttons to book a set and to listen on SoundCloud." }],
       },
       {
         name: "Como-Eles-Votaram",
         featured: true,
+        group: "web",
         blurb: "A transparency tool to see how politicians voted, simply and clearly.",
         decision: "Prisma and tRPC keep the types from the database to the screen. It has tests, lint and typecheck scripts, and Husky and commitlint on every commit.",
         tags: ["T3 Stack", "Next.js", "Prisma", "tRPC", "Jest"],
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
       },
       {
-        name: "SAERIX portfolio",
-        featured: true,
-        blurb: "This site. Next.js 16 and React 19 with GSAP, in English and Portuguese. It holds two identities, the engineer page you are reading and SAERIX, the page for my music.",
-        decision: "Keep the two identities apart. Each has its own voice, layout and motion, and neither borrows the tone of the other.",
-        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
-        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
-        live: "https://saerix.vercel.app/en/saerix",
-        media: { src: "/projects/saerix-hero.webp", alt: "The SAERIX page: the name in large type next to a poster-style portrait, with buttons to book a set and to listen on SoundCloud." },
-      },
-      {
         name: "matrix-rain",
+        group: "cli",
         blurb: "Matrix rain for the terminal in Python and curses, now becoming a multi-mode visualizer. I run it like a product. Spec first, then tickets, TDD and review, all public.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
-        media: { src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "A terminal filled with falling green Japanese characters, the Matrix rain effect." },
+        media: [{ src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "A terminal filled with falling green Japanese characters, the Matrix rain effect." }],
       },
       {
         name: "lightsync",
+        group: "cli",
         blurb: "A local service that makes a smart bulb follow the screen and the music playing on the computer. It runs without the cloud and has four modes: screen sync, white, color and music.",
         tags: ["Python", "PipeWire", "Tuya"],
-        media: { src: "/projects/lightsync.webp", alt: "The lightsync terminal panel in music mode: the lamp's last 60 seconds as a color strip, the detected kick and a bass, mid and treble spectrum." },
+        media: [{ src: "/projects/lightsync.webp", alt: "The lightsync terminal panel in music mode: the lamp's last 60 seconds as a color strip, the detected kick and a bass, mid and treble spectrum." }],
       },
     ],
+    groups: { web: "Web and apps", cli: "Command line" },
     privateLabel: "private repo",
     music: { text: "Off the keyboard, I produce music and DJ as SAERIX.", cta: "Open SAERIX →" },
     borrowed: {
@@ -301,50 +310,56 @@ const ptBR: ProtoStory = {
     }),
   },
   projects: {
-    intro: "A maioria nasceu como ferramenta para a minha rotina. Gosto de mudar o que está ao meu redor, e a música funciona do mesmo jeito. Quando componho, mudo o ambiente também. Muitos foram feitos de madrugada, quando as ideias aparecem.",
+    intro: "A maioria nasceu como ferramenta para a minha rotina. Gosto de mudar o que está ao meu redor, e a música funciona do mesmo jeito. Quando componho, mudo o ambiente também. Muitos foram feitos de madrugada, quando as ideias aparecem. Uma imagem abre o app no ar, ou o repositório quando é uma ferramenta de linha de comando.",
     items: [
       {
         name: "gym-stuff",
         featured: true,
+        group: "web",
         blurb: "Assistente de treino para o celular: um exercício por vez, registro de séries, timer de descanso ajustável, e funciona sem sinal.",
         decision: "Gravar primeiro no aparelho e sincronizar depois, para que falta de sinal nunca perca um treino. Um toque por série, e só o exercício atual na tela.",
         tags: ["PWA", "offline-first", "Supabase", "Vercel"],
         repo: "https://github.com/Serg-Ale/gym-stuff",
         live: "https://gym-stuff-five.vercel.app",
-        media: { src: "/projects/gym-stuff.webp", alt: "Quatro telas de celular do app de treino: o exercício atual com séries e repetições, o timer de descanso e a lista de exercícios do dia." },
+        media: [{ src: "/projects/gym-stuff.webp", alt: "Quatro telas de celular do app de treino: o exercício atual com séries e repetições, o timer de descanso e a lista de exercícios do dia." }],
+      },
+      {
+        name: "SAERIX portfolio",
+        featured: true,
+        group: "web",
+        blurb: "Este site. Next.js 16 e React 19 com GSAP, em inglês e português. Ele abriga duas identidades, a página de engenharia que você está lendo e a SAERIX, a página da minha música.",
+        decision: "Manter as duas identidades separadas. Cada uma tem a própria voz, layout e movimento, e nenhuma pega o tom da outra.",
+        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
+        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
+        live: "https://saerix.vercel.app/pt-BR/saerix",
+        media: [{ src: "/projects/saerix-hero.webp", alt: "A página SAERIX: o nome em letras grandes ao lado de um retrato em estilo de pôster, com botões para chamar para tocar e ouvir no SoundCloud." }],
       },
       {
         name: "Como-Eles-Votaram",
         featured: true,
+        group: "web",
         blurb: "Ferramenta de transparência para ver como os políticos votaram, de forma simples e clara.",
         decision: "Prisma e tRPC mantêm os tipos do banco até a tela. Tem testes, scripts de lint e typecheck, e Husky e commitlint em todo commit.",
         tags: ["T3 Stack", "Next.js", "Prisma", "tRPC", "Jest"],
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
       },
       {
-        name: "SAERIX portfolio",
-        featured: true,
-        blurb: "Este site. Next.js 16 e React 19 com GSAP, em inglês e português. Ele abriga duas identidades, a página de engenharia que você está lendo e a SAERIX, a página da minha música.",
-        decision: "Manter as duas identidades separadas. Cada uma tem a própria voz, layout e movimento, e nenhuma pega o tom da outra.",
-        tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
-        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
-        live: "https://saerix.vercel.app/pt-BR/saerix",
-        media: { src: "/projects/saerix-hero.webp", alt: "A página SAERIX: o nome em letras grandes ao lado de um retrato em estilo de pôster, com botões para chamar para tocar e ouvir no SoundCloud." },
-      },
-      {
         name: "matrix-rain",
+        group: "cli",
         blurb: "Chuva Matrix para terminal em Python e curses, hoje virando um visualizador multi-modo. Toco como produto. Spec primeiro, depois tickets, TDD e revisão, tudo público.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
-        media: { src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "Um terminal cheio de caracteres japoneses verdes caindo, o efeito de chuva Matrix." },
+        media: [{ src: "/projects/matrix-rain-poster.webp", video: "/projects/matrix-rain.webm", alt: "Um terminal cheio de caracteres japoneses verdes caindo, o efeito de chuva Matrix." }],
       },
       {
         name: "lightsync",
+        group: "cli",
         blurb: "Um serviço local que faz uma lâmpada inteligente acompanhar a tela e a música que toca no computador. Roda sem nuvem e tem quatro modos: sincronizar com a tela, branco, cor e música.",
         tags: ["Python", "PipeWire", "Tuya"],
-        media: { src: "/projects/lightsync.webp", alt: "O painel de terminal do lightsync no modo música: os últimos 60 segundos da lâmpada como faixa de cor, o kick detectado e um espectro de graves, médios e agudos." },
+        media: [{ src: "/projects/lightsync.webp", alt: "O painel de terminal do lightsync no modo música: os últimos 60 segundos da lâmpada como faixa de cor, o kick detectado e um espectro de graves, médios e agudos." }],
       },
     ],
+    groups: { web: "Web e apps", cli: "Linha de comando" },
     privateLabel: "repo privado",
     music: { text: "Fora do teclado, produzo música e toco como SAERIX.", cta: "Abrir SAERIX →" },
     borrowed: {

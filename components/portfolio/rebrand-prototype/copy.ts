@@ -2,6 +2,8 @@
 // three variants can be compared without touching the translation files.
 // Text follows docs/REBRAND-BRIEF.md sections 3 and 5; no numbers beyond the brief.
 
+import type { MediaItem } from "./linked-media"
+
 export type ProtoLocale = "en" | "pt-BR"
 export type CaseState = "pilot" | "dev" | "shipped"
 
@@ -18,7 +20,7 @@ export interface ProtoCase {
   status: string
   stack: string[]
   // Public product page, with a screenshot of it; only set when the site is live.
-  site?: { href: string; label: string; images: { src: string; alt: string }[] }
+  site?: { href: string; label: string; images: MediaItem[] }
   // A step is a label, or a list of labels when the flow splits into parallel branches.
   flow: { label: string; steps: (string | string[])[] }
 }
@@ -31,6 +33,11 @@ export interface ProtoCopy {
     status: string
     stack: string
     cases: string
+    casesIntro: string
+    details: string
+    openSite: string
+    openRepo: string
+    privateRepo: string
     contact: string
     writing: string
     saerix: string
@@ -59,6 +66,11 @@ const en: ProtoCopy = {
     status: "Status",
     stack: "Stack",
     cases: "Cases",
+    casesIntro: "Products I worked on with a team. Click an image to open the live site.",
+    details: "Problem, decision and status",
+    openSite: "open the site ↗",
+    openRepo: "open the repo ↗",
+    privateRepo: "private repo",
     contact: "Contact",
     writing: "Writing",
     saerix: "SAERIX",
@@ -77,7 +89,7 @@ const en: ProtoCopy = {
       decision:
         "I proposed it, checked it with the team and the PO, and built it on the automation base I designed as a Jr. I worked across the web admin and the API, including roles, billing and analytics. The chat is one more way in.",
       status:
-        "Login by OTP, with roles per barbershop. Owners and barbers manage schedule, services and cancellations. Billing runs daily: Pix, trial, grace period, and a block when payment is late. Analytics depend on the plan. In the chat, fixed flows handle the common commands and an LLM handles the rest. It runs on a self-hosted Evolution API, which costs less than Meta's official one.",
+        "Two barbershops are testing it. Login by OTP, with roles per barbershop. Owners and barbers manage schedule, services and cancellations. Billing runs daily: Pix, trial, grace period, and a block when payment is late. Analytics depend on the plan. In the chat, fixed flows handle the common commands and an LLM handles the rest. It runs on a self-hosted Evolution API, which costs less than Meta's official one.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Pix billing", "WhatsApp"],
       site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai.webp", alt: "Corta Aí landing page: the heading about scheduling through WhatsApp for barbershops, next to a demo of the chat menu." }] },
       flow: {
@@ -121,7 +133,7 @@ const en: ProtoCopy = {
       status:
         "The landing at aeonaudio.com.br has hero, manifesto, masterclass, events and story sections. The app has feedback with tag filters and search, profiles and auth. Along the way came unit and behavior tests, an accessibility pass and the move to Tailwind v4.",
       stack: ["Next.js", "React", "TypeScript", "Tailwind", "GSAP", "React Query", "Jest"],
-      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", images: [{ src: "/cases/aeon-audio.webp", alt: "Aeon Audio landing page: a dark hero with the brand logo, the main menu and a slideshow." }, { src: "/cases/aeon-audio-manifesto.webp", alt: "Manifesto section of the landing: the line \"Music needs everyone to exist\" with one word cycling in large type." }] },
+      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", images: [{ src: "/cases/aeon-audio-tour-poster.webp", video: "/cases/aeon-audio-tour.webm", alt: "A fast scroll through the Aeon Audio landing page: the hero, the manifesto with cycling words, the pillars, the masterclass videos and the collaboration section." }, { src: "/cases/aeon-audio-masterclass.webp", alt: "The masterclass section of the landing: a featured video with two hosts, and a row of other recorded sessions below it." }] },
       flow: {
         label: "From form to player",
         steps: ["Form (React Hook Form + Zod)", "React Query", "API", "Feedback card", "SoundCloud player"],
@@ -145,6 +157,11 @@ const ptBR: ProtoCopy = {
     status: "Status",
     stack: "Stack",
     cases: "Casos",
+    casesIntro: "Produtos em que trabalhei com um time. Clique numa imagem para abrir o site no ar.",
+    details: "Problema, decisão e status",
+    openSite: "abrir o site ↗",
+    openRepo: "abrir o repo ↗",
+    privateRepo: "repo privado",
     contact: "Contato",
     writing: "Escrita",
     saerix: "SAERIX",
@@ -163,7 +180,7 @@ const ptBR: ProtoCopy = {
       decision:
         "Propus, validei com o time e o PO, e construí sobre a base de automação que desenhei como Jr. Trabalhei no admin web e na API, incluindo papéis, cobrança e analytics. O chat é mais um jeito de entrar.",
       status:
-        "Login por OTP, com papéis por barbearia. Donos e barbeiros gerenciam agenda, serviços e cancelamentos. A cobrança roda todo dia: Pix, trial, carência e bloqueio quando o pagamento atrasa. O analytics depende do plano. No chat, fluxos fixos cuidam dos comandos comuns e um LLM cuida do resto. Roda numa Evolution API self-hosted, que custa menos que a oficial da Meta.",
+        "Duas barbearias estão testando. Login por OTP, com papéis por barbearia. Donos e barbeiros gerenciam agenda, serviços e cancelamentos. A cobrança roda todo dia: Pix, trial, carência e bloqueio quando o pagamento atrasa. O analytics depende do plano. No chat, fluxos fixos cuidam dos comandos comuns e um LLM cuida do resto. Roda numa Evolution API self-hosted, que custa menos que a oficial da Meta.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Cobrança Pix", "WhatsApp"],
       site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai.webp", alt: "Landing do Corta Aí: o título sobre agendamento pelo WhatsApp para barbearias, ao lado de uma demonstração do menu do chat." }] },
       flow: {
@@ -207,7 +224,7 @@ const ptBR: ProtoCopy = {
       status:
         "A landing em aeonaudio.com.br tem as seções de hero, manifesto, masterclass, eventos e história. O app tem feedback com filtro por tag e busca, perfis e auth. No caminho vieram testes unitários e de comportamento, uma passada de acessibilidade e a migração para o Tailwind v4.",
       stack: ["Next.js", "React", "TypeScript", "Tailwind", "GSAP", "React Query", "Jest"],
-      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", images: [{ src: "/cases/aeon-audio.webp", alt: "Landing da Aeon Audio: um hero escuro com o logo, o menu principal e um slideshow." }, { src: "/cases/aeon-audio-manifesto.webp", alt: "Seção do manifesto da landing: a frase \"A música precisa de todos para existir\" com uma palavra trocando em letras grandes." }] },
+      site: { href: "https://aeonaudio.com.br/", label: "aeonaudio.com.br", images: [{ src: "/cases/aeon-audio-tour-poster.webp", video: "/cases/aeon-audio-tour.webm", alt: "Uma rolagem rápida pela landing da Aeon Audio: o hero, o manifesto com palavras que se alternam, os pilares, os vídeos da masterclass e a seção de colaboração." }, { src: "/cases/aeon-audio-masterclass.webp", alt: "A seção de masterclass da landing: um vídeo em destaque com dois anfitriões e uma fileira de outras sessões gravadas logo abaixo." }] },
       flow: {
         label: "Do formulário ao player",
         steps: ["Formulário (React Hook Form + Zod)", "React Query", "API", "Card de feedback", "Player SoundCloud"],

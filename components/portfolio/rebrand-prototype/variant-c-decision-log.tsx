@@ -4,8 +4,10 @@
 // contact. Stack and path answer "can this person do the job?" before the long reads.
 
 import Image from "next/image"
+import { Fragment } from "react"
 import { getProtoCopy, PROTO_LINKS, type ProtoLocale } from "./copy"
 import { DecisionFlow } from "./decision-flow"
+import { LinkedMedia } from "./linked-media"
 import { StackSection } from "./stack-section"
 import { KatakanaRain } from "./katakana-rain"
 import { SectionNav } from "./section-nav"
@@ -90,59 +92,40 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
           <Label n={sectionNumber("cases")} total={index.length}>
             {copy.labels.cases} · {locale === "pt-BR" ? "resultado primeiro" : "result first"}
           </Label>
+          <p className="mb-6 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{copy.labels.casesIntro}</p>
           <div className="flex flex-col">
             {copy.cases.map((c, i) => (
-              <details key={c.id} open={i === 0 || Boolean(c.site)} className="group border-t border-[var(--line)] py-8">
-                <summary className="flex cursor-pointer list-none flex-col gap-4">
-                  <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
-                    <span className="text-[var(--orange)]">{c.id}</span>
-                    <span className="font-sans text-lg font-bold text-[var(--text)]">{c.name}</span>
-                    <span>· {c.kind}</span>
-                    <StateChip state={c.state} label={c.stateLabel} />
-                    <span aria-hidden="true" className="ml-auto transition group-open:rotate-45">+</span>
-                  </div>
-                  <p className="text-base font-medium leading-snug text-[var(--text)]/85 md:text-lg">{c.outcome}</p>
-                </summary>
-                <div className="mt-8 grid gap-6 md:grid-cols-2">
-                  <Block label={copy.labels.problem} text={c.problem} />
-                  <Block label={copy.labels.decision} text={c.decision} accent />
-                  <div className="md:col-span-2">
-                    <Block label={copy.labels.status} text={c.status} />
-                  </div>
-                  {c.site && (
-                    <a
-                      href={c.site.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--orange)] md:col-span-2"
-                    >
-                      <div className={`grid ${c.site.images.length > 1 ? "md:grid-cols-2" : ""}`}>
-                        {c.site.images.map((img) => (
-                          <Image
-                            key={img.src}
-                            src={img.src}
-                            alt={img.alt}
-                            width={1200}
-                            height={675}
-                            loading="lazy"
-                            className="h-auto w-full"
-                          />
-                        ))}
-                      </div>
-                      <span className="flex items-center justify-between px-5 py-3 font-mono text-xs text-[var(--muted)] transition group-hover:text-[var(--text)]">
-                        <span>{c.site.label}</span>
-                        <span className="text-[var(--orange)]">{locale === "pt-BR" ? "abrir o site ↗" : "open the site ↗"}</span>
-                      </span>
-                    </a>
-                  )}
-                  <div className="md:col-span-2">
-                    <DecisionFlow label={c.flow.label} steps={c.flow.steps} />
-                  </div>
-                  <div className="md:col-span-2">
-                    <StackTags items={c.stack} />
-                  </div>
+              <article key={c.id} className="flex flex-col gap-4 border-t border-[var(--line)] py-8">
+                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
+                  <span className="text-[var(--orange)]">{c.id}</span>
+                  <span className="font-sans text-lg font-bold text-[var(--text)]">{c.name}</span>
+                  <span>· {c.kind}</span>
+                  <StateChip state={c.state} label={c.stateLabel} />
                 </div>
-              </details>
+                <p className="text-base font-medium leading-snug text-[var(--text)]/85 md:text-lg">{c.outcome}</p>
+                {c.site && (
+                  <LinkedMedia items={c.site.images} href={c.site.href} label={c.site.label} cta={copy.labels.openSite} />
+                )}
+                <details open={i === 0} className="group mt-2">
+                  <summary className="flex cursor-pointer list-none items-center justify-between font-mono text-xs uppercase tracking-widest text-[var(--muted)] hover:text-[var(--text)]">
+                    <span>{copy.labels.details}</span>
+                    <span aria-hidden="true" className="transition group-open:rotate-45">+</span>
+                  </summary>
+                  <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    <Block label={copy.labels.problem} text={c.problem} />
+                    <Block label={copy.labels.decision} text={c.decision} accent />
+                    <div className="md:col-span-2">
+                      <Block label={copy.labels.status} text={c.status} />
+                    </div>
+                    <div className="md:col-span-2">
+                      <DecisionFlow label={c.flow.label} steps={c.flow.steps} />
+                    </div>
+                    <div className="md:col-span-2">
+                      <StackTags items={c.stack} />
+                    </div>
+                  </div>
+                </details>
+              </article>
             ))}
           </div>
         </section>
@@ -210,60 +193,53 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
           <Label n={sectionNumber("projects")} total={index.length}>{L.projects}</Label>
           <p className="mb-6 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{story.projects.intro}</p>
           <ul className="flex flex-col">
-            {story.projects.items.map((p) => (
-              <li key={p.name} className="flex flex-col gap-3 border-t border-[var(--line)] py-6">
-                <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h3 className="text-lg font-bold">{p.name}</h3>
-                  <div className="flex gap-4 font-mono text-xs">
-                    {p.repo ? (
-                      <a href={p.repo} className="text-[var(--muted)] hover:text-[var(--text)]">repo ↗</a>
-                    ) : (
-                      <span className="text-[var(--muted)]">{story.projects.privateLabel}</span>
+            {story.projects.items.map((p, i) => {
+              const href = p.live ?? p.repo
+              const label = href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : copy.labels.privateRepo
+              const cta = p.live ? copy.labels.openSite : copy.labels.openRepo
+              const first = i === 0 || story.projects.items[i - 1].group !== p.group
+              return (
+                <Fragment key={p.name}>
+                  {first && (
+                    <li className="border-t border-[var(--line)] pb-1 pt-6 font-mono text-[11px] uppercase tracking-widest text-[var(--orange)]">
+                      {story.projects.groups[p.group]}
+                    </li>
+                  )}
+                  <li className="flex flex-col gap-3 py-5">
+                    <div className="flex flex-wrap items-baseline justify-between gap-3">
+                      <h3 className="text-lg font-bold">{p.name}</h3>
+                      <div className="flex gap-4 font-mono text-xs">
+                        {p.repo ? (
+                          <a href={p.repo} className="text-[var(--muted)] hover:text-[var(--text)]">repo ↗</a>
+                        ) : (
+                          <span className="text-[var(--muted)]">{story.projects.privateLabel}</span>
+                        )}
+                        {p.live && <a href={p.live} className="text-[var(--orange)]">live ↗</a>}
+                      </div>
+                    </div>
+                    <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
+                    {p.media && (
+                      <LinkedMedia
+                        items={p.media}
+                        href={href}
+                        label={label}
+                        cta={href ? cta : undefined}
+                        size={p.group === "cli" ? "compact" : "full"}
+                      />
                     )}
-                    {p.live && <a href={p.live} className="text-[var(--orange)]">live ↗</a>}
-                  </div>
-                </div>
-                <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
-                {p.media && (
-                  <figure className={`overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] ${p.featured ? "" : "md:max-w-md"}`}>
-                    {p.media.video ? (
-                      <>
-                        <Image
-                          src={p.media.src}
-                          alt={p.media.alt}
-                          width={1000}
-                          height={563}
-                          loading="lazy"
-                          className="hidden h-auto w-full motion-reduce:block"
-                        />
-                        <video
-                          className="h-auto w-full motion-reduce:hidden"
-                          src={p.media.video}
-                          poster={p.media.src}
-                          aria-label={p.media.alt}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          preload="metadata"
-                        />
-                      </>
-                    ) : (
-                      <Image src={p.media.src} alt={p.media.alt} width={1400} height={700} loading="lazy" className="h-auto w-full" />
+                    {p.featured && p.decision && (
+                      <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+                        <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-[var(--orange)]">
+                          {copy.labels.decision}
+                        </p>
+                        <p className="text-sm font-medium leading-relaxed">{p.decision}</p>
+                      </div>
                     )}
-                  </figure>
-                )}
-                {p.featured && p.decision && (
-                  <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
-                    <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-[var(--orange)]">
-                      {copy.labels.decision}
-                    </p>
-                    <p className="text-sm font-medium leading-relaxed">{p.decision}</p>
-                  </div>
-                )}
-                <StackTags items={p.tags} />
-              </li>
-            ))}
+                    <StackTags items={p.tags} />
+                  </li>
+                </Fragment>
+              )
+            })}
             <li className="border-t border-[var(--line)] py-5">
               <a
                 href={story.projects.borrowed.href}
