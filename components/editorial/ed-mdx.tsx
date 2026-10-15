@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { slugify } from "@/lib/blog/generate-toc"
+import { highlightCodeCached } from "@/lib/blog/syntax-highlighter"
 import type { SeriesType } from "@/lib/blog/graph"
 import { Aside, Flow, Pairs, Parable, Stack, Timeline, Versus } from "./ed-blocks"
 
@@ -21,18 +22,25 @@ function Img({ src, alt }: { src?: string; alt?: string }) {
   )
 }
 
-function CodeHighlighted({ lightHtml, darkHtml }: { lightHtml: string; darkHtml: string }) {
+/** Fenced code: highlighted on the server with a light and a dark rendering; CSS picks one. */
+async function Pre({ children, ...props }) {
+  const code = children?.props
+  const language = /language-([\w-]+)/.exec(code?.className ?? "")?.[1]
+  const text = typeof code?.children === "string" ? code.children.replace(/\n$/, "") : null
+  if (!text || !language) return <pre {...props}>{children}</pre>
+
+  const { light, dark } = await highlightCodeCached(text, language)
   return (
-    <div className="code-highlighted">
-      <div className="code-light" dangerouslySetInnerHTML={{ __html: lightHtml }} />
-      <div className="code-dark" dangerouslySetInnerHTML={{ __html: darkHtml }} />
+    <div className="ed-codeblock" data-lang={language}>
+      <div className="code-light" dangerouslySetInnerHTML={{ __html: light }} />
+      <div className="code-dark" dangerouslySetInnerHTML={{ __html: dark }} />
     </div>
   )
 }
 
 export function getEdMdxComponents(series: SeriesType) {
   return {
-    CodeHighlighted,
+    pre: Pre,
     Aside,
     Flow,
     Pairs,

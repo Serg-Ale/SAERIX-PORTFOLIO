@@ -928,3 +928,17 @@
 .ed-footer a { color: var(--ed-text); text-decoration: underline; text-decoration-color: var(--ed-line-strong); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color 160ms, text-decoration-color 160ms; }
 .ed-footer a:hover { color: var(--ed-accent); text-decoration-color: var(--ed-accent); }
 .ed-footer-rights { margin: 40px 0 0; padding-top: 20px; border-top: 1px solid var(--ed-line); color: var(--ed-muted); font-size: 0.8125rem; }
+
+/* ---------- Code blocks ---------- */
+.ed-codeblock { position: relative; margin: 1.8em 0; font-family: var(--ed-mono); }
+.ed-codeblock::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  z-index: 1;
+  font: 500 0.6875rem var(--ed-mono);
+  color: var(--ed-muted);
+}
+.ed-codeblock pre { margin: 0; padding: 18px 20px; font-size: 0.8125rem; line-height: 1.65; background: var(--ed-surface) !important; tab-size: 4; }
+.ed-codeblock pre code { font-size: inherit; background: none; padding: 0; }
