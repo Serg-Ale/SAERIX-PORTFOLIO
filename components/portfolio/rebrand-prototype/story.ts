@@ -197,15 +197,6 @@ const en: ProtoStory = {
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
       },
       {
-        name: "linha-do-tempo-ia",
-        featured: true,
-        blurb: "How AI changed the way I program between 2022 and 2026, with every date and fact tied to a primary source: Copilot, Claude Code, Codex, Gemini CLI, OpenCode, MCP and per-token billing.",
-        decision: "Each row of the research carries its source and a confidence level (confirmed, partial or not found). What I could not find in a primary source is written as a gap, not a guess.",
-        tags: ["research", "primary sources", "MDX", "Next.js"],
-        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO/blob/master/docs/research/linha-do-tempo-ia-para-programar.md",
-        live: "/laboratorio/o-codigo-virou-a-parte-que-menos-importa",
-      },
-      {
         name: "matrix-rain",
         blurb: "Matrix rain for the terminal in Python and curses, now becoming a multi-mode visualizer. I run it like a product. Spec first, then tickets, TDD and review, all public.",
         tags: ["Python", "curses", "TDD"],
@@ -313,15 +304,6 @@ const ptBR: ProtoStory = {
         decision: "Prisma e tRPC mantêm os tipos do banco até a tela. Tem testes, scripts de lint e typecheck, e Husky e commitlint em todo commit.",
         tags: ["T3 Stack", "Next.js", "Prisma", "tRPC", "Jest"],
         repo: "https://github.com/Serg-Ale/Como-Eles-Votaram",
-      },
-      {
-        name: "linha-do-tempo-ia",
-        featured: true,
-        blurb: "Como a IA mudou a minha forma de programar entre 2022 e 2026, com cada data e cada fato ligado a fonte primária: Copilot, Claude Code, Codex, Gemini CLI, OpenCode, MCP e a cobrança por token.",
-        decision: "Cada linha da pesquisa traz a fonte e um grau de confiança (confirmado, parcial ou não encontrado). O que não achei em fonte primária está escrito como lacuna, não como palpite.",
-        tags: ["pesquisa", "fontes primárias", "MDX", "Next.js"],
-        repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO/blob/master/docs/research/linha-do-tempo-ia-para-programar.md",
-        live: "/laboratorio/o-codigo-virou-a-parte-que-menos-importa",
       },
       {
         name: "matrix-rain",

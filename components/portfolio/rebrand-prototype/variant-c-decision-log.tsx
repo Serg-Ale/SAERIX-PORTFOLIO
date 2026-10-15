@@ -115,6 +115,11 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
                   <div className="md:col-span-2">
                     <StackTags items={c.stack} />
                   </div>
+                  {c.link && (
+                    <a href={c.link.href} className="font-mono text-xs text-[var(--orange)] md:col-span-2">
+                      {c.link.label}
+                    </a>
+                  )}
                 </div>
               </details>
             ))}
