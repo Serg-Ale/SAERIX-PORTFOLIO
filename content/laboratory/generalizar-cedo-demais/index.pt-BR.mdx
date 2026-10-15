@@ -1,0 +1,42 @@
+---
+title: "Generalizar cedo demais"
+description: "A pergunta 'qual é o sistema que produz isso?' é minha força e meu risco. Como ela transformou um agendador de barbearia em multi-tenancy, e o que faço para vigiá-la."
+date: "2026-10-15"
+tags: ["arquitetura", "produto", "metodologia", "autocrítica"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "generalizar-cedo-demais"
+contentType: "lab"
+code: "LAB-003"
+draft: false
+---
+
+Diante de qualquer coisa complexa, a minha primeira pergunta não é "como eu faço isso". É "qual é o sistema que produz isso". Depois: "como eu entendo esse sistema o bastante para controlá-lo". Aparece no Next.js, no n8n, no Linux, no Vim, na música, em como organizo a semana. Se aparece em tudo, não é gosto técnico. É o jeito como minha cabeça processa qualquer domínio.
+
+Funciona. E tem um custo que levei um tempo para enxergar.
+
+## O exemplo mais claro
+
+O Corta.ai começou com um problema pequeno. Barbeiro precisa de um agendamento.
+
+Em pouco tempo a pergunta virou "e se forem várias barbearias". Depois, uma conta para cada uma. Depois, papéis de acesso. Depois, como cada barbearia entra no sistema, que número de WhatsApp usa, como isso é cobrado, quanto custa, para onde o produto vai. Cada passo fazia sentido sozinho. Juntos, eram a infraestrutura de um produto que ainda não tinha provado que alguém queria o primeiro.
+
+Parte disso foi acerto. Vender para uma barbearia e depois para a seguinte sem reescrever nada vale muito. Parte foi gasto de energia em escala que ninguém tinha pedido, e eu só consigo separar as duas partes olhando para trás.
+
+## A força e o risco
+
+É a mesma habilidade nos dois lados. A cabeça pergunta "como isso funcionaria em escala" antes de saber se a escala vai existir. Quando a resposta é sim, ganhei meses. Quando é não, construí uma estrada para uma cidade que não nasceu.
+
+Não tento corrigir isso, porque a causa é a mesma coisa que me faz bom em arquitetura. Tento vigiar.
+
+## O que faço agora
+
+Três hábitos, nenhum sofisticado.
+
+- Antes de generalizar, escrevo qual cliente real pediu aquilo. Se não existe nome, a abstração espera.
+- Separo o que é difícil de desfazer do que é barato de refazer. Modelo de dados e cobrança merecem generalização cedo. Tela e fluxo de cadastro podem ser feios e específicos por enquanto.
+- Uso a entrevista do [meu fluxo com o Claude Code](/laboratorio/como-trabalho-com-claude-code) para perguntar, em voz alta, "isso é necessário agora?". É estranho como uma pergunta feita por outro pesa mais do que a mesma pergunta feita por mim.
+
+## Fora do código
+
+Esse padrão não tem nada de exclusivo de software. É o mesmo gesto do ensaio [A captura da imaginação](/ensaios/a-captura-imaginacao): ter a ideia é a parte fácil, e sustentar o trabalho que a transforma em algo real é onde a energia se perde. Generalizar cedo demais é uma forma elegante de adiar essa parte.

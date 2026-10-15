@@ -1,0 +1,48 @@
+---
+title: "Como trabalho com o Claude Code"
+description: "O fluxo que uso em qualquer repositório: entrevista antes de codar, protótipo descartável, spec, tickets, implementação com teste e revisão em contexto novo."
+date: "2026-10-15"
+tags: ["claude-code", "metodologia", "ia", "workflow"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "como-trabalho-com-claude-code"
+contentType: "lab"
+code: "LAB-001"
+draft: false
+---
+
+Não uso o Claude Code como um autocomplete grande. Uso como um colega que executa rápido e que, sem direção, executa rápido a coisa errada. O método abaixo existe para tirar a direção da minha cabeça e colocá-la num lugar onde eu consiga revisar antes de qualquer linha de código.
+
+Ele vem dos skills do [mattpocock/skills](https://github.com/mattpocock/skills), instalados de forma global em `~/.claude/skills/`. Valem para qualquer projeto que eu abra, não para um repositório específico. Este texto é um registro vivo. Quando um passo deixa de fazer sentido, eu troco.
+
+## O fluxo
+
+Para trabalho que não é trivial, a ordem é esta.
+
+1. **Entrevista.** O `/grill-me` me interroga sobre o plano até cada ramo da árvore de decisão estar resolvido. A pergunta que mais economiza tempo é a que eu não sabia que precisava responder.
+2. **Protótipo.** Quando a dúvida é "esse modelo de estado está certo?" ou "qual dessas telas é a certa?", o `/prototype` constrói algo descartável. Um app de terminal para testar lógica, ou várias rotas lado a lado para comparar interface. Ninguém se apega a um protótipo.
+3. **Mapa.** Para o que não cabe numa sessão, o `/wayfinder` quebra o esforço em tickets de decisão no issue tracker. É planejamento. Não entrega código, entrega decisões.
+4. **Spec.** O `/to-spec` sintetiza a conversa numa especificação e publica no tracker. Sem nova entrevista, só o que já foi decidido.
+5. **Tickets.** O `/to-tickets` fatia a spec em tickets "tracer bullet", cada um atravessando todas as camadas e declarando o que o bloqueia.
+6. **Implementação.** O `/implement` constrói o que os tickets descrevem. Roda TDD nos pontos combinados, roda typecheck e testes, e termina com revisão antes do commit.
+7. **Revisão em contexto novo.** O `/code-review` abre dois sub-agentes em paralelo. Um confere se o código segue os padrões documentados do repositório. O outro confere se entrega o que a issue pediu. Eles não herdam a conversa de implementação, e é por isso que funcionam.
+
+## Por que a revisão precisa de contexto novo
+
+Quem implementou carrega as justificativas. Se eu peço a mesma sessão para revisar o próprio trabalho, ela encontra razões para cada escolha que fez. Um revisor que só recebe o diff e a spec não tem essas razões e acha o que ficou fora do lugar.
+
+## O que isso produziu
+
+Dois exemplos que dá para conferir.
+
+O `/dev` deste site saiu de uma entrevista com o `/grilling`. A conversa virou a spec `docs/specs/dev-decision-log.md`, no repositório, e só depois virou tela.
+
+O [matrix-rain](/laboratorio/matrix-rain-terminal-animation) ganhou o modo de vídeo wall em tickets numerados, e o primeiro foi um tracer bullet que já juntava dois terminais numa tela só, ainda feio. Os tickets seguintes acrescentaram posicionamento em grade, intervalo entre janelas, sucessão de host e o resto.
+
+## Onde o método falha
+
+Ele pesa para coisa pequena. Para renomear uma variável, entrevista é teatro, e eu pulo direto para a edição. A regra que uso é simples: se existe uma decisão em aberto que custaria caro desfazer, começo pela entrevista. Se não existe, só faço.
+
+O segundo ponto fraco é o contrário. Uma spec bem escrita dá a sensação de que o problema está resolvido, e a sensação engana. O protótipo existe para lembrar que o terreno ainda pode discordar do mapa.
+
+Esse último ponto não é exclusivo de engenharia. Eu o escrevi com mais calma em [Menos estátuas, mais mapas](/ensaios/heroi-dragao-abismo-ruido-humano).

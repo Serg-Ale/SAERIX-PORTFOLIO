@@ -1,0 +1,38 @@
+---
+title: "Mneme: um segundo cérebro em wikilinks"
+description: "Um cofre Obsidian que organiza o que sei por relações, não por pastas. Como ele funciona, por que escolhi essa forma e o que isso tem a ver com a maneira como aprendo."
+date: "2026-10-15"
+tags: ["obsidian", "notas", "conhecimento", "ferramentas"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "mneme-segundo-cerebro"
+contentType: "lab"
+code: "LAB-005"
+draft: false
+---
+
+Mneme é o nome do cofre de notas onde guardo o que penso e o que aprendo. É uma pasta com arquivos Markdown, aberta no Obsidian, versionada com git. Boa parte dos textos deste laboratório e dos ensaios nasceu lá.
+
+## Como aprendo
+
+Eu aprendo construindo, não decorando. O ciclo é: achar um problema, desmontar, investigar, construir, quebrar, entender, reconstruir. Tenho um prazer particular quando algo parece complexo à primeira vista e revela uma estrutura elegante por baixo.
+
+Uma consequência é que meu conhecimento se organiza melhor por relações do que por listas. Lembro de uma coisa porque ela conecta a outra, e quase nunca porque estava na pasta certa. Por isso o cofre usa wikilinks como estrutura principal. A forma do cofre deveria espelhar a forma de pensar, e não o contrário.
+
+## As regras que usei
+
+- **Domínios, não hierarquia.** Há cinco pastas: `trabalho`, `pessoal`, `pesquisa`, `tecnologia` e `pessoas`. O resto é link.
+- **Três notas viram subpasta.** Quando um assunto junta três ou mais notas, elas ganham uma pasta e um índice. Antes disso ficam soltas na raiz, para a estrutura não nascer antes da necessidade. É o oposto exato de [generalizar cedo demais](/laboratorio/generalizar-cedo-demais).
+- **Uma nota, uma ideia.** Título em frase curta, sem frontmatter pesado.
+- **Notas rasas são marcadas como rasas.** Quando escrevo algo que ainda não entendi, a primeira linha diz "nota rasa, a aprofundar". Isso me impede de confiar numa nota que eu mesmo sei que está incompleta.
+- **Proveniência.** Nota que é interpretação minha diz que é interpretação. Nota que vem de código, ticket ou commit diz de onde veio.
+
+## Como o Claude Code entra
+
+Tenho um comando, `/mneme`, que captura o conteúdo de uma conversa como nota do cofre, seguindo as convenções acima. Ele procura se já existe uma nota parecida antes de criar, atualiza em vez de duplicar e não faz commit sozinho. O versionamento é decisão minha.
+
+O que importa é que o cofre é meu e é legível sem o modelo. Se o Claude desaparecer amanhã, eu continuo com uma pasta de texto bem ligada. É a mesma ideia de [nada fica do jeito que veio](/laboratorio/nada-fica-do-jeito-que-veio): a ferramenta ajuda, o dado fica comigo.
+
+## O que saiu dele
+
+Duas séries, até agora. Os ensaios do livro, por exemplo [A captura da imaginação](/ensaios/a-captura-imaginacao). E uma pesquisa de história da informação no Brasil, que virou [Do jornal à TV](/ensaios/do-jornal-a-tv) e as duas partes seguintes. Em ambos os casos, o artigo é a ponta visível de várias notas ligadas entre si.

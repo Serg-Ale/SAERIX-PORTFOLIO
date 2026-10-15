@@ -1,0 +1,55 @@
+---
+title: "Matrix Rain: de um script de chuva a um vídeo wall no terminal"
+description: "Comecei por birra com o cmatrix. Oito meses e 44 commits depois, o projeto tem três modos, true color, testes e várias janelas de terminal que viram uma tela só."
+date: "2026-10-15"
+tags: ["python", "terminal", "curses", "open-source", "arquitetura"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "matrix-rain-terminal-animation"
+contentType: "lab"
+code: "LAB-006"
+draft: false
+---
+
+![Chuva digital em Katakana verde, com a cabeça de cada coluna em branco](/blog/matrix-rain-terminal-animation/rain.gif)
+
+Tudo começou com uma birra. O `cmatrix` promete caracteres japoneses, mas na maioria dos terminais eles não renderizavam direito. As cores eram chapadas, sem brilho, e a animação parecia presa nos anos 2000. Fiz o que dá para fazer com uma birra dessas, escrevi a minha. O código está em [Serg-Ale/matrix-rain](https://github.com/Serg-Ale/matrix-rain).
+
+A primeira versão era um arquivo só, em Python, com `curses`. O que existe hoje não se parece com ela, e a parte mais útil de contar é como ela cresceu.
+
+## O que mudou
+
+**Três modos, trocáveis na hora.** Chuva, ondas de pulso e uma rede de nós em 3D. A tecla `m` alterna entre eles sem reiniciar.
+
+**Cor de verdade.** O primeiro gradiente tinha 8 tons e usava a paleta de 256 cores do terminal. Hoje o projeto usa 24 bits onde o terminal suporta, lendo `COLORTERM`, e cai de volta para a paleta de 256 quando não suporta. Para isso, a tela deixou de ser desenhada pelo `curses` e passou a emitir ANSI direto de um buffer de frame. Existem 11 temas e um modo arco-íris.
+
+![Chuva em nove temas de cor, mais o modo arco-íris](/blog/matrix-rain-terminal-animation/themes.png)
+
+**Pacote modular.** O arquivo único virou um motor compartilhado em `core/` e um arquivo por modo em `modes/`, com uma interface comum de duas funções, `reset` e `render`. Acrescentar um modo não toca no motor.
+
+**Testes.** O motor de cor, as paletas, a lógica do vídeo wall e a divisão do buffer de tela têm mais de cem testes de unidade, com a biblioteca padrão. O que depende do `curses` não tem teste automático, é validado à mão, e o `AGENTS.md` do repositório diz isso com todas as letras.
+
+## O vídeo wall
+
+![Duas janelas de terminal lado a lado, com uma única animação de rede que continua de uma para a outra](/blog/matrix-rain-terminal-animation/wall-row.gif)
+
+A funcionalidade que mais gostei de construir. Rodando `matrix-rain --wall` em dois ou mais terminais, eles viram tiles de uma tela só. A animação roda uma vez e cada janela mostra a sua fatia do mesmo canvas.
+
+Algumas decisões que valem registro.
+
+- **Um host e vários clientes.** O primeiro terminal vira host e calcula cada quadro. Os outros pedem a sua fatia. A comunicação usa um socket Unix privado, então o wall é local à sua máquina e ao seu usuário, e não conecta máquinas diferentes.
+- **Eleição com `flock`.** Quando dois terminais abrem ao mesmo tempo, quem vira host? A revisão do primeiro ticket do wall apontou o problema e hoje um `flock` decide.
+- **Sucessão de host.** Se o host sai, por `q`, `Ctrl+C` ou queda, o cliente mais antigo assume com as últimas configurações do wall e os demais reconectam. A animação recomeça, a imagem continua.
+- **Grade 2D.** `--at LINHA,COLUNA` diz onde cada terminal fica. Um terminal em cima e dois embaixo funciona, e a chuva passa de uma janela para a outra.
+- **Modo de layout.** A tecla `L` entra num modo em que as setas movem o tile pela grade, trocando de lugar com quem já está lá.
+- **Intervalo entre janelas.** Janelas reais têm moldura, e a imagem quebra na emenda. Teclas ajustam quantas colunas ou linhas do canvas ficam escondidas em cada emenda, e o valor certo depende do seu terminal e da fonte, então se acerta olhando.
+
+O código de decisão do wall, layout dos tiles, intervalo, sucessão e protocolo de mensagens, fica em um módulo puro, sem socket e sem `curses`. É isso que torna possível testá-lo. A casca de I/O é fina e fica separada.
+
+## Como foi feito
+
+O wall foi construído em tickets numerados, do #16 ao #22. O primeiro era um tracer bullet: juntava dois terminais numa tela só, ainda sem nenhuma das decisões acima. Cada ticket seguinte acrescentou uma coisa e passou por revisão antes de entrar. Foi o [mesmo fluxo que uso com o Claude Code](/laboratorio/como-trabalho-com-claude-code), aplicado a um projeto pessoal. As revisões acharam coisas reais, como a corrida da eleição e vazamentos de listener e socket, e isso foi antes de o código chegar à branch principal.
+
+## O que ainda não faz
+
+Não conecta máquinas diferentes, porque o wall depende de um socket Unix local. Também não há distribuição por `pip` ou `pipx`, que está registrada como trabalho futuro. Hoje se instala clonando o repositório e criando um link no `PATH`. O nome definitivo do projeto também está em aberto.

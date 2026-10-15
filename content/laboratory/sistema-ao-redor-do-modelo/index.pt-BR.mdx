@@ -1,0 +1,40 @@
+---
+title: "O sistema ao redor do modelo"
+description: "O modelo sozinho não é o produto. Por que tirei um agente de IA do caminho de decisão de um chatbot de WhatsApp e o que ficou no lugar dele."
+date: "2026-10-15"
+tags: ["ia", "llm", "arquitetura", "automação", "n8n"]
+author: "Sérgio Alexandre"
+locale: "pt-BR"
+slug: "sistema-ao-redor-do-modelo"
+contentType: "lab"
+code: "LAB-002"
+draft: false
+---
+
+O que me interessa em IA não é usar o ChatGPT. É a camada de engenharia que fica em volta do modelo: agentes, ferramentas, contexto, memória, fluxos, automação. A pergunta que organiza tudo isso para mim é como transformar um modelo de linguagem num componente confiável de um sistema maior. O modelo sozinho não é o produto. O sistema ao redor dele é.
+
+## O caso que me ensinou isso
+
+O Corta.ai agenda horário de barbearia pelo WhatsApp. A primeira versão do fluxo seguia o caminho que todo mundo segue: um agente de IA recebia a mensagem, tinha ferramentas de agendamento à disposição e decidia o que responder e o que executar.
+
+Funcionava na demonstração. O problema aparece quando você olha para o que o agente decide. Quem é essa pessoa, cliente ou barbeiro? Que barbearia é essa? O horário está livre? Ninguém precisa de um modelo de linguagem para responder nenhuma dessas perguntas, e um erro em qualquer uma delas é um erro de negócio, não um erro de texto. Um horário marcado duas vezes não é uma alucinação simpática.
+
+A versão atual não tem agente de IA no caminho de decisão. Um ponto de entrada único resolve a barbearia pelo número que recebeu a mensagem, identifica o papel de quem escreveu e entrega a conversa a um orquestrador específico daquele papel. As ações que mexem em agenda passam por um tratador de comandos com poucas operações bem definidas. O roteamento é determinístico, então dá para testar, reproduzir e explicar.
+
+## O critério
+
+Escrevi uma regra para mim depois disso.
+
+Se a resposta certa é uma só e dá para calcular, é código. Se a entrada é linguagem solta e a saída é uma escolha entre poucas opções, o modelo pode ajudar a interpretar, mas quem executa é código. Se ninguém consegue dizer qual seria a resposta certa, aí sim o modelo é a ferramenta, e eu preciso de uma forma de medir se ele acertou.
+
+Na prática, isso empurrou o modelo para as bordas do sistema, onde o texto entra e onde o texto sai, e deixou o miolo previsível.
+
+## O que o modelo ainda faz bem
+
+Eu não saí dessa história com raiva de agente. Sai com um mapa melhor de onde ele rende. Tarefa de linguagem com margem para variação, rascunho, resumo, classificação com revisão, exploração de código. Em todas, o resultado passa por alguém ou por algo que consegue dizer que está errado.
+
+É a mesma lógica de [como trabalho com o Claude Code](/laboratorio/como-trabalho-com-claude-code). O modelo gera rápido, e o meu trabalho é manter à volta dele o que permite descobrir depressa quando ele erra. Entrevista antes, teste durante, revisão em contexto novo depois.
+
+## Uma pergunta que fica
+
+Muito do que chamam de "agente" hoje é um fluxo determinístico com um modelo numa etapa só. Isso é bom engenharia, não é rebaixamento. O que me preocupa é o caminho contrário, quando o modelo recebe poder sobre ações que ninguém sabe testar. Antes de dar uma ferramenta a um agente, eu pergunto o que acontece no pior caso e quem percebe.
