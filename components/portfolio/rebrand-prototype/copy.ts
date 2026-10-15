@@ -91,7 +91,7 @@ const en: ProtoCopy = {
       status:
         "Two barbershops are testing it. Login by OTP, with roles per barbershop. Owners and barbers manage schedule, services and cancellations. Billing runs daily: Pix, trial, grace period, and a block when payment is late. Analytics depend on the plan. In the chat, fixed flows handle the common commands and an LLM handles the rest. It runs on a self-hosted Evolution API, which costs less than Meta's official one.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Pix billing", "WhatsApp"],
-      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai.webp", alt: "Corta Aí landing page: the heading about scheduling through WhatsApp for barbershops, next to a demo of the chat menu." }] },
+      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai-tour-poster.webp", video: "/cases/corta-ai-tour.webm", alt: "A scroll through the Corta Aí site: scheduling through WhatsApp for barbershops, the chat menu demo, and how a message reaches the agenda and the panel." }, { src: "/cases/corta-ai.webp", alt: "Corta Aí landing page: the heading about scheduling through WhatsApp for barbershops, next to a demo of the chat menu." }] },
       flow: {
         label: "One API, two entry points",
         steps: [["Web admin", "Chat"], "BFF", "NestJS API", "Schedule, billing, analytics"],
@@ -112,7 +112,7 @@ const en: ProtoCopy = {
       status:
         "In active development, with a public site at atrium.kaizentechbr.com.br. The team is spread across Madrid, Mexico City and Brazil.",
       stack: ["NestJS", "Next.js", "Prisma", "Hikvision", "Control iD"],
-      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-hero.webp", alt: "Atrium landing page: the heading \"The guest's access opens and closes by itself\" over a building entrance with a face reader, and a check-in to check-out timeline." }, { src: "/cases/atrium-flow.webp", alt: "Atrium page explaining the flow: the guest registers from a link, and the reader receives the stay period." }] },
+      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-tour-poster.webp", video: "/cases/atrium-tour.webm", alt: "A scroll through the Atrium site: a building entrance with a face reader, the stay timeline, and the steps from the host's link to the open door." }, { src: "/cases/atrium-flow.webp", alt: "Atrium page explaining the flow: the guest registers from a link, and the reader receives the stay period." }] },
       flow: {
         label: "From registration to the door",
         steps: ["Person registered", "Temporary access", "Automatic events", ["Hikvision", "Control iD"], "Door opens"],
@@ -182,7 +182,7 @@ const ptBR: ProtoCopy = {
       status:
         "Duas barbearias estão testando. Login por OTP, com papéis por barbearia. Donos e barbeiros gerenciam agenda, serviços e cancelamentos. A cobrança roda todo dia: Pix, trial, carência e bloqueio quando o pagamento atrasa. O analytics depende do plano. No chat, fluxos fixos cuidam dos comandos comuns e um LLM cuida do resto. Roda numa Evolution API self-hosted, que custa menos que a oficial da Meta.",
       stack: ["Next.js", "NestJS", "PostgreSQL", "n8n", "Cobrança Pix", "WhatsApp"],
-      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai.webp", alt: "Landing do Corta Aí: o título sobre agendamento pelo WhatsApp para barbearias, ao lado de uma demonstração do menu do chat." }] },
+      site: { href: "https://corta-ai-barber.com.br/", label: "corta-ai-barber.com.br", images: [{ src: "/cases/corta-ai-tour-poster.webp", video: "/cases/corta-ai-tour.webm", alt: "Uma rolagem pelo site do Corta Aí: agendamento pelo WhatsApp para barbearias, a demonstração do menu do chat e como uma mensagem chega à agenda e ao painel." }, { src: "/cases/corta-ai.webp", alt: "Landing do Corta Aí: o título sobre agendamento pelo WhatsApp para barbearias, ao lado de uma demonstração do menu do chat." }] },
       flow: {
         label: "Uma API, duas entradas",
         steps: [["Admin web", "Chat"], "BFF", "API NestJS", "Agenda, cobrança, analytics"],
@@ -203,7 +203,7 @@ const ptBR: ProtoCopy = {
       status:
         "Em desenvolvimento ativo, com site público em atrium.kaizentechbr.com.br. O time está espalhado entre Madrid, Cidade do México e Brasil.",
       stack: ["NestJS", "Next.js", "Prisma", "Hikvision", "Control iD"],
-      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-hero.webp", alt: "Landing do Atrium: o título \"O acesso do hóspede abre e fecha sozinho\" sobre a entrada de um prédio com leitor facial, e uma linha do tempo de check-in a check-out." }, { src: "/cases/atrium-flow.webp", alt: "Página do Atrium explicando o fluxo: o hóspede se cadastra por um link, e o leitor recebe o período da estadia." }] },
+      site: { href: "https://atrium.kaizentechbr.com.br/", label: "atrium.kaizentechbr.com.br", images: [{ src: "/cases/atrium-tour-poster.webp", video: "/cases/atrium-tour.webm", alt: "Uma rolagem pelo site do Atrium: a entrada de um prédio com leitor facial, a linha do tempo da estadia e os passos do link do anfitrião até a porta aberta." }, { src: "/cases/atrium-flow.webp", alt: "Página do Atrium explicando o fluxo: o hóspede se cadastra por um link, e o leitor recebe o período da estadia." }] },
       flow: {
         label: "Do cadastro até a porta",
         steps: ["Pessoa cadastrada", "Acesso temporário", "Eventos automáticos", ["Hikvision", "Control iD"], "Porta abre"],

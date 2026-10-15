@@ -224,7 +224,6 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
                         href={href}
                         label={label}
                         cta={href ? cta : undefined}
-                        size={p.group === "cli" ? "compact" : "full"}
                       />
                     )}
                     {p.featured && p.decision && (

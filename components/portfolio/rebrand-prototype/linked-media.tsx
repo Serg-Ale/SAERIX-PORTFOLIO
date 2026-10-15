@@ -1,9 +1,10 @@
 // One rule for every image on the page: it is a link to the real thing. A live site
 // for products and apps, the repository for command-line tools. Same frame, same caption.
-// A short muted loop plays when there is a video, and the poster stands in for anyone
-// who prefers less motion.
+// A short muted loop plays when there is a video (only while on screen), and the poster
+// stands in for anyone who prefers less motion.
 
 import Image from "next/image"
+import { LoopVideo } from "./loop-video"
 
 export interface MediaItem {
   src: string
@@ -25,17 +26,7 @@ function Frame({ item, width, height }: { item: MediaItem; width: number; height
         loading="lazy"
         className="hidden h-auto w-full motion-reduce:block"
       />
-      <video
-        className="h-auto w-full motion-reduce:hidden"
-        src={item.video}
-        poster={item.src}
-        aria-label={item.alt}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-      />
+      <LoopVideo src={item.video} poster={item.src} label={item.alt} className="h-auto w-full motion-reduce:hidden" />
     </>
   )
 }
