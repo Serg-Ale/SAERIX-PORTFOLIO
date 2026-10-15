@@ -1,6 +1,6 @@
 import type { TOCHeading } from "./types"
 
-function slugify(text: string): string {
+export function slugify(text: string): string {
   return text
     .toLowerCase()
     .normalize("NFD")

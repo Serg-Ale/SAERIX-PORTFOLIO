@@ -265,7 +265,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
             <GhostCta href={PROTO_LINKS.github}>GitHub</GhostCta>
           </div>
           <div className="flex flex-wrap gap-6 font-mono text-xs text-[var(--muted)]">
-            <a href={`/${locale}/blog`} className="hover:text-[var(--text)]">{copy.labels.writing} →</a>
+            <a href={`/${locale}/laboratorio`} className="hover:text-[var(--text)]">{copy.labels.writing} →</a>
             <a href={`/${locale}/saerix`} className="hover:text-[var(--text)]">{copy.labels.saerix} ↗</a>
           </div>
         </section>

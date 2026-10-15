@@ -118,12 +118,30 @@
       "intro": "Antes da pista, veio a música. Da flauta transversal à orquestra, do piano à composição em partitura, SAERIX nasce de uma escuta construída na prática.",
       "body": "Agora, essa bagagem chega às CDJs, aos grooves, aos drops e à noite — não como teoria, mas como instinto treinado.",
       "steps": [
-        { "label": "Flauta transversal", "tag": "INSTRUMENTO" },
-        { "label": "Orquestra / Igreja", "tag": "PRÁTICA" },
-        { "label": "Piano e harmonia", "tag": "TEORIA" },
-        { "label": "Composição em partitura", "tag": "CRIAÇÃO" },
-        { "label": "Produção eletrônica", "tag": "PRODUÇÃO" },
-        { "label": "CDJ / pista / noite", "tag": "AGORA" }
+        {
+          "label": "Flauta transversal",
+          "tag": "INSTRUMENTO"
+        },
+        {
+          "label": "Orquestra / Igreja",
+          "tag": "PRÁTICA"
+        },
+        {
+          "label": "Piano e harmonia",
+          "tag": "TEORIA"
+        },
+        {
+          "label": "Composição em partitura",
+          "tag": "CRIAÇÃO"
+        },
+        {
+          "label": "Produção eletrônica",
+          "tag": "PRODUÇÃO"
+        },
+        {
+          "label": "CDJ / pista / noite",
+          "tag": "AGORA"
+        }
       ]
     },
     "visual": {
@@ -169,7 +187,8 @@
     "projects": "PROJECTS",
     "essays": "ESSAYS",
     "laboratory": "LABORATORY",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "dev": "PORTFOLIO"
   },
   "hero": {
     "firstName": "SÉRGIO",
@@ -274,37 +293,65 @@
       {
         "title": "MATRIX RAIN",
         "tagline": "The terminal matrix effects I found online were neat but never quite mine. I rewrote it.",
-        "tech": ["PYTHON", "CURSES", "TERMINAL", "KATAKANA"],
+        "tech": [
+          "PYTHON",
+          "CURSES",
+          "TERMINAL",
+          "KATAKANA"
+        ],
         "url": "https://github.com/Serg-Ale/matrix-rain"
       },
       {
         "title": "LIGHTSYNC",
         "tagline": "I wanted my room's lights to match my screen. Nothing did it the way I wanted. So I built LightSync.",
-        "tech": ["HARDWARE", "SOFTWARE", "AUTOMATION"],
+        "tech": [
+          "HARDWARE",
+          "SOFTWARE",
+          "AUTOMATION"
+        ],
         "url": null
       },
       {
         "title": "THINKFLOW",
         "tagline": "I built the assistant I wished existed — a personal flow manager and thinking tool.",
-        "tech": ["FASTAPI", "REACT", "TYPESCRIPT"],
+        "tech": [
+          "FASTAPI",
+          "REACT",
+          "TYPESCRIPT"
+        ],
         "url": "https://github.com/lxndrbukin/ThinkFlow"
       },
       {
         "title": "COMO-ELES-VOTARAM",
         "tagline": "I wanted to know how politicians voted, simply and clearly — so I made a transparency tool.",
-        "tech": ["T3 STACK", "NEXT.JS", "PRISMA", "TRPC"],
+        "tech": [
+          "T3 STACK",
+          "NEXT.JS",
+          "PRISMA",
+          "TRPC"
+        ],
         "url": "https://github.com/Serg-Ale/Como-Eles-Votaram"
       },
       {
         "title": "UNION AUDIO",
         "tagline": "Where my music and engineering meet — products I help build while composing on the side.",
-        "tech": ["NEXT.JS 16", "REACT 19", "TURBOREPO", "TAILWIND"],
+        "tech": [
+          "NEXT.JS 16",
+          "REACT 19",
+          "TURBOREPO",
+          "TAILWIND"
+        ],
         "url": "https://www.unionaudio.com.br"
       },
       {
         "title": "BARBER APP",
         "tagline": "Led the product from scratch — architecting the platform while building the team and features.",
-        "tech": ["NEXT.JS 16", "PRISMA", "NEXTAUTH", "N8N"],
+        "tech": [
+          "NEXT.JS 16",
+          "PRISMA",
+          "NEXTAUTH",
+          "N8N"
+        ],
         "url": null
       }
     ]
@@ -503,42 +550,70 @@
         "number": "01",
         "title": "MATRIX RAIN",
         "description": "I liked the terminal Matrix effects people shared online, but none of them felt like mine. So I rebuilt the idea from scratch in Python with curses, tuning the motion, Katakana, and color behavior until it matched the mood I wanted.",
-        "tech": ["PYTHON", "CURSES", "TERMINAL", "KATAKANA"],
+        "tech": [
+          "PYTHON",
+          "CURSES",
+          "TERMINAL",
+          "KATAKANA"
+        ],
         "url": "https://github.com/Serg-Ale/matrix-rain"
       },
       {
         "number": "02",
         "title": "LIGHTSYNC",
         "description": "I wanted the lights in my room to react to whatever was happening on my screen instead of staying static. Since I couldn’t find a version that behaved the way I imagined, I built LightSync as my own hardware-and-software experiment.",
-        "tech": ["HARDWARE", "SOFTWARE", "AUTOMATION"],
+        "tech": [
+          "HARDWARE",
+          "SOFTWARE",
+          "AUTOMATION"
+        ],
         "url": null
       },
       {
         "number": "03",
         "title": "THINKFLOW",
         "description": "ThinkFlow came from a personal need: I wanted an assistant that could help me organize thought, momentum, and decision-making without getting in the way. I built it as the flow manager I wished already existed for my own daily process.",
-        "tech": ["FASTAPI", "REACT", "TYPESCRIPT"],
+        "tech": [
+          "FASTAPI",
+          "REACT",
+          "TYPESCRIPT"
+        ],
         "url": "https://github.com/lxndrbukin/ThinkFlow"
       },
       {
         "number": "04",
         "title": "COMO-ELES-VOTARAM",
         "description": "I wanted a simple way to understand how politicians were actually voting, without noise or friction. That frustration turned into a transparency tool focused on making public information clearer and easier to navigate.",
-        "tech": ["T3 STACK", "NEXT.JS", "PRISMA", "TRPC"],
+        "tech": [
+          "T3 STACK",
+          "NEXT.JS",
+          "PRISMA",
+          "TRPC"
+        ],
         "url": "https://github.com/Serg-Ale/Como-Eles-Votaram"
       },
       {
         "number": "05",
         "title": "UNION AUDIO",
         "description": "Union Audio is where my music background and product engineering naturally meet. It’s the kind of work that feels personal: helping build tools for a music world I already care about, while still bringing a software engineer’s discipline to the product.",
-        "tech": ["NEXT.JS 16", "REACT 19", "TURBOREPO", "TAILWIND"],
+        "tech": [
+          "NEXT.JS 16",
+          "REACT 19",
+          "TURBOREPO",
+          "TAILWIND"
+        ],
         "url": "https://www.unionaudio.com.br"
       },
       {
         "number": "06",
         "title": "BARBER APP",
         "description": "Barber App was an opportunity to lead from the beginning instead of joining halfway through. I’ve been shaping the platform, the product direction, and the delivery process at the same time, treating it as both a technical build and a leadership challenge.",
-        "tech": ["NEXT.JS 16", "PRISMA", "NEXTAUTH", "N8N"],
+        "tech": [
+          "NEXT.JS 16",
+          "PRISMA",
+          "NEXTAUTH",
+          "N8N"
+        ],
         "url": null
       }
     ]
@@ -703,13 +778,74 @@
       "period": "Jul 2022 — Dec 2025"
     },
     "languages": [
-      { "name": "Portuguese", "level": "Native" },
-      { "name": "English", "level": "EF SET 72/100, verifiable certificate" }
+      {
+        "name": "Portuguese",
+        "level": "Native"
+      },
+      {
+        "name": "English",
+        "level": "EF SET 72/100, verifiable certificate"
+      }
     ],
     "lookingForFragments": [
       "Looking for what's next.",
       "A remote role on an international team, shipping real products end to end.",
       "Not just shipping it — sticking around to make it better once it's live."
     ]
+  },
+  "editorial": {
+    "seriesNav": "Series",
+    "series": {
+      "essay": {
+        "name": "Essays",
+        "blurb": "Long, personal pieces on power, media, attention and technology, plus the historical research behind them."
+      },
+      "lab": {
+        "name": "Laboratory",
+        "blurb": "Method, tools and projects. How I think, decide and build, with the real cases that taught me."
+      }
+    },
+    "map": {
+      "title": "Vault map",
+      "label": "Map of the notes and the links between them",
+      "caption": "Each dot is a text. Each line is a real link between two of them."
+    },
+    "filterByTag": "Filter by tag",
+    "allTags": "All",
+    "empty": "No text with this tag.",
+    "reading": "{minutes} min",
+    "seeOther": "See {series}",
+    "props": {
+      "label": "Text properties",
+      "code": "Code",
+      "date": "Date",
+      "reading": "Reading time",
+      "tags": "Tags"
+    },
+    "toc": "On this note",
+    "rail": "Text navigation",
+    "citedBy": "Cited by",
+    "pointsTo": "Points to",
+    "share": "Share",
+    "copyLink": "Copy link",
+    "copied": "Link copied",
+    "fallback": "This text is written in Portuguese.",
+    "skipMap": "Skip the map and go to the list",
+    "here": "You are here",
+    "tabProps": "Properties",
+    "tabNav": "Navigation and map",
+    "focusHint": "Collapse or open. The F key toggles focus mode.",
+    "focus": "Focus mode",
+    "focusExit": "Exit focus",
+    "theme": "Toggle theme",
+    "siteNav": "Site navigation",
+    "menu": "Menu",
+    "navDev": "Portfolio",
+    "footer": {
+      "tagline": "Full-stack software engineer in Londrina, Brazil. I write about how I think and build.",
+      "read": "Read",
+      "contact": "Contact",
+      "rights": "Sérgio Alexandre"
+    }
   }
 }

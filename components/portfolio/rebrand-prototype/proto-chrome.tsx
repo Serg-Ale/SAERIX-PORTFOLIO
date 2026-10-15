@@ -126,7 +126,7 @@ export function ProtoContact({
           <GhostCta href={PROTO_LINKS.github}>GitHub</GhostCta>
         </div>
         <div className="flex flex-wrap gap-6 border-t border-[var(--line)] pt-6 font-mono text-xs text-[var(--muted)]">
-          <a href={`/${locale}/blog`} className="hover:text-[var(--text)]">
+          <a href={`/${locale}/laboratorio`} className="hover:text-[var(--text)]">
             {copy.labels.writing}
           </a>
           <a href={`/${locale}/saerix`} className="hover:text-[var(--text)]">
