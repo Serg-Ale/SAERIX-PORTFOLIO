@@ -1,8 +1,10 @@
 "use client"
 
 // A short replay of a real grilling session, typed out line by line when it scrolls
-// into view. With reduced motion, or before the script runs, every line is shown.
+// into view. The command and the first spoken line are always visible. With reduced
+// motion, every line is shown.
 
+import { Mic } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
 export interface TerminalLine {
@@ -25,13 +27,13 @@ export function TerminalReplay({ cwd, lines, label }: { cwd: string; lines: Term
   useEffect(() => {
     const el = ref.current
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    setShown(0)
+    setShown(2)
     let timer: ReturnType<typeof setInterval> | undefined
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
         io.disconnect()
-        let n = 0
+        let n = 2
         timer = setInterval(() => {
           n += 1
           setShown(n)
@@ -64,7 +66,7 @@ export function TerminalReplay({ cwd, lines, label }: { cwd: string; lines: Term
         {lines.map((l, i) => (
           <p key={i} className={`${STYLE[l.kind]} transition-opacity duration-500 ${i < shown ? "opacity-100" : "opacity-0"}`}>
             {l.kind === "cmd" && <span className="mr-2 text-[var(--orange)]">$</span>}
-            {l.kind === "you" && <span className="mr-2 text-[var(--orange)]">›</span>}
+            {l.kind === "you" && <Mic aria-hidden="true" className="mr-2 inline h-3 w-3 -translate-y-px text-[var(--orange)]" />}
             {l.kind === "ok" && <span className="mr-2">✓</span>}
             {l.text}
           </p>

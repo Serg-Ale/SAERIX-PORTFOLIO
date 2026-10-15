@@ -25,7 +25,8 @@ export interface ProtoStory {
     label: string
     title: string
     lead: string
-    loop: { skill: string; title: string; body: string }[]
+    voice: { label: string; caption: string; stepsLabel: string }
+    loop: { skill: string; short: string; title: string; body: string }[]
     review: { label: string; lanes: [string, string] }
     memory: string
     terminal: { cwd: string; lines: { kind: "cmd" | "you" | "q" | "opt" | "ok"; text: string }[] }
@@ -39,15 +40,23 @@ export interface ProtoStory {
   }
   how: {
     stance: string
-    lead: string
-    focus: string
+    tagline: string
+    origin: { title: string; body: string }[]
+    hyperfocus: { label: string; body: string }
     principles: { title: string; body: string }[]
     proofCta: string
     proofNote: string
     quality: string[]
+    metrics: { value: string; label: string }[]
   }
   journey: {
-    items: { year: string; title: string; body: string; now?: boolean }[]
+    // Only levels the page already states, and no years, so there is one source of dates.
+    ladder: { level: string; org: string }[]
+    items: {
+      year: string; org: string; title: string; body: string; tags: string[]
+      kind: "school" | "uni" | "night" | "work" | "now"
+      level?: string; now?: boolean
+    }[]
     fundamentals: string
   }
   stack: { groups: StackGroup[] }
@@ -58,6 +67,8 @@ export interface ProtoStory {
     items: {
       name: string; blurb: string; decision?: string; tags: string[]
       repo?: string; live?: string; featured?: boolean
+      // The project's own color, sampled from its screenshots.
+      accent?: string
       // Web apps first, then command-line tools; the image links to the live app or, for a tool, the repo.
       group: "web" | "cli"
       media?: MediaItem[]
@@ -133,12 +144,13 @@ const en: ProtoStory = {
     label: "Setup",
     title: "How I work with Claude Code",
     lead: "The same loop on every piece of work that has decisions still open.",
+    voice: { label: "I talk", caption: "I describe the problem out loud, then answer Claude's questions the same way.", stepsLabel: "Then the same five steps, every time" },
     loop: [
-      { skill: "/grill-me", title: "Grill the plan", body: "One question at a time, each with a recommended answer, until no decision is left open." },
-      { skill: "/to-spec", title: "Write the spec", body: "The conversation becomes a spec." },
-      { skill: "/to-tickets", title: "Cut the tickets", body: "Small vertical slices, each one saying what blocks what." },
-      { skill: "/tdd", title: "Test first", body: "Red, green, refactor on the seams we agreed on." },
-      { skill: "/code-review", title: "Review in a clean context", body: "The review does not inherit the blind spots of the build." },
+      { skill: "/grill-me", short: "grill", title: "Grill the plan", body: "One question at a time, each with a recommended answer, until no decision is left open." },
+      { skill: "/to-spec", short: "spec", title: "Write the spec", body: "The conversation becomes a spec." },
+      { skill: "/to-tickets", short: "tickets", title: "Cut the tickets", body: "Small vertical slices, each one saying what blocks what." },
+      { skill: "/tdd", short: "tdd", title: "Test first", body: "Red, green, refactor on the seams we agreed on." },
+      { skill: "/code-review", short: "review", title: "Review in a clean context", body: "The review does not inherit the blind spots of the build." },
     ],
     review: { label: "two sub-agents, in parallel", lanes: ["Standards", "Spec"] },
     memory: "Each repo keeps a CLAUDE.md and docs for the agent, so the context lives in git and not in my head.",
@@ -168,22 +180,24 @@ const en: ProtoStory = {
         { keys: "Meta + Alt + H J K L", does: "switch window" },
         { keys: "Meta + Shift + H L", does: "send it to another screen" },
       ],
-      text: "My KDE shortcuts follow how Vim and tiling window managers work, so I move between windows and screens without the mouse. I keep many things open at once, and knowing the whole system lets me document a bug while I fix another. The editor is Neovim, in kitty, with fish and starship.",
+      text: "My KDE shortcuts follow Vim and tiling window managers, so I move between windows and screens without the mouse. I keep many things open at once and know the whole system, so I can document one bug while I fix another. Neovim, in kitty, with fish and starship.",
     },
     credit: { text: "Built on Matt Pocock's open-source skills, plus a few of my own.", href: "https://github.com/mattpocock/skills" },
   },
   how: {
-    stance: "Spec-driven development, not prompt engineering.",
-    lead: "I learned Java in high school, drawn in by Minecraft, and I started college before AI wrote code. My data structures exams were on paper, and my Java was in Notepad. So I know abstraction and how memory works, and today typing is the fast part. What I bring is the mental model of the whole.",
-    focus: "I have ADHD, and in this field it works as a strength. Hyperfocus keeps the mental model loaded for me, so I can follow the logs, the deployment and a merge while I talk to Claude, and still answer a message in the gap.",
+    stance: "Speak-driven development.",
+    tagline: "I talk, Claude asks, and the spec comes out of the conversation. It is not prompt engineering.",
+    origin: [
+      { title: "Java in high school", body: "Through Alura, pulled in by Minecraft." },
+      { title: "Exams on paper", body: "Data structures on paper, Java in Notepad." },
+      { title: "The whole in my head", body: "I started college before AI wrote code. Typing is the fast part now." },
+    ],
+    hyperfocus: { label: "ADHD, as a strength", body: "Hyperfocus keeps the mental model loaded. I follow the logs, a deploy and a merge while I talk to Claude, and still answer a message in the gap." },
     principles: [
-      { title: "Align on the whole", body: "Questions before code. A shared vision with the team and the PO before the first ticket." },
-      {
-        title: "AI executes, I direct",
-        body: "AI executes and researches faster than I do, and it surfaces risks and failure modes quickly. It also has bias and doesn't always show every option. The mental model and the questions stay mine.",
-      },
-      { title: "Prove it in the open", body: "Spec, tickets, TDD and review in a public repository, for anyone to check." },
-      { title: "Speak up when something is off", body: "I might be in the payments module and spot an authentication problem somewhere else. I say so, and since code is cheap now, I fix it or write it up right then. The job is to solve the problem, and the technology is the tool." },
+      { title: "Align on the whole", body: "I ask before I code. The team and the PO share one vision before the first ticket." },
+      { title: "AI executes, I direct", body: "It researches and executes faster than I do, and it flags risks early. But it has bias and does not always show every option. The mental model and the questions stay mine." },
+      { title: "Prove it in the open", body: "Spec, tickets, TDD and review in a public repository. Anyone can check." },
+      { title: "Speak up when something is off", body: "In the payments module and see an auth problem elsewhere? I say so, and since code is cheap now, I fix it or write it up right then." },
     ],
     proofCta: "Read spec #14 ↗",
     proofNote: "matrix-rain: spec #14, tickets #15 to #22, 15 merged PRs and unit tests.",
@@ -192,23 +206,24 @@ const en: ProtoStory = {
       "CI/CD with pre-commit hooks",
       "Mentoring an intern with a structured development plan",
     ],
+    metrics: [
+      { value: ">80%", label: "test coverage on Aeon Tech's product" },
+      { value: "CI/CD", label: "with pre-commit hooks" },
+      { value: "Mentoring", label: "an intern, with a structured plan" },
+    ],
   },
   journey: {
+    ladder: [
+      { level: "Intern", org: "TCS" },
+      { level: "Jr", org: "Aeon Tech" },
+      { level: "Mid-level", org: "Aeon Tech" },
+    ],
     items: [
-      { year: "School", title: "High school, Java", body: "The state of Paraná gave students access to Alura, and I started learning Java, mostly because of Minecraft. I wanted to change what was around me with code." },
-      { year: "2022", title: "UTFPR + TCS, intern", body: "Started the first job in June and the degree in July, months before ChatGPT. I already knew Java, so I made class assignments bigger, with console menus and ASCII art. Data structures on paper, Java in Notepad. At work, front end, back end, tests and Scrum." },
-      {
-        year: "2023",
-        title: "TCS, night on-call",
-        body: "Night on-call for a large retail chain's critical systems. In incident war rooms I was the technical link between engineering and managers.",
-      },
-      { year: "2024", title: "Aeon Tech, Jr", body: "Rebuilt the product with a team of four to five. I delivered the front end, with feedback, profiles, auth and the landing page, and a self-hosted WhatsApp automation base." },
-      {
-        year: "2026",
-        title: "Aeon Tech mid-level + Kaizen",
-        body: "Mid-level at Aeon Tech since March, working on Corta-ai across web, API, billing and analytics. Partner-dev at Kaizen.",
-        now: true,
-      },
+      { year: "School", org: "Alura", kind: "school", title: "Java, because of Minecraft", body: "The state of Paraná gave students access to Alura. I wanted to change what was around me with code.", tags: ["Java"] },
+      { year: "2022", org: "UTFPR + TCS", kind: "uni", level: "Intern", title: "College and a first job, before ChatGPT", body: "First job in June, degree in July. I made class assignments bigger, with console menus and ASCII art. At work I touched front end, back end, tests and Scrum.", tags: ["Java", "Tests", "Scrum"] },
+      { year: "2023", org: "TCS", kind: "night", title: "Night on-call", body: "Critical systems of a large retail chain. In incident war rooms I was the technical link between engineering and managers.", tags: ["Incidents"] },
+      { year: "2024", org: "Aeon Tech", kind: "work", level: "Jr", title: "Rebuilt the product", body: "A team of four to five. I delivered the front end, with feedback, profiles, auth and the landing page, plus a self-hosted WhatsApp automation base.", tags: ["Next.js", "React", "GSAP", "n8n"] },
+      { year: "2026", org: "Aeon Tech + Kaizen", kind: "now", level: "Mid-level", now: true, title: "Corta-ai and Atrium", body: "Mid-level at Aeon Tech since March, on Corta-ai across web, API, billing and analytics. Partner-dev at Kaizen, on Atrium.", tags: ["NestJS", "Next.js", "Prisma", "PostgreSQL"] },
     ],
     fundamentals:
       "I like understanding how technology works underneath. It is the closest thing to magic we have: with a computer and an idea, I can change what is around me.",
@@ -220,10 +235,11 @@ const en: ProtoStory = {
     }),
   },
   projects: {
-    intro: "Most of these began as tools for my own routine. I like changing what is around me, and music works the same way. When I compose, I change the room too. Many were built at night, when the ideas show up. An image opens the live app, or the repository when it is a command-line tool.",
+    intro: "Most of these began as tools for my own routine. I like changing what is around me, and music works the same way. Many were built at night, when the ideas show up. Each image opens the live app, or the repository for a command-line tool.",
     items: [
       {
         name: "gym-stuff",
+        accent: "#4F7CFF",
         featured: true,
         group: "web",
         blurb: "A workout assistant for the phone: one exercise at a time, set logging, an adjustable rest timer, and it works without a signal.",
@@ -235,6 +251,7 @@ const en: ProtoStory = {
       },
       {
         name: "SAERIX portfolio",
+        accent: "#E83FBF",
         featured: true,
         group: "web",
         blurb: "This site. Next.js 16 and React 19 with GSAP, in English and Portuguese. It holds two identities, the engineer page you are reading and SAERIX, the page for my music.",
@@ -242,7 +259,7 @@ const en: ProtoStory = {
         tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
         repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
         live: "https://saerix.vercel.app/en/saerix",
-        media: [{ src: "/projects/saerix-tour-poster.webp", video: "/projects/saerix-tour.webm", alt: "A scroll through the SAERIX page: the name in large type, the manifesto lines, the sound meter and the booking section." }, { src: "/projects/saerix-hero.webp", alt: "The SAERIX page: the name in large type next to a poster-style portrait, with buttons to book a set and to listen on SoundCloud." }],
+        media: [{ tab: "Tour", src: "/projects/saerix-tour-poster.webp", video: "/projects/saerix-tour.webm", alt: "A scroll through the SAERIX page: the name in large type, the manifesto lines, the sound meter and the booking section." }, { tab: "Hero", src: "/projects/saerix-hero.webp", alt: "The SAERIX page: the name in large type next to a poster-style portrait, with buttons to book a set and to listen on SoundCloud." }],
       },
       {
         name: "Como-Eles-Votaram",
@@ -255,18 +272,20 @@ const en: ProtoStory = {
       },
       {
         name: "matrix-rain",
+        accent: "#2BD96B",
         group: "cli",
         blurb: "Matrix rain for the terminal in Python and curses, now becoming a multi-mode visualizer. I run it like a product. Spec first, then tickets, TDD and review, all public.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
-        media: [{ src: "/projects/matrix-rain-pulse-poster.webp", video: "/projects/matrix-rain-pulse.webm", alt: "Pulse mode: a circular wave of falling Japanese characters and symbols pulses across the terminal." }, { src: "/projects/matrix-rain-network-poster.webp", video: "/projects/matrix-rain-network.webm", alt: "Network mode: glowing nodes and links appear and fade across the terminal." }],
+        media: [{ tab: "Pulse", src: "/projects/matrix-rain-pulse-poster.webp", video: "/projects/matrix-rain-pulse.webm", alt: "Pulse mode: a circular wave of falling Japanese characters and symbols pulses across the terminal." }, { tab: "Network", src: "/projects/matrix-rain-network-poster.webp", video: "/projects/matrix-rain-network.webm", alt: "Network mode: glowing nodes and links appear and fade across the terminal." }],
       },
       {
         name: "lightsync",
+        accent: "#B44CF5",
         group: "cli",
         blurb: "A local service that makes a smart bulb follow the screen and the music playing on the computer. It runs without the cloud and has four modes: screen sync, white, color and music.",
         tags: ["Python", "PipeWire", "Tuya"],
-        media: [{ src: "/projects/lightsync-modes-poster.webp", video: "/projects/lightsync-modes.webm", alt: "The lightsync terminal panel in its modes: music with a spectrum and detected kick, five color themes, screen sync, fixed color and fixed white." }, { src: "/projects/lightsync.webp", alt: "The lightsync terminal panel in music mode: the lamp's last 60 seconds as a color strip, the detected kick and a bass, mid and treble spectrum." }],
+        media: [{ tab: "Modes", src: "/projects/lightsync-modes-poster.webp", video: "/projects/lightsync-modes.webm", alt: "The lightsync terminal panel in its modes: music with a spectrum and detected kick, five color themes, screen sync, fixed color and fixed white." }, { tab: "Music", src: "/projects/lightsync.webp", alt: "The lightsync terminal panel in music mode: the lamp's last 60 seconds as a color strip, the detected kick and a bass, mid and treble spectrum." }],
       },
     ],
     groups: { web: "Web and apps", cli: "Command line" },
@@ -291,12 +310,13 @@ const ptBR: ProtoStory = {
     label: "Setup",
     title: "Como eu trabalho com o Claude Code",
     lead: "O mesmo ciclo em todo trabalho que ainda tem decisão em aberto.",
+    voice: { label: "Eu falo", caption: "Descrevo o problema em voz alta e respondo as perguntas do Claude do mesmo jeito.", stepsLabel: "Depois, os mesmos cinco passos, sempre" },
     loop: [
-      { skill: "/grill-me", title: "Interrogar o plano", body: "Uma pergunta por vez, cada uma com a resposta recomendada, até não sobrar decisão em aberto." },
-      { skill: "/to-spec", title: "Escrever a spec", body: "A conversa vira uma spec." },
-      { skill: "/to-tickets", title: "Cortar os tickets", body: "Fatias verticais pequenas, cada uma dizendo o que bloqueia o quê." },
-      { skill: "/tdd", title: "Teste primeiro", body: "Vermelho, verde, refatorar nos pontos que combinamos." },
-      { skill: "/code-review", title: "Revisar com contexto limpo", body: "A revisão não herda os pontos cegos de quem construiu." },
+      { skill: "/grill-me", short: "grill", title: "Interrogar o plano", body: "Uma pergunta por vez, cada uma com a resposta recomendada, até não sobrar decisão em aberto." },
+      { skill: "/to-spec", short: "spec", title: "Escrever a spec", body: "A conversa vira uma spec." },
+      { skill: "/to-tickets", short: "tickets", title: "Cortar os tickets", body: "Fatias verticais pequenas, cada uma dizendo o que bloqueia o quê." },
+      { skill: "/tdd", short: "tdd", title: "Teste primeiro", body: "Vermelho, verde, refatorar nos pontos que combinamos." },
+      { skill: "/code-review", short: "review", title: "Revisar com contexto limpo", body: "A revisão não herda os pontos cegos de quem construiu." },
     ],
     review: { label: "dois sub-agentes, em paralelo", lanes: ["Padrões", "Spec"] },
     memory: "Cada repo guarda um CLAUDE.md e docs para o agente, então o contexto fica no git e não na minha cabeça.",
@@ -326,22 +346,24 @@ const ptBR: ProtoStory = {
         { keys: "Meta + Alt + H J K L", does: "trocar de janela" },
         { keys: "Meta + Shift + H L", does: "mandar para outra tela" },
       ],
-      text: "Meus atalhos no KDE seguem a lógica do Vim e dos gerenciadores de janela em tiling, então eu me movo entre janelas e telas sem o mouse. Mantenho muita coisa aberta ao mesmo tempo, e conhecer o sistema inteiro me deixa documentar um bug enquanto resolvo outro. O editor é o Neovim, no kitty, com fish e starship.",
+      text: "Meus atalhos no KDE seguem o Vim e os gerenciadores de janela em tiling, então me movo entre janelas e telas sem o mouse. Mantenho muita coisa aberta e conheço o sistema inteiro, então documento um bug enquanto resolvo outro. Neovim, no kitty, com fish e starship.",
     },
     credit: { text: "Feito sobre os skills open-source de Matt Pocock, mais alguns meus.", href: "https://github.com/mattpocock/skills" },
   },
   how: {
-    stance: "Desenvolvimento orientado por especificação, não engenharia de prompt.",
-    lead: "Aprendi Java no ensino médio, puxado pelo Minecraft, e entrei na faculdade antes de a IA escrever código. As provas de estrutura de dados eram no papel, e o Java era no bloco de notas. Então entendo abstração e como a memória funciona, e hoje digitar é a parte rápida. O que eu trago é o modelo mental do todo.",
-    focus: "Tenho TDAH, e nessa área isso funciona como força. O hiperfoco mantém o modelo mental carregado para mim, então acompanho os logs, o deploy e um merge enquanto converso com o Claude, e ainda respondo uma mensagem no intervalo.",
+    stance: "Speak-driven development.",
+    tagline: "Eu falo, o Claude pergunta, e a spec sai da conversa. Não é engenharia de prompt.",
+    origin: [
+      { title: "Java no ensino médio", body: "Pela Alura, puxado pelo Minecraft." },
+      { title: "Provas no papel", body: "Estrutura de dados no papel, Java no bloco de notas." },
+      { title: "O todo na cabeça", body: "Entrei na faculdade antes de a IA escrever código. Digitar é a parte rápida." },
+    ],
+    hyperfocus: { label: "TDAH, como força", body: "O hiperfoco mantém o modelo mental carregado. Acompanho os logs, um deploy e um merge enquanto converso com o Claude, e ainda respondo uma mensagem no intervalo." },
     principles: [
-      { title: "Alinhar o todo", body: "Perguntas antes do código. Visão compartilhada com o time e o PO antes do primeiro ticket." },
-      {
-        title: "A IA executa, eu dirijo",
-        body: "A IA executa e pesquisa mais rápido que eu, e levanta riscos e modos de falha com rapidez. Mas tem viés e nem sempre mostra todas as opções. O modelo mental e as perguntas continuam sendo meus.",
-      },
-      { title: "Provar em aberto", body: "Spec, tickets, TDD e revisão num repositório público, para qualquer um conferir." },
-      { title: "Falar quando algo está errado", body: "Posso estar no módulo de pagamento e notar um problema de autenticação em outro lugar. Eu aviso, e como código está barato hoje, corrijo ou documento na hora. O trabalho é resolver o problema, e a tecnologia é a ferramenta." },
+      { title: "Alinhar o todo", body: "Pergunto antes de codar. Time e PO com a mesma visão antes do primeiro ticket." },
+      { title: "A IA executa, eu dirijo", body: "Ela pesquisa e executa mais rápido que eu, e aponta riscos cedo. Mas tem viés e nem sempre mostra todas as opções. O modelo mental e as perguntas continuam meus." },
+      { title: "Provar em aberto", body: "Spec, tickets, TDD e revisão num repositório público. Qualquer um confere." },
+      { title: "Falar quando algo está errado", body: "Estou em pagamentos e vejo um problema de auth em outro lugar? Eu aviso, e como código está barato hoje, corrijo ou documento na hora." },
     ],
     proofCta: "Ler a spec #14 ↗",
     proofNote: "matrix-rain: spec #14, tickets #15 a #22, 15 PRs mergeados e testes unitários.",
@@ -350,23 +372,24 @@ const ptBR: ProtoStory = {
       "CI/CD com pre-commit hooks",
       "Mentoria de estagiário com PDI estruturado",
     ],
+    metrics: [
+      { value: ">80%", label: "de cobertura de testes no produto da Aeon Tech" },
+      { value: "CI/CD", label: "com pre-commit hooks" },
+      { value: "Mentoria", label: "de estagiário, com PDI estruturado" },
+    ],
   },
   journey: {
+    ladder: [
+      { level: "Estágio", org: "TCS" },
+      { level: "Jr", org: "Aeon Tech" },
+      { level: "Pleno", org: "Aeon Tech" },
+    ],
     items: [
-      { year: "Escola", title: "Ensino médio, Java", body: "O governo do Paraná liberou a Alura para os alunos, e comecei a aprender Java, muito por causa do Minecraft. Eu queria mudar o que estava ao meu redor com código." },
-      { year: "2022", title: "UTFPR + TCS, estágio", body: "Comecei o primeiro emprego em junho e a graduação em julho, meses antes do ChatGPT. Eu já sabia Java, então aumentava os trabalhos da faculdade, com menus no console e arte ASCII. Estrutura de dados no papel, Java no bloco de notas. No trabalho, front-end, back-end, testes e Scrum." },
-      {
-        year: "2023",
-        title: "TCS, plantão noturno",
-        body: "Plantão noturno nos sistemas críticos de uma grande rede varejista. Nas war rooms de incidente, eu fazia a ponte técnica entre engenharia e gestores.",
-      },
-      { year: "2024", title: "Aeon Tech, Jr", body: "Reconstrução do produto num time de quatro a cinco pessoas. Entreguei o front-end, com feedback, perfis, auth e a landing page, e uma base de automação WhatsApp self-hosted." },
-      {
-        year: "2026",
-        title: "Aeon Tech pleno + Kaizen",
-        body: "Pleno na Aeon Tech desde março, trabalhando no Corta-ai em web, API, cobrança e analytics. Sócio-dev na Kaizen.",
-        now: true,
-      },
+      { year: "Escola", org: "Alura", kind: "school", title: "Java, por causa do Minecraft", body: "O governo do Paraná liberou a Alura para os alunos. Eu queria mudar o que estava ao meu redor com código.", tags: ["Java"] },
+      { year: "2022", org: "UTFPR + TCS", kind: "uni", level: "Estágio", title: "Faculdade e primeiro emprego, antes do ChatGPT", body: "Primeiro emprego em junho, graduação em julho. Eu aumentava os trabalhos da faculdade, com menus no console e arte ASCII. No trabalho, passei por front-end, back-end, testes e Scrum.", tags: ["Java", "Testes", "Scrum"] },
+      { year: "2023", org: "TCS", kind: "night", title: "Plantão noturno", body: "Sistemas críticos de uma grande rede varejista. Nas war rooms de incidente, eu fazia a ponte técnica entre engenharia e gestores.", tags: ["Incidentes"] },
+      { year: "2024", org: "Aeon Tech", kind: "work", level: "Jr", title: "Reconstrução do produto", body: "Time de quatro a cinco pessoas. Entreguei o front-end, com feedback, perfis, auth e a landing page, e uma base de automação WhatsApp self-hosted.", tags: ["Next.js", "React", "GSAP", "n8n"] },
+      { year: "2026", org: "Aeon Tech + Kaizen", kind: "now", level: "Pleno", now: true, title: "Corta-ai e Atrium", body: "Pleno na Aeon Tech desde março, no Corta-ai em web, API, cobrança e analytics. Sócio-dev na Kaizen, no Atrium.", tags: ["NestJS", "Next.js", "Prisma", "PostgreSQL"] },
     ],
     fundamentals:
       "Gosto de entender como a tecnologia funciona por baixo. É o mais próximo de mágica que temos: com um computador e uma ideia, posso mudar o que está ao meu redor.",
@@ -378,10 +401,11 @@ const ptBR: ProtoStory = {
     }),
   },
   projects: {
-    intro: "A maioria nasceu como ferramenta para a minha rotina. Gosto de mudar o que está ao meu redor, e a música funciona do mesmo jeito. Quando componho, mudo o ambiente também. Muitos foram feitos de madrugada, quando as ideias aparecem. Uma imagem abre o app no ar, ou o repositório quando é uma ferramenta de linha de comando.",
+    intro: "A maioria nasceu como ferramenta para a minha rotina. Gosto de mudar o que está ao meu redor, e a música funciona do mesmo jeito. Muitos foram feitos de madrugada, quando as ideias aparecem. Cada imagem abre o app no ar, ou o repositório quando é uma ferramenta de linha de comando.",
     items: [
       {
         name: "gym-stuff",
+        accent: "#4F7CFF",
         featured: true,
         group: "web",
         blurb: "Assistente de treino para o celular: um exercício por vez, registro de séries, timer de descanso ajustável, e funciona sem sinal.",
@@ -393,6 +417,7 @@ const ptBR: ProtoStory = {
       },
       {
         name: "SAERIX portfolio",
+        accent: "#E83FBF",
         featured: true,
         group: "web",
         blurb: "Este site. Next.js 16 e React 19 com GSAP, em inglês e português. Ele abriga duas identidades, a página de engenharia que você está lendo e a SAERIX, a página da minha música.",
@@ -400,7 +425,7 @@ const ptBR: ProtoStory = {
         tags: ["Next.js", "TypeScript", "GSAP", "Tailwind", "i18n"],
         repo: "https://github.com/Serg-Ale/SAERIX-PORTFOLIO",
         live: "https://saerix.vercel.app/pt-BR/saerix",
-        media: [{ src: "/projects/saerix-tour-poster.webp", video: "/projects/saerix-tour.webm", alt: "Uma rolagem pela página SAERIX: o nome em letras grandes, as frases do manifesto, o medidor de som e a seção para chamar para tocar." }, { src: "/projects/saerix-hero.webp", alt: "A página SAERIX: o nome em letras grandes ao lado de um retrato em estilo de pôster, com botões para chamar para tocar e ouvir no SoundCloud." }],
+        media: [{ tab: "Passeio", src: "/projects/saerix-tour-poster.webp", video: "/projects/saerix-tour.webm", alt: "Uma rolagem pela página SAERIX: o nome em letras grandes, as frases do manifesto, o medidor de som e a seção para chamar para tocar." }, { tab: "Hero", src: "/projects/saerix-hero.webp", alt: "A página SAERIX: o nome em letras grandes ao lado de um retrato em estilo de pôster, com botões para chamar para tocar e ouvir no SoundCloud." }],
       },
       {
         name: "Como-Eles-Votaram",
@@ -413,18 +438,20 @@ const ptBR: ProtoStory = {
       },
       {
         name: "matrix-rain",
+        accent: "#2BD96B",
         group: "cli",
         blurb: "Chuva Matrix para terminal em Python e curses, hoje virando um visualizador multi-modo. Toco como produto. Spec primeiro, depois tickets, TDD e revisão, tudo público.",
         tags: ["Python", "curses", "TDD"],
         repo: "https://github.com/Serg-Ale/matrix-rain",
-        media: [{ src: "/projects/matrix-rain-pulse-poster.webp", video: "/projects/matrix-rain-pulse.webm", alt: "Modo Pulse: uma onda circular de caracteres japoneses e símbolos pulsa pelo terminal." }, { src: "/projects/matrix-rain-network-poster.webp", video: "/projects/matrix-rain-network.webm", alt: "Modo Network: nós e ligações brilhantes aparecem e somem pelo terminal." }],
+        media: [{ tab: "Pulse", src: "/projects/matrix-rain-pulse-poster.webp", video: "/projects/matrix-rain-pulse.webm", alt: "Modo Pulse: uma onda circular de caracteres japoneses e símbolos pulsa pelo terminal." }, { tab: "Network", src: "/projects/matrix-rain-network-poster.webp", video: "/projects/matrix-rain-network.webm", alt: "Modo Network: nós e ligações brilhantes aparecem e somem pelo terminal." }],
       },
       {
         name: "lightsync",
+        accent: "#B44CF5",
         group: "cli",
         blurb: "Um serviço local que faz uma lâmpada inteligente acompanhar a tela e a música que toca no computador. Roda sem nuvem e tem quatro modos: sincronizar com a tela, branco, cor e música.",
         tags: ["Python", "PipeWire", "Tuya"],
-        media: [{ src: "/projects/lightsync-modes-poster.webp", video: "/projects/lightsync-modes.webm", alt: "O painel de terminal do lightsync nos seus modos: música com espectro e kick detectado, cinco temas de cor, sincronizar com a tela, cor fixa e branco fixo." }, { src: "/projects/lightsync.webp", alt: "O painel de terminal do lightsync no modo música: os últimos 60 segundos da lâmpada como faixa de cor, o kick detectado e um espectro de graves, médios e agudos." }],
+        media: [{ tab: "Modos", src: "/projects/lightsync-modes-poster.webp", video: "/projects/lightsync-modes.webm", alt: "O painel de terminal do lightsync nos seus modos: música com espectro e kick detectado, cinco temas de cor, sincronizar com a tela, cor fixa e branco fixo." }, { tab: "Música", src: "/projects/lightsync.webp", alt: "O painel de terminal do lightsync no modo música: os últimos 60 segundos da lâmpada como faixa de cor, o kick detectado e um espectro de graves, médios e agudos." }],
       },
     ],
     groups: { web: "Web e apps", cli: "Linha de comando" },

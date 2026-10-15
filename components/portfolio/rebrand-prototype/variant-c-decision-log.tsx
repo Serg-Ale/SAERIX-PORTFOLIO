@@ -1,19 +1,17 @@
 // Variant C "Decision log", the default /dev page: statement, status, contact and
 // a live section index stay pinned on the left; the whole story scrolls on the
-// right: stack → cases (decision-first) → how I work → own projects → path →
-// contact. Stack and path answer "can this person do the job?" before the long reads.
+// right: stack → work (cases, then own projects) → how I work → path → contact. Stack and path answer "can this person do the job?" before the long reads.
 
 import Image from "next/image"
-import { Fragment } from "react"
 import { getProtoCopy, PROTO_LINKS, type ProtoLocale } from "./copy"
-import { ClaudeSetup } from "./claude-setup"
-import { DecisionFlow } from "./decision-flow"
-import { LinkedMedia } from "./linked-media"
+import { PathTimeline } from "./path-timeline"
+import { SpeakDriven } from "./speak-driven"
 import { StackSection } from "./stack-section"
+import { WorkSection } from "./work-section"
 import { KatakanaRain } from "./katakana-rain"
 import { SectionNav } from "./section-nav"
-import { getProtoStory, INTRO_VIDEO, SPEC_URL } from "./story"
-import { GhostCta, OpenDot, PrimaryCta, ProtoShell, StackTags, StateChip } from "./proto-chrome"
+import { getProtoStory, INTRO_VIDEO } from "./story"
+import { GhostCta, OpenDot, PrimaryCta, ProtoShell } from "./proto-chrome"
 
 export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
   const copy = getProtoCopy(locale)
@@ -96,170 +94,17 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
         <section id="work" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("work")} total={index.length}>{L.work}</Label>
 
-          <div className="mb-6">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--orange)]">{L.team}</h3>
-            <p className="mt-2 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{copy.labels.casesIntro}</p>
-          </div>
-          <div className="flex flex-col gap-8">
-            {copy.cases.map((c, i) => (
-              <article key={c.id} className="flex flex-col gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)]/40 p-5 md:p-7">
-                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
-                  <span className="text-[var(--orange)]">{c.id}</span>
-                  <span className="font-sans text-lg font-bold text-[var(--text)]">{c.name}</span>
-                  <span>· {c.kind}</span>
-                  <StateChip state={c.state} label={c.stateLabel} />
-                </div>
-                <p className="text-base font-medium leading-snug text-[var(--text)]/85 md:text-lg">{c.outcome}</p>
-                {c.site && (
-                  <LinkedMedia items={c.site.images} href={c.site.href} label={c.site.label} cta={copy.labels.openSite} />
-                )}
-                <details open={i === 0} className="group mt-2">
-                  <summary className="flex cursor-pointer list-none items-center justify-between font-mono text-xs uppercase tracking-widest text-[var(--muted)] hover:text-[var(--text)]">
-                    <span>{copy.labels.details}</span>
-                    <span aria-hidden="true" className="transition group-open:rotate-45">+</span>
-                  </summary>
-                  <div className="mt-6 grid gap-6 md:grid-cols-2">
-                    <Block label={copy.labels.problem} text={c.problem} />
-                    <Block label={copy.labels.decision} text={c.decision} accent />
-                    <div className="md:col-span-2">
-                      <Block label={copy.labels.status} text={c.status} />
-                    </div>
-                    <div className="md:col-span-2">
-                      <DecisionFlow label={c.flow.label} steps={c.flow.steps} />
-                    </div>
-                    <div className="md:col-span-2">
-                      <StackTags items={c.stack} />
-                    </div>
-                  </div>
-                </details>
-              </article>
-            ))}
-          </div>
-
-          <div className="mb-6 mt-14">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--orange)]">{L.own}</h3>
-            <p className="mt-2 max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{story.projects.intro}</p>
-          </div>
-          <ul className="flex flex-col gap-8">
-            {story.projects.items.map((p, i) => {
-              const href = p.live ?? p.repo
-              const label = href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : copy.labels.privateRepo
-              const cta = p.live ? copy.labels.openSite : copy.labels.openRepo
-              const first = i === 0 || story.projects.items[i - 1].group !== p.group
-              return (
-                <Fragment key={p.name}>
-                  {first && (
-                    <li className="-mb-4 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">
-                      — {story.projects.groups[p.group]}
-                    </li>
-                  )}
-                  <li className="flex flex-col gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)]/40 p-5 md:p-7">
-                    <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--muted)]">
-                      <span className="text-[var(--orange)]">{String(copy.cases.length + i + 1).padStart(2, "0")}</span>
-                      <h4 className="font-sans text-lg font-bold text-[var(--text)]">{p.name}</h4>
-                      <span className="ml-auto flex gap-4">
-                        {p.repo ? (
-                          <a href={p.repo} className="hover:text-[var(--text)]">repo ↗</a>
-                        ) : (
-                          <span>{story.projects.privateLabel}</span>
-                        )}
-                        {p.live && <a href={p.live} className="text-[var(--orange)]">live ↗</a>}
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
-                    {p.media && <LinkedMedia items={p.media} href={href} label={label} cta={href ? cta : undefined} />}
-                    {p.featured && p.decision && (
-                      <div className="rounded-xl border border-[var(--line)] bg-[var(--bg)] p-5">
-                        <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-[var(--orange)]">
-                          {copy.labels.decision}
-                        </p>
-                        <p className="text-sm font-medium leading-relaxed">{p.decision}</p>
-                      </div>
-                    )}
-                    <StackTags items={p.tags} />
-                  </li>
-                </Fragment>
-              )
-            })}
-          </ul>
-          <ul className="mt-6 flex flex-col">
-            <li className="border-t border-[var(--line)] py-5">
-              <a
-                href={story.projects.borrowed.href}
-                className="flex flex-wrap items-baseline justify-between gap-3 text-sm text-[var(--muted)] hover:text-[var(--text)]"
-              >
-                <span className="max-w-2xl leading-relaxed">{story.projects.borrowed.text}</span>
-                <span className="font-mono text-xs text-[var(--orange)]">{story.projects.borrowed.cta}</span>
-              </a>
-            </li>
-            <li className="border-t border-[var(--line)] pt-5">
-              <a
-                href={`/${locale}/saerix`}
-                className="flex flex-wrap items-baseline justify-between gap-3 text-sm text-[var(--muted)] hover:text-[var(--text)]"
-              >
-                <span>{story.projects.music.text}</span>
-                <span className="font-mono text-xs text-[var(--orange)]">{story.projects.music.cta}</span>
-              </a>
-            </li>
-          </ul>
+          <WorkSection copy={copy} story={story} locale={locale} />
         </section>
 
         <section id="how" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("how")} total={index.length}>{L.how}</Label>
-          <h2 className="mb-10 text-2xl font-bold leading-tight tracking-tight md:text-[1.75rem]">{story.how.stance}</h2>
-          <p className="mb-5 max-w-prose text-base leading-relaxed text-[var(--text)]/85">{story.how.lead}</p>
-          <p className="mb-10 max-w-prose text-base leading-relaxed text-[var(--text)]/85">{story.how.focus}</p>
-          <ol className="flex flex-col gap-8">
-            {story.how.principles.map((p, i) => (
-              <li key={p.title} className="grid gap-2 md:grid-cols-[3rem_1fr]">
-                <span className="font-mono text-xs text-[var(--orange)]">0{i + 1}</span>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-bold">{p.title}</h3>
-                  <p className="text-sm leading-relaxed text-[var(--text)]/80">{p.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <a
-            href={SPEC_URL}
-            className="group mt-10 flex flex-col gap-3 rounded-xl border border-[var(--orange)]/60 bg-[var(--surface)] p-6 transition hover:border-[var(--orange)]"
-          >
-            <p className="text-base font-semibold leading-snug">{story.how.proofNote}</p>
-            <span className="font-mono text-xs text-[var(--orange)] transition group-hover:translate-x-1">
-              {story.how.proofCta}
-            </span>
-          </a>
-          <ul className="mt-6 flex flex-col gap-2">
-            {story.how.quality.map((q) => (
-              <li key={q} className="border-l-2 border-[var(--teal)] pl-3 text-sm text-[var(--text)]/80">
-                {q}
-              </li>
-            ))}
-          </ul>
-                  <ClaudeSetup setup={story.setup} replayLabel={replayLabel} />
+          <SpeakDriven how={story.how} setup={story.setup} replayLabel={replayLabel} />
         </section>
 
         <section id="journey" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
           <Label n={sectionNumber("journey")} total={index.length}>{L.journey}</Label>
-          <ol className="flex flex-col">
-            {story.journey.items.map((it) => (
-              <li key={it.year} className="grid gap-2 border-t border-[var(--line)] py-6 first:border-t-0 md:grid-cols-[5rem_1fr]">
-                <span className="font-mono text-sm text-[var(--muted)]">{it.year}</span>
-                <div className="flex flex-col gap-2">
-                  <h3 className="flex items-center gap-2 text-base font-bold">
-                    {it.now && (
-                      <span className="h-2 w-2 rounded-full bg-[var(--teal)]">
-                        <span className="sr-only">{locale === "pt-BR" ? "atual" : "current"}</span>
-                      </span>
-                    )}
-                    {it.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-[var(--text)]/80">{it.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-4 font-mono text-sm leading-relaxed text-[var(--muted)]">{story.journey.fundamentals}</p>
+          <PathTimeline journey={story.journey} currentLabel={locale === "pt-BR" ? "atual" : "current"} />
         </section>
 
         <section id="contact" className="mt-16 scroll-mt-11 border-t border-[var(--line)] lg:scroll-mt-0">
