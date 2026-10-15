@@ -50,7 +50,7 @@ export interface ProtoStory {
     metrics: { value: string; label: string }[]
   }
   journey: {
-    // The levels the resume lists, in order (REBRAND-BRIEF.md: estagiário, Jr TCS, Jr Aeon, Pleno).
+    // The levels the CVs list (public/cv-*.pdf), in order: intern and analyst at TCS, Jr and Pleno at Aeon.
     // No years here, so the timeline stays the one source of dates.
     ladder: { level: string; org: string }[]
     items: {
@@ -218,14 +218,14 @@ const en: ProtoStory = {
   journey: {
     ladder: [
       { level: "Intern", org: "TCS" },
-      { level: "Jr", org: "TCS" },
+      { level: "Analyst", org: "TCS" },
       { level: "Jr", org: "Aeon Tech" },
       { level: "Mid-level", org: "Aeon Tech" },
     ],
     items: [
       { year: "School", org: "Alura", kind: "school", title: "Java, because of Minecraft", body: "The state of Paraná gave students access to Alura. I wanted to change what was around me with code.", tags: ["Java"] },
       { year: "2022", org: "UTFPR + TCS", kind: "uni", level: "Intern", title: "College and a first job, before ChatGPT", body: "First job in June, degree in July. I made class assignments bigger, with console menus and ASCII art. At work I touched front end, back end, tests and Scrum.", tags: ["Java", "Tests", "Scrum"] },
-      { year: "2023", org: "TCS", kind: "night", level: "Jr", title: "Night on-call", body: "Critical systems of a large retail chain. In incident war rooms I was the technical link between engineering and managers.", tags: ["Incidents"] },
+      { year: "2023", org: "TCS", kind: "night", level: "Analyst", title: "Night on-call", body: "Critical systems of a large retail chain. In incident war rooms I was the technical link between engineering and managers.", tags: ["Incidents"] },
       { year: "2024", org: "Aeon Tech", kind: "work", level: "Jr", title: "Rebuilt the product", body: "A team of four to five. I delivered the front end, with feedback, profiles, auth and the landing page, plus a self-hosted WhatsApp automation base.", tags: ["Next.js", "React", "GSAP", "n8n"] },
       { year: "2026", org: "Aeon Tech + Kaizen", kind: "now", level: "Mid-level", now: true, title: "Corta-ai and Atrium", body: "Mid-level at Aeon Tech since March, on Corta-ai across web, API, billing and analytics. Partner-dev at Kaizen, on Atrium.", tags: ["NestJS", "Next.js", "Prisma", "PostgreSQL"] },
     ],
@@ -391,14 +391,14 @@ const ptBR: ProtoStory = {
   journey: {
     ladder: [
       { level: "Estágio", org: "TCS" },
-      { level: "Jr", org: "TCS" },
+      { level: "Analista", org: "TCS" },
       { level: "Jr", org: "Aeon Tech" },
       { level: "Pleno", org: "Aeon Tech" },
     ],
     items: [
       { year: "Escola", org: "Alura", kind: "school", title: "Java, por causa do Minecraft", body: "O governo do Paraná liberou a Alura para os alunos. Eu queria mudar o que estava ao meu redor com código.", tags: ["Java"] },
       { year: "2022", org: "UTFPR + TCS", kind: "uni", level: "Estágio", title: "Faculdade e primeiro emprego, antes do ChatGPT", body: "Primeiro emprego em junho, graduação em julho. Eu aumentava os trabalhos da faculdade, com menus no console e arte ASCII. No trabalho, passei por front-end, back-end, testes e Scrum.", tags: ["Java", "Testes", "Scrum"] },
-      { year: "2023", org: "TCS", kind: "night", level: "Jr", title: "Plantão noturno", body: "Sistemas críticos de uma grande rede varejista. Nas war rooms de incidente, eu fazia a ponte técnica entre engenharia e gestores.", tags: ["Incidentes"] },
+      { year: "2023", org: "TCS", kind: "night", level: "Analista", title: "Plantão noturno", body: "Sistemas críticos de uma grande rede varejista. Nas war rooms de incidente, eu fazia a ponte técnica entre engenharia e gestores.", tags: ["Incidentes"] },
       { year: "2024", org: "Aeon Tech", kind: "work", level: "Jr", title: "Reconstrução do produto", body: "Time de quatro a cinco pessoas. Entreguei o front-end, com feedback, perfis, auth e a landing page, e uma base de automação WhatsApp self-hosted.", tags: ["Next.js", "React", "GSAP", "n8n"] },
       { year: "2026", org: "Aeon Tech + Kaizen", kind: "now", level: "Pleno", now: true, title: "Corta-ai e Atrium", body: "Pleno na Aeon Tech desde março, no Corta-ai em web, API, cobrança e analytics. Sócio-dev na Kaizen, no Atrium.", tags: ["NestJS", "Next.js", "Prisma", "PostgreSQL"] },
     ],
