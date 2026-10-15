@@ -6,13 +6,31 @@ Personal site of Sérgio Alexandre, with two faces on one domain: a `/dev` page 
 
 ## Preview
 
-The `/dev` page on desktop: stack, a case written as problem and decision, and side projects.
+### Portal
+
+The home page asks which side to open.
+
+![Portal](docs/screenshots/portal.png)
+
+### /dev
+
+Stack, a case written as problem and decision, and side projects.
 
 ![/dev hero and stack](docs/screenshots/dev-hero.png)
 
 ![/dev case: Corta-ai](docs/screenshots/dev-cases.png)
 
 ![/dev side projects](docs/screenshots/dev-projects.png)
+
+### /saerix
+
+The music project. Copy is in Portuguese on both locales. The musical journey section has a small synth: it plays a chord as you scroll once sound is enabled.
+
+![/saerix hero](docs/screenshots/saerix-hero.png)
+
+![/saerix musical journey](docs/screenshots/saerix-journey.png)
+
+![/saerix booking](docs/screenshots/saerix-booking.png)
 
 ## What is in it
 
