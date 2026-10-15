@@ -215,7 +215,7 @@ export function PortfolioConnect() {
         </div>
 
         {/* Additional Info */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           <div
             ref={(el) => {
               cardRefs.current[3] = el
@@ -247,6 +247,20 @@ export function PortfolioConnect() {
           <div
             ref={(el) => {
               cardRefs.current[5] = el
+            }}
+            className="bg-background/10 backdrop-blur-sm p-6 border-4 border-background/20"
+          >
+            <h4 className="text-sm font-black tracking-wider mb-2 opacity-70">
+              {t("education")}
+            </h4>
+            <p className="text-lg md:text-xl font-bold">
+              {t("educationValue")}
+            </p>
+          </div>
+
+          <div
+            ref={(el) => {
+              cardRefs.current[6] = el
             }}
             className="bg-background/10 backdrop-blur-sm p-6 border-4 border-background/20 relative overflow-hidden"
           >

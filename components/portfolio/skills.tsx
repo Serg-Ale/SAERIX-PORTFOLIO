@@ -23,19 +23,20 @@ const coreStack = [
 
 // Architecture - How I build systems
 const architectureStack = [
-  "TURBOREPO",
-  "PRISMA ORM",
-  "NEXTAUTH",
-  "REACT QUERY",
+  "NESTJS",
+  "FASTAPI",
+  "POSTGRESQL",
   "TRPC",
+  "N8N",
+  "WHATSAPP API",
   "REST APIS",
 ]
 
 // Testing - How I ensure quality
 type TestingMetric = { value: string; label: string }
 const testingStack: { tools: string[]; metrics: TestingMetric[] } = {
-  tools: ["JEST", "REACT TESTING LIBRARY", "TDD"],
-  metrics: [],
+  tools: ["JEST", "JUNIT", "CI/CD"],
+  metrics: [{ value: "80%+", label: "COVERAGE, BUILT FROM ZERO" }],
 }
 
 // Also Proficient - Other skills
@@ -45,9 +46,8 @@ const otherSkills = [
   "TAILWIND CSS",
   "GSAP",
   "NODE.JS",
-  "POSTGRESQL",
+  "AI AGENT ORCHESTRATION",
   "GIT FLOW",
-  "N8N",
   "DOCKER",
   "SCRUM",
 ]

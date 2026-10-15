@@ -1,24 +1,36 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollTextReveal, ManifestoWord } from "@/components/shared/scroll-text-reveal"
-import { BackgroundBlobs } from "@/components/shared/parallax-background"
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Terminal } from "lucide-react"
 import { prefersReducedMotion } from "@/lib/gsap-config"
 
 gsap.registerPlugin(ScrollTrigger)
+
+type HeroMetric = {
+  value: string
+  label: string
+}
+
+type HeroSignal = {
+  label: string
+  value: string
+}
 
 export function PortfolioIntro() {
   const t = useTranslations("hero")
   const sectionRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
-  const firstNameRef = useRef<HTMLSpanElement>(null)
-  const lastNameRef = useRef<HTMLSpanElement>(null)
-  const roleRef = useRef<HTMLDivElement>(null)
+  const consoleRef = useRef<HTMLDivElement>(null)
   const scrollIndicatorRef = useRef<HTMLButtonElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
+  const metrics = t.raw("metrics") as HeroMetric[]
+  const signals = t.raw("signals") as HeroSignal[]
+  const stack = t.raw("stack") as string[]
+
+  const locale = useLocale()
+  const cvHref = locale === "pt-BR" ? "/cv-pt-br.pdf" : "/cv-en.pdf"
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -27,82 +39,52 @@ export function PortfolioIntro() {
     }
   }
 
-  // Build manifesto words for ScrollTextReveal - EXPRESSIVE TYPOGRAPHY
-  const manifestoWords: ManifestoWord[] = [
-    {
-      text: t("manifesto.anchor"),
-      position: "left",
-      font: "bebas",
-      size: "3xl",
-      weight: "black",
-      tracking: "tight",
-      style: ["scream", "condensed"],
-      transform: "uppercase",
-    },
-    {
-      text: t("manifesto.sub"),
-      position: "indent-1",
-      font: "space",
-      size: "lg",
-      weight: "bold",
-      tracking: "wide",
-      style: "outlined",
-      transform: "none",
-      opacity: "muted",
-      spacing: "xl",
-    },
-  ]
-
   useEffect(() => {
     const hero = heroRef.current
-    const firstName = firstNameRef.current
-    const lastName = lastNameRef.current
-    const role = roleRef.current
+    const consolePanel = consoleRef.current
     const scrollIndicator = scrollIndicatorRef.current
 
-    if (!hero || !firstName || !lastName || !scrollIndicator) return
+    if (!hero || !scrollIndicator) return
 
     const ctx = gsap.context(() => {
+      const sel = gsap.utils.selector(hero)
+
       if (prefersReducedMotion()) {
-        gsap.set([firstName, lastName, role, scrollIndicator, ctaRef.current], { opacity: 1 })
+        gsap.set(sel("[data-dev-anim]"), { opacity: 1, y: 0, x: 0 })
+        if (consolePanel) {
+          gsap.set(consolePanel, { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)" })
+        }
         return
       }
 
-      // Initial states
-      gsap.set(firstName, { opacity: 0, x: -100 })
-      gsap.set(lastName, { opacity: 0, x: 100 })
-      gsap.set(role, { opacity: 0, y: 30 })
-      gsap.set(ctaRef.current, { opacity: 0, y: 30 })
+      gsap.set(sel("[data-dev-anim]"), { opacity: 0, y: 34 })
+      gsap.set(sel("[data-dev-name-left]"), { x: -80 })
+      gsap.set(sel("[data-dev-name-right]"), { x: 80 })
+      gsap.set(sel("[data-dev-line]"), { scaleX: 0, transformOrigin: "left" })
+      if (consolePanel) {
+        gsap.set(consolePanel, { opacity: 0, y: 40, clipPath: "inset(12% 0% 12% 0%)" })
+      }
 
-      // Name reveal timeline
       const tl = gsap.timeline({ delay: 0.2 })
 
-      tl.to(firstName, {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-      })
-      .to(lastName, {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-      }, "-=0.7")
-      .to(role, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      }, "-=0.5")
-      .to(ctaRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      }, "-=0.3")
+      tl.to(sel("[data-dev-name-left]"), { opacity: 1, x: 0, y: 0, duration: 1, ease: "power3.out" })
+        .to(sel("[data-dev-name-right]"), { opacity: 1, x: 0, y: 0, duration: 1, ease: "power3.out" }, "-=0.72")
+        .to(sel("[data-dev-line]"), { scaleX: 1, duration: 0.55, ease: "power2.out" }, "-=0.55")
+        .to(sel("[data-dev-anim]:not([data-dev-name-left]):not([data-dev-name-right])"), {
+          opacity: 1,
+          y: 0,
+          stagger: 0.06,
+          duration: 0.65,
+          ease: "power3.out",
+        }, "-=0.35")
+        .to(consolePanel, {
+          opacity: 1,
+          y: 0,
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 0.9,
+          ease: "power3.inOut",
+        }, "-=0.55")
 
-      // Scroll indicator pulse
       gsap.to(scrollIndicator, {
         y: 10,
         opacity: 0.5,
@@ -112,11 +94,9 @@ export function PortfolioIntro() {
         ease: "power1.inOut",
       })
 
-      // DRAMATIC PARALLAX EFFECTS - More gradual and visible for longer
-      // Hero content with subtle parallax (stays visible longer)
       gsap.to(hero, {
-        y: -100,
-        scale: 0.92,
+        y: -80,
+        scale: 0.96,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
@@ -125,9 +105,8 @@ export function PortfolioIntro() {
         },
       })
 
-      // Hero fade happens only in the last 30% of scroll
       gsap.to(hero, {
-        opacity: 0.4,
+        opacity: 0.35,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "center top",
@@ -136,9 +115,8 @@ export function PortfolioIntro() {
         },
       })
 
-      // First name moves with subtle parallax (slower than container)
-      gsap.to(firstName, {
-        y: -50,
+      gsap.to(sel("[data-dev-name-left]"), {
+        y: -44,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
@@ -147,35 +125,12 @@ export function PortfolioIntro() {
         },
       })
 
-      // Last name moves slightly faster with subtle rotation
-      gsap.to(lastName, {
-        y: -70,
-        rotation: -1,
+      gsap.to(sel("[data-dev-name-right]"), {
+        y: -72,
+        rotation: -0.8,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
-
-      // Role moves with parallax (slower movement, stays visible longer)
-      gsap.to(role, {
-        y: -30,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
-
-      // Role fade happens later (only in last portion)
-      gsap.to(role, {
-        opacity: 0.5,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "60% top",
           end: "bottom top",
           scrub: 1,
         },
@@ -186,116 +141,188 @@ export function PortfolioIntro() {
   }, [])
 
   const handleScrollDown = () => {
-    const manifesto = document.getElementById("manifesto")
-    if (manifesto) {
-      manifesto.scrollIntoView({ behavior: "smooth" })
-    }
+    scrollToSection("projects")
   }
 
   return (
     <>
-      {/* Section 1: Hero with split name */}
       <section
         ref={sectionRef}
         id="intro"
-        className="relative min-h-screen flex flex-col overflow-hidden bg-foreground text-background"
+        className="relative min-h-screen overflow-hidden bg-[#050505] text-white"
         data-theme="dark"
       >
-        {/* Grain texture */}
         <div className="grain-overlay absolute inset-0 z-0" />
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.075)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.075)_1px,transparent_1px)] bg-[size:42px_42px]" />
+        <div className="absolute left-0 top-0 z-0 h-full w-px bg-[var(--lxndr-cyan)]/60" />
+        <div className="absolute right-6 top-24 z-0 hidden h-32 w-px bg-white/20 md:block" />
+        <div className="absolute bottom-0 left-0 right-0 z-0 h-px bg-white/15" />
 
-        {/* Multi-layer Parallax Background */}
-        <BackgroundBlobs count={2} speed={0.2} opacity={0.15} />
+        <div
+          ref={heroRef}
+          className="relative z-10 mx-auto grid min-h-screen w-full max-w-[1160px] grid-cols-1 gap-12 px-6 pb-24 pt-28 md:px-12 md:pt-32 lg:grid-cols-[minmax(0,640px)_380px] lg:items-center xl:grid-cols-[minmax(0,680px)_400px]"
+        >
+          <div className="flex min-w-0 flex-col justify-center">
+            <div data-dev-anim className="mb-8 flex flex-wrap items-center gap-3 opacity-0">
+              <span className="h-2 w-2 bg-[var(--lxndr-green)]" />
+              <p className="font-mono text-xs font-bold uppercase tracking-[0.38em] text-white/58">
+                {t("systemLabel")}
+              </p>
+              <div data-dev-line className="h-px min-w-16 flex-1 bg-white/28" />
+            </div>
 
-        <div ref={heroRef} className="relative z-10 w-full flex-1 flex flex-col px-6 md:px-12 pt-[72px] pb-24">
-          <div className="max-w-7xl mx-auto w-full flex flex-col flex-1">
-            {/* Split name layout - Two lines, same size, different fonts */}
-            <h1 className="flex flex-col gap-2 md:gap-4 mt-8 md:mt-10">
-              {/* First name - Bebas font */}
+            <h1 className="flex flex-col">
               <span
-                ref={firstNameRef}
-                className="text-[clamp(6rem,22vw,20rem)] font-black leading-[0.85] tracking-tighter font-bebas"
+                data-dev-anim
+                data-dev-name-left
+                className="font-bebas text-[clamp(5.6rem,16vw,12.5rem)] leading-[0.78] tracking-normal text-white"
               >
                 {t("firstName")}
               </span>
-
-              {/* Last name - Space Grotesk font with outline, same size */}
               <span
-                ref={lastNameRef}
-                className="text-[clamp(4rem,15vw,14rem)] font-black leading-[0.85] tracking-tight text-outlined font-space"
+                data-dev-anim
+                data-dev-name-right
+                className="font-space text-[clamp(3.5rem,7vw,6.5rem)] font-black leading-[0.82] tracking-normal text-outlined"
               >
                 {t("lastName")}
               </span>
             </h1>
 
-            {/* Role + Location */}
-            <div
-              ref={roleRef}
-              className="mt-6 md:mt-8 flex flex-col md:flex-row md:items-center gap-2 md:gap-6"
-            >
-              <span className="text-lg md:text-2xl font-bold tracking-widest opacity-80 font-mono">
+            <div data-dev-anim className="mt-8 max-w-3xl opacity-0">
+              <p className="font-mono text-sm font-bold uppercase tracking-[0.34em] text-[var(--lxndr-cyan)] md:text-lg">
                 {t("role")}
-              </span>
-              <span className="hidden md:block w-12 h-[2px] bg-background/50" />
-              <span className="text-base md:text-xl font-medium tracking-wider opacity-60">
-                {t("location")}
-              </span>
+              </p>
+              <p className="mt-5 max-w-2xl font-space text-xl font-semibold leading-snug text-white/84 md:text-3xl">
+                {t("tagline")}
+              </p>
+              <p className="mt-5 max-w-2xl font-mono text-sm uppercase leading-relaxed tracking-[0.2em] text-white/46">
+                {t("location")} / {t("availability")}
+              </p>
             </div>
 
-            <div ref={ctaRef} className="mt-8 md:mt-10 flex flex-wrap gap-4 items-center opacity-0">
+            <div data-dev-anim className="mt-9 flex flex-col flex-wrap gap-3 opacity-0 sm:flex-row md:mt-11">
               <button
                 type="button"
-                onClick={() => scrollToSection("proof")}
-                className="px-8 py-4 bg-accent-purple text-black border-4 border-background font-black text-lg tracking-wide shadow-brutalist hover:shadow-brutalist-lg hover:translate-x-1 hover:translate-y-1 transition-all"
+                onClick={() => scrollToSection("projects")}
+                className="inline-flex items-center justify-center gap-3 border-2 border-[var(--lxndr-green)] bg-[var(--lxndr-green)] px-6 py-4 font-mono text-xs font-black uppercase tracking-widest text-black transition-all duration-200 hover:bg-transparent hover:text-[var(--lxndr-green)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--lxndr-green)] focus-visible:outline-offset-2"
               >
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 {t("ctaSeeWork")}
               </button>
               <a
-                href="/cv.pdf"
+                href={cvHref}
                 download
-                className="px-8 py-4 bg-transparent text-background border-4 border-background font-black text-lg tracking-wide shadow-brutalist hover:shadow-brutalist-lg hover:bg-background hover:text-foreground hover:translate-x-1 hover:translate-y-1 transition-all"
+                className="inline-flex items-center justify-center gap-3 border-2 border-white/24 bg-transparent px-6 py-4 font-mono text-xs font-black uppercase tracking-widest text-white transition-all duration-200 hover:border-[var(--lxndr-cyan)] hover:text-[var(--lxndr-cyan)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--lxndr-cyan)] focus-visible:outline-offset-2"
               >
+                <Download className="h-4 w-4" aria-hidden="true" />
                 {t("ctaDownloadCV")}
+              </a>
+              <a
+                href="https://github.com/Serg-Ale"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 border-2 border-white/14 bg-transparent px-6 py-4 font-mono text-xs font-black uppercase tracking-widest text-white/62 transition-all duration-200 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                <Github className="h-4 w-4" aria-hidden="true" />
+                GitHub
+              </a>
+              <a
+                href="https://linkedin.com/in/serg-alexandre"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 border-2 border-white/14 bg-transparent px-6 py-4 font-mono text-xs font-black uppercase tracking-widest text-white/62 transition-all duration-200 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
+                LinkedIn
               </a>
             </div>
 
+            <div data-dev-anim className="mt-8 flex flex-wrap border border-white/14 bg-black/35 opacity-0">
+              {metrics.map((metric) => (
+                <div key={metric.label} className="min-w-[9.5rem] flex-1 border-b border-r border-white/10 p-4 last:border-r-0 sm:border-b-0">
+                  <p className="font-bebas text-4xl leading-none text-white md:text-5xl">{metric.value}</p>
+                  <p className="mt-2 max-w-[9rem] font-mono text-[9px] font-bold uppercase leading-relaxed tracking-[0.22em] text-white/42">
+                    {metric.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div
+            ref={consoleRef}
+            data-dev-anim
+            className="relative border border-white/28 bg-black/78 p-5 opacity-0 shadow-[0_0_70px_rgba(0,234,255,0.09)] md:p-6"
+          >
+            <div className="flex items-center justify-between border-b border-white/14 pb-4">
+              <div className="flex items-center gap-3">
+                <Terminal className="h-5 w-5 text-[var(--lxndr-green)]" aria-hidden="true" />
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.28em] text-white/76">
+                  {t("console.title")}
+                </span>
+              </div>
+              <span className="h-2 w-2 bg-[var(--lxndr-green)]" />
+            </div>
+
+            <div className="mt-6 space-y-5">
+              {signals.map((signal) => (
+                <div key={signal.label} className="border-b border-white/10 pb-5 last:border-b-0 last:pb-0">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/35">
+                    {signal.label}
+                  </p>
+                  <p className="mt-2 font-space text-base font-semibold leading-snug text-white/84">
+                    {signal.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-7 border border-white/14 bg-white/[0.03] p-4">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-white/44">
+                  {t("console.stackLabel")}
+                </p>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--lxndr-cyan)]">
+                  {t("console.status")}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {stack.map((item) => (
+                  <span
+                    key={item}
+                    className="border border-white/16 bg-black px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white/70"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-white/12 pt-4">
+              <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-white/42">
+                {t("console.footer")}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <button
           type="button"
           ref={scrollIndicatorRef}
           onClick={handleScrollDown}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
+          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4"
           aria-label={t("scrollDown")}
         >
-          <div className="flex flex-col items-center gap-2 group">
-            <span className="text-sm md:text-base font-semibold tracking-wider opacity-70 group-hover:opacity-100 transition-opacity">
-              SCROLL
+          <div className="group flex flex-col items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/34 transition-colors group-hover:text-white/68">
+              {t("scrollDown")}
             </span>
-            <div className="w-6 h-10 border-2 border-background flex items-start justify-center p-2">
-              <div className="w-1.5 h-3 bg-background" />
+            <div className="flex h-10 w-10 items-center justify-center border border-white/18">
+              <ArrowDown className="h-4 w-4 text-white/50" aria-hidden="true" />
             </div>
           </div>
         </button>
       </section>
-
-      {/* Section 2: Manifesto with scroll-triggered word reveal */}
-      <section
-        id="manifesto"
-        className="relative bg-foreground text-background overflow-hidden py-24 md:py-32"
-        data-theme="dark"
-      >
-        <div className="grain-overlay absolute inset-0 z-0 pointer-events-none" />
-        <ScrollTextReveal
-          words={manifestoWords}
-          scrollLength={80}
-          pinned={true}
-          className="relative z-10"
-        />
-      </section>
-
     </>
   )
 }
