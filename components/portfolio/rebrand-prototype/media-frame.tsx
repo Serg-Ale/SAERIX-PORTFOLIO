@@ -62,7 +62,7 @@ export function MediaFrame({
       </span>
       <span
         className={`min-w-0 flex-1 truncate font-mono text-[11px] text-[var(--muted)] ${
-          variant === "browser" ? "rounded-md bg-[var(--bg)] px-3 py-1" : ""
+          variant === "browser" ? "rounded-[0.375rem] bg-[var(--bg)] px-3 py-1" : ""
         }`}
       >
         {variant === "terminal" && <span style={{ color: accent }}>$ </span>}
@@ -88,7 +88,7 @@ export function MediaFrame({
       </div>
     </>
   )
-  const frame = "group block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg)] transition"
+  const frame = "group block overflow-hidden rounded-[0.75rem] border border-[var(--line)] bg-[var(--bg)] transition"
 
   return (
     <div className="flex flex-col gap-2.5">

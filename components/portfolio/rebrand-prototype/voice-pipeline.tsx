@@ -43,7 +43,7 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
   const speaking = inView && !reduced
 
   return (
-    <div ref={rootRef} className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)]/40">
+    <div ref={rootRef} className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)]">
       <style>{`
         @keyframes vp-bar { 0%, 100% { transform: scaleY(.28) } 50% { transform: scaleY(1) } }
         @keyframes vp-rise { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
@@ -57,10 +57,10 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
           <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--orange)] text-black">
             {speaking && (
               <>
-                <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-[var(--orange)]/50" />
+                <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-[color-mix(in_srgb,var(--orange)_50%,transparent)]" />
                 <span
                   aria-hidden="true"
-                  className="absolute -inset-2 animate-ping rounded-full border border-[var(--orange)]/40 [animation-delay:400ms]"
+                  className="absolute -inset-2 animate-ping rounded-full border border-[color-mix(in_srgb,var(--orange)_40%,transparent)] [animation-delay:400ms]"
                 />
               </>
             )}
@@ -82,7 +82,7 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
             </div>
           </div>
         </div>
-        <p className="max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{voice.caption}</p>
+        <p className="max-w-prose text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{voice.caption}</p>
       </div>
 
       <div className="border-t border-[var(--line)] px-5 pb-5 pt-6 md:px-6">
@@ -126,8 +126,8 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
                     on
                       ? "scale-110 border-[var(--orange)] text-[var(--orange)] shadow-[0_0_24px_color-mix(in_srgb,var(--orange)_45%,transparent)]"
                       : done
-                        ? "border-[var(--orange)]/60 text-[var(--orange)]/80"
-                        : "border-[var(--line)] text-[var(--muted)] group-hover:border-[var(--orange)]/50"
+                        ? "border-[color-mix(in_srgb,var(--orange)_60%,transparent)] text-[color-mix(in_srgb,var(--orange)_80%,transparent)]"
+                        : "border-[var(--line)] text-[var(--muted)] group-hover:border-[color-mix(in_srgb,var(--orange)_50%,transparent)]"
                   }`}
                 >
                   <Icon aria-hidden="true" className="h-5 w-5" />
@@ -145,18 +145,18 @@ export function VoicePipeline({ setup }: { setup: ProtoStory["setup"] }) {
           id="vp-panel"
           aria-labelledby={`vp-tab-${active}`}
           key={active}
-          className="vp-panel mt-6 flex min-h-[10.5rem] flex-col gap-2 rounded-xl border border-[var(--line)] bg-[var(--bg)] p-5 sm:min-h-[8rem]"
+          className="vp-panel mt-6 flex min-h-[10.5rem] flex-col gap-2 rounded-[0.75rem] border border-[var(--line)] bg-[var(--bg)] p-5 sm:min-h-[8rem]"
         >
           <div className="flex flex-wrap items-center gap-3">
             <span className="font-mono text-[11px] text-[var(--orange)]">{String(active + 1).padStart(2, "0")}</span>
-            <code className="rounded-md border border-[var(--orange)]/40 px-2 py-0.5 font-mono text-[11px] font-bold">{step.skill}</code>
+            <code className="rounded-[0.375rem] border border-[color-mix(in_srgb,var(--orange)_40%,transparent)] px-2 py-0.5 font-mono text-[11px] font-bold">{step.skill}</code>
           </div>
           <h4 className="text-base font-bold leading-snug">{step.title}</h4>
-          <p className="text-sm leading-relaxed text-[var(--text)]/80">{step.body}</p>
+          <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{step.body}</p>
           {last && (
             <div className="mt-1 flex flex-wrap items-center gap-2 border-l-2 border-[var(--teal)] pl-3">
               {review.lanes.map((l) => (
-                <span key={l} className="rounded border border-[var(--teal)]/50 px-2 py-0.5 font-mono text-[10px] text-[var(--teal)]">
+                <span key={l} className="rounded border border-[color-mix(in_srgb,var(--teal)_50%,transparent)] px-2 py-0.5 font-mono text-[10px] text-[var(--teal)]">
                   {l}
                 </span>
               ))}

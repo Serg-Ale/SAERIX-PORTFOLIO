@@ -11,9 +11,9 @@ export function DecisionFlow({
   steps: (string | string[])[]
   accent?: string
 }) {
-  const node = "rounded-lg border bg-[var(--bg)] px-3 py-2 font-mono text-[11px] font-bold leading-snug"
+  const node = "rounded-[0.5rem] border bg-[var(--bg)] px-3 py-2 font-mono text-[11px] font-bold leading-snug"
   return (
-    <figure className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+    <figure className="rounded-[0.75rem] border border-[var(--line)] bg-[var(--surface)] p-5">
       <figcaption className="mb-4 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">{label}</figcaption>
       <ol className="flex flex-col items-start gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-y-3">
         {steps.map((step, i) => (

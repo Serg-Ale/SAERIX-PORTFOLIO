@@ -61,7 +61,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
           <h1 className="text-[clamp(1.75rem,2.9vw,2.6rem)] font-bold leading-[1.05] tracking-tight">
             {copy.hero.h1}
           </h1>
-          <p className="text-base font-semibold leading-snug text-[var(--text)]/90 md:text-lg">{copy.hero.facts}</p>
+          <p className="text-base font-semibold leading-snug text-[color-mix(in_srgb,var(--text)_90%,transparent)] md:text-lg">{copy.hero.facts}</p>
           <p className="font-mono text-xs text-[var(--muted)]">{copy.hero.sub}</p>
         </div>
         <div className="relative z-10 flex flex-col gap-6">
@@ -132,7 +132,7 @@ export function VariantCDecisionLog({ locale }: { locale: ProtoLocale }) {
 // and the next section's label replaces it when it arrives.
 function Label({ n, total, children }: { n: number; total: number; children: React.ReactNode }) {
   return (
-    <div className="mb-8 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-widest text-[var(--muted)] lg:sticky lg:top-0 lg:z-10 lg:-mx-10 lg:mb-6 lg:border-b lg:border-[var(--line)] lg:bg-[var(--bg)]/85 lg:px-10 lg:py-4 lg:backdrop-blur">
+    <div className="mb-8 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-widest text-[var(--muted)] lg:sticky lg:top-0 lg:z-10 lg:-mx-10 lg:mb-6 lg:border-b lg:border-[var(--line)] lg:bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] lg:px-10 lg:py-4 lg:backdrop-blur">
       <span>// {children}</span>
       <span className="text-[var(--orange)]">{String(n).padStart(2, "0")}/{String(total).padStart(2, "0")}</span>
     </div>
@@ -141,13 +141,13 @@ function Label({ n, total, children }: { n: number; total: number; children: Rea
 
 function Block({ label, text, accent = false }: { label: string; text: string; accent?: boolean }) {
   return (
-    <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+    <div className="rounded-[0.75rem] border border-[var(--line)] bg-[var(--surface)] p-5">
       <p
         className={`mb-2 font-mono text-[11px] uppercase tracking-widest ${accent ? "text-[var(--orange)]" : "text-[var(--muted)]"}`}
       >
         {label}
       </p>
-      <p className="text-sm leading-relaxed text-[var(--text)]/90">{text}</p>
+      <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_90%,transparent)]">{text}</p>
     </div>
   )
 }

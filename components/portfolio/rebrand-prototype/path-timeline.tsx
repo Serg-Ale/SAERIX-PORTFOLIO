@@ -66,7 +66,7 @@ export function PathTimeline({ journey, currentLabel }: { journey: ProtoStory["j
         {journey.ladder.map((step, i) => (
           <li key={step.level} className="flex flex-col justify-end">
             <div
-              className="flex flex-col justify-end rounded-t-xl border border-b-0 border-[var(--line)] p-3 sm:p-4"
+              className="flex flex-col justify-end rounded-t-[0.75rem] border border-b-0 border-[var(--line)] p-3 sm:p-4"
               style={{
                 height: `${5.5 + i * 2.25}rem`,
                 background: `color-mix(in srgb, var(--orange) ${8 + i * 9}%, var(--surface))`,
@@ -103,19 +103,19 @@ export function PathTimeline({ journey, currentLabel }: { journey: ProtoStory["j
                   on ? (it.now ? "border-[var(--teal)] text-[var(--teal)]" : "border-[var(--orange)] text-[var(--orange)]") : "border-[var(--line)] text-[var(--muted)]"
                 }`}
               >
-                {it.now && on && <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full border border-[var(--teal)]/60 motion-reduce:hidden" />}
+                {it.now && on && <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full border border-[color-mix(in_srgb,var(--teal)_60%,transparent)] motion-reduce:hidden" />}
                 <Icon aria-hidden="true" className="h-[18px] w-[18px]" />
               </span>
               <article
-                className={`flex flex-col gap-3 rounded-2xl border bg-[var(--surface)]/40 p-5 transition-[border-color,opacity,transform] duration-500 ${
+                className={`flex flex-col gap-3 rounded-2xl border bg-[color-mix(in_srgb,var(--surface)_40%,transparent)] p-5 transition-[border-color,opacity,transform] duration-500 ${
                   on ? "translate-y-0 opacity-100" : "translate-y-2 opacity-60"
-                } ${it.now ? "border-[var(--teal)]/50" : "border-[var(--line)]"}`}
+                } ${it.now ? "border-[color-mix(in_srgb,var(--teal)_50%,transparent)]" : "border-[var(--line)]"}`}
               >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-xs">
                   <span className={it.now ? "font-bold text-[var(--teal)]" : "font-bold text-[var(--orange)]"}>{it.year}</span>
                   <span className="text-[var(--muted)]">{it.org}</span>
                   {it.level && (
-                    <span className="rounded-full border border-[var(--line)] px-2.5 py-0.5 text-[11px] uppercase tracking-widest text-[var(--text)]/80">
+                    <span className="rounded-full border border-[var(--line)] px-2.5 py-0.5 text-[11px] uppercase tracking-widest text-[color-mix(in_srgb,var(--text)_80%,transparent)]">
                       {it.level}
                     </span>
                   )}
@@ -127,10 +127,10 @@ export function PathTimeline({ journey, currentLabel }: { journey: ProtoStory["j
                   )}
                 </div>
                 <h3 className="text-base font-bold leading-snug md:text-lg">{it.title}</h3>
-                <p className="text-sm leading-relaxed text-[var(--text)]/80">{it.body}</p>
+                <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{it.body}</p>
                 <ul className="flex flex-wrap gap-1.5">
                   {it.tags.map((t) => (
-                    <li key={t} className="rounded-md border border-[var(--line)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px] text-[var(--muted)]">
+                    <li key={t} className="rounded-[0.375rem] border border-[var(--line)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px] text-[var(--muted)]">
                       {t}
                     </li>
                   ))}

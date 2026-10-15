@@ -63,7 +63,7 @@ export function WebProject({ p, index, labels, privateLabel }: { p: Project; ind
   return (
     <li
       style={{ "--a": p.accent ?? "var(--teal)" } as React.CSSProperties}
-      className="relative flex flex-col gap-5 overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--surface)]/40 p-5 md:p-7"
+      className="relative flex flex-col gap-5 overflow-hidden rounded-3xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)] p-5 md:p-7"
     >
       <Glow />
       <div className="relative flex flex-wrap items-center gap-x-4 gap-y-3">
@@ -71,18 +71,18 @@ export function WebProject({ p, index, labels, privateLabel }: { p: Project; ind
         <h5 className="text-xl font-bold md:text-2xl">{p.name}</h5>
         <span className="ml-auto"><Links p={p} privateLabel={privateLabel} /></span>
       </div>
-      <p className="relative max-w-prose text-sm leading-relaxed text-[var(--text)]/80 md:text-base">{p.blurb}</p>
+      <p className="relative max-w-prose text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)] md:text-base">{p.blurb}</p>
       {p.media && (
         <div className="relative">
           <MediaFrame items={p.media} href={t.href} label={t.label} cta={t.cta} accent="var(--a)" />
         </div>
       )}
       {p.featured && p.decision && (
-        <div className="relative flex gap-3 rounded-xl border-l-2 bg-[var(--bg)] p-4" style={{ borderColor: "var(--a)" }}>
+        <div className="relative flex gap-3 rounded-[0.75rem] border-l-2 bg-[var(--bg)] p-4" style={{ borderColor: "var(--a)" }}>
           <Zap aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--a)" }} />
           <div className="flex flex-col gap-1">
             <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--a)" }}>{labels.decision}</p>
-            <p className="text-sm leading-relaxed text-[var(--text)]/90">{p.decision}</p>
+            <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_90%,transparent)]">{p.decision}</p>
           </div>
         </div>
       )}
@@ -96,7 +96,7 @@ export function CliProject({ p, index, labels, privateLabel }: { p: Project; ind
   return (
     <li
       style={{ "--a": p.accent ?? "var(--teal)" } as React.CSSProperties}
-      className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--surface)]/40 p-5"
+      className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)] p-5"
     >
       <Glow />
       <div className="relative flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -109,7 +109,7 @@ export function CliProject({ p, index, labels, privateLabel }: { p: Project; ind
           <MediaFrame items={p.media} href={t.href} label={p.name} cta={t.cta} variant="terminal" accent="var(--a)" />
         </div>
       )}
-      <p className="relative text-sm leading-relaxed text-[var(--text)]/80">{p.blurb}</p>
+      <p className="relative text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{p.blurb}</p>
       <div className="relative mt-auto"><StackBadges items={p.tags} /></div>
     </li>
   )

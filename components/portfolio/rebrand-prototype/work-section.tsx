@@ -11,10 +11,10 @@ function SubHeading({ title, count, intro }: { title: string; count: number; int
     <div className="mb-6 flex flex-col gap-2">
       <h3 className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[var(--orange)]">
         {title}
-        <span className="rounded-full border border-[var(--orange)]/40 px-2 py-0.5 text-[10px]">{String(count).padStart(2, "0")}</span>
+        <span className="rounded-full border border-[color-mix(in_srgb,var(--orange)_40%,transparent)] px-2 py-0.5 text-[10px]">{String(count).padStart(2, "0")}</span>
         <span aria-hidden="true" className="h-px flex-1 bg-[var(--line)]" />
       </h3>
-      <p className="max-w-prose text-sm leading-relaxed text-[var(--text)]/80">{intro}</p>
+      <p className="max-w-prose text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{intro}</p>
     </div>
   )
 }

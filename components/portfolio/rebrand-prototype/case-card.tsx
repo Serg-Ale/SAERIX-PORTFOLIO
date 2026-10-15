@@ -15,7 +15,7 @@ export function CaseCard({ c, labels }: { c: ProtoCase; labels: ProtoCopy["label
     <article
       id={`case-${c.id}`}
       style={{ "--a": c.accent } as React.CSSProperties}
-      className="relative overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--surface)]/40"
+      className="relative overflow-hidden rounded-3xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)]"
     >
       <span
         aria-hidden="true"
@@ -42,22 +42,22 @@ export function CaseCard({ c, labels }: { c: ProtoCase; labels: ProtoCopy["label
           </div>
         </header>
 
-        <p className="max-w-prose text-base font-medium leading-snug text-[var(--text)]/90 md:text-lg">{c.outcome}</p>
+        <p className="max-w-prose text-base font-medium leading-snug text-[color-mix(in_srgb,var(--text)_90%,transparent)] md:text-lg">{c.outcome}</p>
 
         {c.site && (
           <MediaFrame items={c.site.images} href={c.site.href} label={c.site.label} cta={labels.openSite} accent="var(--a)" />
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="flex flex-col gap-2 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+          <div className="flex flex-col gap-2 rounded-[0.75rem] border border-[var(--line)] bg-[var(--surface)] p-5">
             <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">{labels.problem}</p>
-            <p className="text-sm leading-relaxed text-[var(--text)]/85">{c.problem}</p>
+            <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_85%,transparent)]">{c.problem}</p>
           </div>
-          <div className="flex flex-col gap-3 rounded-xl border bg-[var(--surface)] p-5" style={{ borderColor: "color-mix(in srgb, var(--a) 45%, var(--line))" }}>
+          <div className="flex flex-col gap-3 rounded-[0.75rem] border bg-[var(--surface)] p-5" style={{ borderColor: "color-mix(in srgb, var(--a) 45%, var(--line))" }}>
             <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "var(--a)" }}>
               {labels.decision}
             </p>
-            <p className="text-sm leading-relaxed text-[var(--text)]/90">{c.decision}</p>
+            <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_90%,transparent)]">{c.decision}</p>
           </div>
         </div>
 
@@ -76,14 +76,14 @@ export function CaseCard({ c, labels }: { c: ProtoCase; labels: ProtoCopy["label
           </ul>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="flex flex-col gap-3 rounded-[0.75rem] border border-[var(--line)] bg-[var(--surface)] p-5">
           <p className="flex flex-wrap items-baseline gap-x-3 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">
             {labels.status}
-            <span className="normal-case tracking-normal text-[var(--text)]/80">{c.status}</span>
+            <span className="normal-case tracking-normal text-[color-mix(in_srgb,var(--text)_80%,transparent)]">{c.status}</span>
           </p>
           <ul className="grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
             {c.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-2 text-sm leading-snug text-[var(--text)]/85">
+              <li key={h} className="flex items-start gap-2 text-sm leading-snug text-[color-mix(in_srgb,var(--text)_85%,transparent)]">
                 <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--a)" }} strokeWidth={3} />
                 {h}
               </li>

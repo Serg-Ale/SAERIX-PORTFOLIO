@@ -59,21 +59,21 @@ export function KeyTiler({
   const current = cluster[active]
 
   return (
-    <div ref={ref} className="grid gap-6 rounded-2xl border border-[var(--line)] bg-[var(--surface)]/40 p-5 md:p-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div ref={ref} className="grid gap-6 rounded-2xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_40%,transparent)] p-5 md:p-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div className="flex flex-col gap-3">
         <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]">{title}</p>
         <div
           aria-hidden="true"
-          className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--bg)]"
+          className="relative aspect-[16/10] w-full overflow-hidden rounded-[0.5rem] border border-[var(--line)] bg-[var(--bg)]"
         >
-          <span className="absolute inset-0 grid place-items-center font-mono text-[10px] text-[var(--muted)]/50">desktop</span>
+          <span className="absolute inset-0 grid place-items-center font-mono text-[10px] text-[color-mix(in_srgb,var(--muted)_50%,transparent)]">desktop</span>
           <div
-            className="absolute rounded-md border border-[var(--orange)] bg-[var(--orange)]/10 transition-[inset] duration-500 ease-out"
+            className="absolute rounded-[0.375rem] border border-[var(--orange)] bg-[color-mix(in_srgb,var(--orange)_10%,transparent)] transition-[inset] duration-500 ease-out"
             style={{ inset: SNAP[current.key] }}
           >
-            <div className="flex items-center gap-1 border-b border-[var(--orange)]/40 px-2 py-1">
+            <div className="flex items-center gap-1 border-b border-[color-mix(in_srgb,var(--orange)_40%,transparent)] px-2 py-1">
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--orange)]/50" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[color-mix(in_srgb,var(--orange)_50%,transparent)]" />
               <span className="ml-auto font-mono text-[9px] text-[var(--orange)]">{current.arrow}</span>
             </div>
           </div>
@@ -95,7 +95,7 @@ export function KeyTiler({
                   aria-label={`${k.key}, ${k.does}`}
                   onMouseEnter={() => pick(i)}
                   onClick={() => pick(i)}
-                  className={`flex h-12 w-full items-center justify-center rounded-lg border bg-[var(--bg)] font-mono text-base font-bold outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--teal)] ${
+                  className={`flex h-12 w-full items-center justify-center rounded-[0.5rem] border bg-[var(--bg)] font-mono text-base font-bold outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--teal)] ${
                     on
                       ? "translate-y-[3px] border-[var(--orange)] border-b-[var(--orange)] text-[var(--orange)] shadow-[0_0_18px_color-mix(in_srgb,var(--orange)_35%,transparent)]"
                       : "border-b-4 border-[var(--line)] border-b-[var(--orange)]/60"
@@ -118,13 +118,13 @@ export function KeyTiler({
                   </span>
                 ))}
               </span>
-              <span className="text-[var(--text)]/75">{c.does}</span>
+              <span className="text-[color-mix(in_srgb,var(--text)_75%,transparent)]">{c.does}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="text-sm leading-relaxed text-[var(--text)]/80 sm:col-span-2">{text}</p>
+      <p className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--text)_80%,transparent)] sm:col-span-2">{text}</p>
     </div>
   )
 }
