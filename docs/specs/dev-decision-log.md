@@ -29,11 +29,12 @@ Publicar issues no GitHub; personalização por vaga; screenshots de produto; me
 - Mobile (390px) sem scroll horizontal.
 
 ## Adendo (2026-10-14, 2ª rodada)
-11. **Ordem de leitura:** Stack, Casos, Como eu trabalho, Projetos, Trajetória, Contato. A Stack e a trajetória respondem "esse cara serve?" antes das leituras longas.
+11. **Ordem de leitura (revisada):** Stack, Trabalho (produtos com um time e, logo abaixo, projetos por conta própria, numerados 01 a 08, cada um num cartão), Como eu trabalho, Trajetória, Contato. Os dois blocos de prova ficam juntos; o texto de mindset vem depois. A Stack e a trajetória respondem "esse cara serve?" antes das leituras longas.
 12. **Hero:** foto (avatar 44 px, `public/avatar.webp`), tese, linha de fatos ("TypeScript, React, Next.js and NestJS. Aeon Tech and Kaizen. Remote or Londrina.") e a assinatura menor.
 13. **Casos com resultado na frente:** a manchete é o resultado (campo `outcome`); a decisão abre num bloco próprio. Sem números inventados.
 14. **Contato:** botões Email, LinkedIn e GitHub visíveis também no mobile (a coluna esquerda fica no topo no celular).
 15. **WebSocket não pode aparecer:** não existe no código do Corta-ai nem da API.
 16. **Tese de origem:** Java no ensino médio (Alura, Minecraft), faculdade em jul/2022 antes da IA escrever código, fundamentos sem IA, modelo mental do todo. Mora no parágrafo de abertura de "Como eu trabalho" e na trajetória (entradas "Escola" e 2022). Sem afirmar nada sobre AWS.
 17. **Ferramentas para a própria rotina:** introdução curta em "On my own"; setup com atalhos de janela no KDE (lógica do Vim e de tiling) e fluxo com o Claude Code.
-
+18. **Claude e IA, visual:** o loop de trabalho em cinco passos com a revisão em duas faixas paralelas (Standards e Spec), um replay animado de uma sessão real de `/grill-me` (com `prefers-reduced-motion` mostrando tudo parado) e o teclado com H J K L e os atalhos do KDE. Texto em `story.ts`, componentes em `claude-setup.tsx`.
+19. **Regra das imagens:** toda imagem é um link para a coisa real (site no ar, ou repositório nas ferramentas de linha de comando); cada item tem duas mídias, de preferência um loop curto mudo.

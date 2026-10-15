@@ -20,13 +20,21 @@ export interface StackGroup {
 }
 
 export interface ProtoStory {
-  labels: { top: string; how: string; proof: string; journey: string; stack: string; projects: string; contact: string }
+  labels: { top: string; how: string; proof: string; journey: string; stack: string; projects: string; work: string; team: string; own: string; contact: string }
   setup: {
     label: string
-    tools: string
-    workflow: string
-    claudeTitle: string
-    claude: { title: string; body: string }[]
+    title: string
+    lead: string
+    loop: { skill: string; title: string; body: string }[]
+    review: { label: string; lanes: [string, string] }
+    memory: string
+    terminal: { cwd: string; lines: { kind: "cmd" | "you" | "q" | "opt" | "ok"; text: string }[] }
+    keys: {
+      title: string
+      cluster: { key: string; arrow: string; does: string }[]
+      combos: { keys: string; does: string }[]
+      text: string
+    }
     credit: { text: string; href: string }
   }
   how: {
@@ -120,18 +128,48 @@ const stackGroups = (l: {
 ] as StackGroup[]
 
 const en: ProtoStory = {
-  labels: { top: "Intro", how: "How I work", proof: "Proof", journey: "Path", stack: "Stack", projects: "On my own", contact: "Contact" },
+  labels: { top: "Intro", how: "How I work", proof: "Proof", journey: "Path", stack: "Stack", projects: "On my own", work: "Work", team: "With a team", own: "On my own", contact: "Contact" },
   setup: {
     label: "Setup",
-    tools: "Neovim in kitty, with fish and starship, on Linux with KDE.",
-    workflow: "My window shortcuts in KDE follow how Vim and tiling window managers work, so I move between windows and screens without the mouse. I keep many things open at once, and knowing the whole system lets me document a bug while I fix another.",
-    claudeTitle: "How I work with Claude Code",
-    claude: [
-      { title: "Interview before code", body: "I run a skill that grills me about the plan. It asks one question at a time, with its own recommended answer, until no decision is left open." },
-      { title: "Spec, then tickets", body: "The conversation becomes a spec, and the spec becomes tickets that say what blocks what. Skills handle the format. I decide what goes in." },
-      { title: "Tests first, review with a clean context", body: "TDD on the seams we agreed on. Then two sub-agents review the work with a fresh context, one against the repo's standards and one against the spec." },
-      { title: "Memory lives in the repo", body: "Each repo has a CLAUDE.md and docs for the agent, so context stays in git and not in my head." },
+    title: "How I work with Claude Code",
+    lead: "The same loop on every piece of work that has decisions still open.",
+    loop: [
+      { skill: "/grill-me", title: "Grill the plan", body: "One question at a time, each with a recommended answer, until no decision is left open." },
+      { skill: "/to-spec", title: "Write the spec", body: "The conversation becomes a spec." },
+      { skill: "/to-tickets", title: "Cut the tickets", body: "Small vertical slices, each one saying what blocks what." },
+      { skill: "/tdd", title: "Test first", body: "Red, green, refactor on the seams we agreed on." },
+      { skill: "/code-review", title: "Review in a clean context", body: "The review does not inherit the blind spots of the build." },
     ],
+    review: { label: "two sub-agents, in parallel", lanes: ["Standards", "Spec"] },
+    memory: "Each repo keeps a CLAUDE.md and docs for the agent, so the context lives in git and not in my head.",
+    terminal: {
+      cwd: "~/portfolio",
+      lines: [
+        { kind: "cmd", text: "claude" },
+        { kind: "you", text: "/grill-me rework the /dev page" },
+        { kind: "q", text: "Where does the origin story live?" },
+        { kind: "opt", text: "a) opening of How I work  <- recommended" },
+        { kind: "opt", text: "b) a new About section" },
+        { kind: "opt", text: "c) the hero signature" },
+        { kind: "you", text: "a" },
+        { kind: "ok", text: "Decided. Next question." },
+      ],
+    },
+    keys: {
+      title: "Keyboard first",
+      cluster: [
+        { key: "H", arrow: "←", does: "tile left" },
+        { key: "J", arrow: "↓", does: "tile bottom" },
+        { key: "K", arrow: "↑", does: "tile top" },
+        { key: "L", arrow: "→", does: "tile right" },
+      ],
+      combos: [
+        { keys: "Meta + H J K L", does: "tile the window" },
+        { keys: "Meta + Alt + H J K L", does: "switch window" },
+        { keys: "Meta + Shift + H L", does: "send it to another screen" },
+      ],
+      text: "My KDE shortcuts follow how Vim and tiling window managers work, so I move between windows and screens without the mouse. I keep many things open at once, and knowing the whole system lets me document a bug while I fix another. The editor is Neovim, in kitty, with fish and starship.",
+    },
     credit: { text: "Built on Matt Pocock's open-source skills, plus a few of my own.", href: "https://github.com/mattpocock/skills" },
   },
   how: {
@@ -248,18 +286,48 @@ const en: ProtoStory = {
 }
 
 const ptBR: ProtoStory = {
-  labels: { top: "Início", how: "Como eu trabalho", proof: "Prova", journey: "Trajetória", stack: "Stack", projects: "Por conta própria", contact: "Contato" },
+  labels: { top: "Início", how: "Como eu trabalho", proof: "Prova", journey: "Trajetória", stack: "Stack", projects: "Por conta própria", work: "Trabalho", team: "Com um time", own: "Por conta própria", contact: "Contato" },
   setup: {
     label: "Setup",
-    tools: "Neovim no kitty, com fish e starship, no Linux com KDE.",
-    workflow: "Meus atalhos de janela no KDE seguem a lógica do Vim e dos gerenciadores de janela em tiling, então eu me movo entre janelas e telas sem o mouse. Mantenho muita coisa aberta ao mesmo tempo, e conhecer o sistema inteiro me deixa documentar um bug enquanto resolvo outro.",
-    claudeTitle: "Como eu trabalho com o Claude Code",
-    claude: [
-      { title: "Entrevista antes do código", body: "Rodo um skill que me interroga sobre o plano. Ele faz uma pergunta por vez, com a própria resposta recomendada, até não sobrar decisão em aberto." },
-      { title: "Spec, depois tickets", body: "A conversa vira spec, e a spec vira tickets que dizem o que bloqueia o quê. Os skills cuidam do formato. Eu decido o que entra." },
-      { title: "Testes primeiro, revisão com contexto limpo", body: "TDD nos pontos que combinamos. Depois dois sub-agentes revisam o trabalho com contexto novo, um contra os padrões do repo e outro contra a spec." },
-      { title: "A memória mora no repo", body: "Cada repo tem um CLAUDE.md e docs para o agente, então o contexto fica no git e não na minha cabeça." },
+    title: "Como eu trabalho com o Claude Code",
+    lead: "O mesmo ciclo em todo trabalho que ainda tem decisão em aberto.",
+    loop: [
+      { skill: "/grill-me", title: "Interrogar o plano", body: "Uma pergunta por vez, cada uma com a resposta recomendada, até não sobrar decisão em aberto." },
+      { skill: "/to-spec", title: "Escrever a spec", body: "A conversa vira uma spec." },
+      { skill: "/to-tickets", title: "Cortar os tickets", body: "Fatias verticais pequenas, cada uma dizendo o que bloqueia o quê." },
+      { skill: "/tdd", title: "Teste primeiro", body: "Vermelho, verde, refatorar nos pontos que combinamos." },
+      { skill: "/code-review", title: "Revisar com contexto limpo", body: "A revisão não herda os pontos cegos de quem construiu." },
     ],
+    review: { label: "dois sub-agentes, em paralelo", lanes: ["Padrões", "Spec"] },
+    memory: "Cada repo guarda um CLAUDE.md e docs para o agente, então o contexto fica no git e não na minha cabeça.",
+    terminal: {
+      cwd: "~/portfolio",
+      lines: [
+        { kind: "cmd", text: "claude" },
+        { kind: "you", text: "/grill-me refazer a página /dev" },
+        { kind: "q", text: "Onde mora a tese de origem?" },
+        { kind: "opt", text: "a) abertura de Como eu trabalho  <- recomendada" },
+        { kind: "opt", text: "b) uma seção nova Sobre mim" },
+        { kind: "opt", text: "c) a assinatura do hero" },
+        { kind: "you", text: "a" },
+        { kind: "ok", text: "Decidido. Próxima pergunta." },
+      ],
+    },
+    keys: {
+      title: "Teclado primeiro",
+      cluster: [
+        { key: "H", arrow: "←", does: "encaixar à esquerda" },
+        { key: "J", arrow: "↓", does: "encaixar embaixo" },
+        { key: "K", arrow: "↑", does: "encaixar em cima" },
+        { key: "L", arrow: "→", does: "encaixar à direita" },
+      ],
+      combos: [
+        { keys: "Meta + H J K L", does: "encaixar a janela" },
+        { keys: "Meta + Alt + H J K L", does: "trocar de janela" },
+        { keys: "Meta + Shift + H L", does: "mandar para outra tela" },
+      ],
+      text: "Meus atalhos no KDE seguem a lógica do Vim e dos gerenciadores de janela em tiling, então eu me movo entre janelas e telas sem o mouse. Mantenho muita coisa aberta ao mesmo tempo, e conhecer o sistema inteiro me deixa documentar um bug enquanto resolvo outro. O editor é o Neovim, no kitty, com fish e starship.",
+    },
     credit: { text: "Feito sobre os skills open-source de Matt Pocock, mais alguns meus.", href: "https://github.com/mattpocock/skills" },
   },
   how: {
