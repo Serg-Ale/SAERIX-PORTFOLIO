@@ -38,3 +38,8 @@ next-env.d.ts
 
 # local-only brief (personal data, repo is public)
 /docs/REBRAND-BRIEF.md
+
+# impeccable local state
+.impeccable/review/
+.impeccable/config.local.json
+.impeccable/hook.cache.json

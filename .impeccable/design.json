@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T00:00:00Z",
+  "title": "Design System: Editorial Vault",
+  "extensions": {
+    "colorMeta": {
+      "lab": { "role": "primary", "displayName": "Signal Orange (LAB)", "canonical": "#b53a08", "tonalRamp": ["#3a1202", "#561c04", "#7a2806", "#b53a08", "#d4521f", "#ff7a3d", "#ffb08a", "#ffe3d3"] },
+      "lab-dark": { "role": "primary", "displayName": "Signal Orange on dark", "canonical": "#ff7a3d", "tonalRamp": ["#3a1202", "#7a2806", "#b53a08", "#e0541a", "#ff7a3d", "#ff9a68", "#ffc4a5", "#ffe9dd"] },
+      "essay": { "role": "secondary", "displayName": "Violet (ENS)", "canonical": "#5b3fd1", "tonalRamp": ["#1b1250", "#2c1d84", "#4229ad", "#5b3fd1", "#7d65e0", "#b39bff", "#d6c9ff", "#efeaff"] },
+      "essay-dark": { "role": "secondary", "displayName": "Violet on dark", "canonical": "#b39bff", "tonalRamp": ["#2c1d84", "#4229ad", "#5b3fd1", "#8b72f0", "#b39bff", "#c6b4ff", "#ded3ff", "#f1edff"] },
+      "bg": { "role": "neutral", "displayName": "Ice Grey", "canonical": "#eef0f3", "tonalRamp": ["#14161b", "#2c2f38", "#565a66", "#8b8f9b", "#b9bdc6", "#d6d9df", "#eef0f3", "#ffffff"] },
+      "bg-dark": { "role": "neutral", "displayName": "Blue Graphite", "canonical": "#0e1014", "tonalRamp": ["#0e1014", "#151821", "#1f2330", "#2e3342", "#565a66", "#9a9ca6", "#c9c8c4", "#e9e8e4"] },
+      "surface": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff", "tonalRamp": ["#ffffff"] },
+      "surface-dark": { "role": "neutral", "displayName": "Night Surface", "canonical": "#151821", "tonalRamp": ["#151821"] },
+      "text": { "role": "neutral", "displayName": "Ink", "canonical": "#14161b", "tonalRamp": ["#14161b"] },
+      "muted": { "role": "neutral", "displayName": "Muted", "canonical": "#565a66", "tonalRamp": ["#565a66"] }
+    },
+    "typographyMeta": {
+      "index-title": { "displayName": "Index title", "purpose": "Series page title, Geist 650." },
+      "article-title-essay": { "displayName": "ENS article title", "purpose": "Literata 600 for essays." },
+      "body-essay": { "displayName": "ENS reading", "purpose": "Literata 1.1875rem / 1.74 at 68ch." },
+      "code-label": { "displayName": "Code label", "purpose": "Geist Mono for entry codes, counts and map labels only." }
+    },
+    "shadows": [
+      { "name": "map-ambient", "value": "0 1px 2px rgba(20,22,27,0.06), 0 8px 24px -12px rgba(20,22,27,0.18)", "purpose": "Soft ambient shadow on the index vault map only. Dark: 0 1px 2px rgba(0,0,0,0.4), 0 10px 28px -14px rgba(0,0,0,0.7)." }
+    ],
+    "motion": [
+      { "name": "ease-expo-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Map draw-in, node pop, arrow slide, switch background." },
+      { "name": "map-draw", "value": "1100ms edges (55ms stagger), 600ms nodes (45ms stagger)", "purpose": "The one authored moment; only under prefers-reduced-motion: no-preference." },
+      { "name": "state", "value": "160-220ms", "purpose": "Colour, border, node radius, hot/dim transitions." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "640px" },
+      { "name": "row", "value": "820px" },
+      { "name": "index-head", "value": "960px" },
+      { "name": "article-3col", "value": "1120px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Switch pill",
+      "kind": "nav",
+      "refersTo": "switch-pill",
+      "description": "LAB / ENS series switch with mono counts.",
+      "html": "<div class=\"ds-switch\"><a aria-current=\"page\" href=\"#\">Laboratório <span class=\"ds-count\">06</span></a><a href=\"#\">Ensaios <span class=\"ds-count ds-ens\">08</span></a></div>",
+      "css": ".ds-switch{display:inline-flex;padding:3px;border:1px solid rgba(20,22,27,.28);border-radius:999px;background:#fff;font-family:Geist,system-ui,sans-serif}.ds-switch a{display:inline-flex;align-items:baseline;gap:8px;padding:8px 16px;border-radius:999px;font-size:.9375rem;font-weight:560;color:#565a66;text-decoration:none;transition:background-color 180ms,color 180ms}.ds-switch a:hover{color:#14161b}.ds-switch a[aria-current=page]{background:color-mix(in srgb,#b53a08 16%,transparent);color:#14161b}.ds-count{font-family:'Geist Mono',monospace;font-size:.75rem;color:#b53a08}.ds-count.ds-ens{color:#5b3fd1}.ds-switch a:focus-visible{outline:2px solid #b53a08;outline-offset:3px}"
+    },
+    {
+      "name": "Filter chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Ghost pill filter, accent tint when pressed.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"false\">all</button> <button class=\"ds-chip\" aria-pressed=\"true\">typescript</button>",
+      "css": ".ds-chip{appearance:none;border:1px solid rgba(20,22,27,.28);background:transparent;color:#565a66;padding:5px 12px;border-radius:999px;font:500 .8125rem Geist,system-ui,sans-serif;cursor:pointer;transition:border-color 160ms,color 160ms,background-color 160ms}.ds-chip:hover{color:#14161b;border-color:#14161b}.ds-chip[aria-pressed=true]{color:#14161b;border-color:#b53a08;background:color-mix(in srgb,#b53a08 14%,transparent)}.ds-chip:focus-visible{outline:2px solid #b53a08;outline-offset:3px}"
+    },
+    {
+      "name": "Entry row",
+      "kind": "card",
+      "refersTo": "entry-row",
+      "description": "Hairline row: mono code and meta, title, description, arrow. No card.",
+      "html": "<a class=\"ds-row\" href=\"#\"><div class=\"ds-meta\"><span class=\"ds-code\">ENS-003</span><span>12 min</span></div><div><h3 class=\"ds-title\">A captura da imaginação</h3><p class=\"ds-desc\">Short description in muted text.</p></div><span class=\"ds-go\">&rarr;</span></a>",
+      "css": ".ds-row{display:grid;grid-template-columns:8rem minmax(0,1fr) auto;gap:8px 32px;padding:28px 0;border-bottom:1px solid rgba(20,22,27,.13);color:#14161b;text-decoration:none;font-family:Geist,system-ui,sans-serif}.ds-meta{display:flex;flex-direction:column;gap:4px;font-size:.8125rem;color:#565a66}.ds-code{font-family:'Geist Mono',monospace;font-weight:560;color:#5b3fd1}.ds-title{margin:0;font-family:Literata,Georgia,serif;font-size:1.6rem;font-weight:600;letter-spacing:-.015em;line-height:1.15;transition:color 180ms}.ds-desc{margin:8px 0 0;max-width:62ch;color:#565a66;line-height:1.55}.ds-go{align-self:center;color:#565a66;transition:transform 220ms cubic-bezier(.16,1,.3,1),color 180ms}.ds-row:hover .ds-title{color:#5b3fd1}.ds-row:hover .ds-go{transform:translateX(6px);color:#5b3fd1}"
+    },
+    {
+      "name": "Properties panel",
+      "kind": "card",
+      "refersTo": "properties-panel",
+      "description": "Note metadata as a definition list.",
+      "html": "<div class=\"ds-props\"><dl><div><dt>Code</dt><dd class=\"ds-pcode\">LAB-002</dd></div><div><dt>Date</dt><dd>12 mar 2026</dd></div><div><dt>Tags</dt><dd class=\"ds-tags\"><span>nextjs</span><span>mdx</span></dd></div></dl></div>",
+      "css": ".ds-props{padding:16px 18px;border:1px solid rgba(20,22,27,.28);border-radius:10px;background:#fff;font:.875rem Geist,system-ui,sans-serif;color:#14161b}.ds-props dl{margin:0;display:grid;gap:14px}.ds-props dt{color:#565a66;font-size:.75rem;margin-bottom:3px}.ds-props dd{margin:0}.ds-pcode{font-family:'Geist Mono',monospace;color:#b53a08;font-weight:560}.ds-tags{display:flex;gap:4px 10px}.ds-tags span{padding:2px 9px;border-radius:999px;background:color-mix(in srgb,#b53a08 14%,transparent);font-size:.8125rem}"
+    },
+    {
+      "name": "Wikilink chip",
+      "kind": "custom",
+      "refersTo": "wikilink-chip",
+      "description": "In-prose link to another note, tinted with the target series colour.",
+      "html": "<p class=\"ds-prose\">Veja também <a class=\"ds-wiki\" href=\"#\">Mneme</a> e <a class=\"ds-wiki ds-ens\" href=\"#\">A captura da imaginação</a>.</p>",
+      "css": ".ds-prose{font:1.0625rem/1.7 Geist,system-ui,sans-serif;color:#14161b}.ds-wiki{text-decoration:none;padding:.04em .4em;margin:0 -.1em;border-radius:6px;color:#b53a08;background:color-mix(in srgb,#b53a08 13%,transparent);transition:background-color 160ms}.ds-wiki:hover{background:color-mix(in srgb,#b53a08 24%,transparent)}.ds-wiki.ds-ens{color:#5b3fd1;background:color-mix(in srgb,#5b3fd1 13%,transparent)}.ds-wiki.ds-ens:hover{background:color-mix(in srgb,#5b3fd1 24%,transparent)}"
+    },
+    {
+      "name": "Backlink list",
+      "kind": "custom",
+      "refersTo": "entry-row",
+      "description": "Linked notes under an article: mono code column and title with excerpt.",
+      "html": "<div class=\"ds-linked\"><h2>Cited by</h2><ul><li><a href=\"#\"><span class=\"ds-mono\">LAB-001</span><span>Título da nota<span class=\"ds-excerpt\">Short excerpt.</span></span></a></li></ul></div>",
+      "css": ".ds-linked{font-family:Geist,system-ui,sans-serif;color:#14161b}.ds-linked h2{margin:0 0 12px;font-size:.8125rem;font-weight:560;color:#565a66}.ds-linked ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(20,22,27,.28)}.ds-linked li{border-bottom:1px solid rgba(20,22,27,.13)}.ds-linked a{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:12px;padding:14px 0;color:inherit;text-decoration:none;font-weight:540;line-height:1.35;transition:color 160ms}.ds-mono{font-family:'Geist Mono',monospace;font-size:.8125rem;font-weight:500;color:#565a66;padding-top:2px}.ds-excerpt{display:block;margin-top:3px;font-weight:400;font-size:.875rem;color:#565a66}.ds-linked a:hover,.ds-linked a:hover .ds-mono{color:#b53a08}"
+    },
+    {
+      "name": "Table of contents",
+      "kind": "nav",
+      "refersTo": "properties-panel",
+      "description": "Rail TOC with a left rule; current section takes the accent rule.",
+      "html": "<ul class=\"ds-toc\"><li><a href=\"#\" aria-current=\"true\">Contexto</a></li><li><a href=\"#\">Decisão</a></li><li><a href=\"#\">Consequências</a></li></ul>",
+      "css": ".ds-toc{list-style:none;margin:0;padding:0;font:.875rem/1.4 Geist,system-ui,sans-serif}.ds-toc a{display:block;padding:5px 0 5px 12px;margin-left:-1px;border-left:1px solid rgba(20,22,27,.13);color:#565a66;text-decoration:none;transition:color 160ms,border-color 160ms}.ds-toc a:hover{color:#14161b}.ds-toc a[aria-current=true]{color:#14161b;border-left-color:#b53a08}"
+    },
+    {
+      "name": "Vault map (compact)",
+      "kind": "custom",
+      "refersTo": "vault-map",
+      "description": "Static miniature of the map: nodes in series colours, hot edges in ink.",
+      "html": "<div class=\"ds-map\"><svg viewBox=\"0 0 240 160\"><path d=\"M60 80 C110 30 140 30 180 50\" class=\"ds-edge\"/><path d=\"M60 80 C110 130 150 130 190 120\" class=\"ds-edge\"/><circle cx=\"60\" cy=\"80\" r=\"8\" fill=\"#b53a08\"/><circle cx=\"60\" cy=\"80\" r=\"13\" class=\"ds-halo\"/><circle cx=\"180\" cy=\"50\" r=\"7\" fill=\"#5b3fd1\" opacity=\".72\"/><circle cx=\"190\" cy=\"120\" r=\"7\" fill=\"#b53a08\" opacity=\".72\"/><text x=\"60\" y=\"108\" text-anchor=\"middle\" class=\"ds-label\">LAB-002</text></svg></div>",
+      "css": ".ds-map{border:1px solid rgba(20,22,27,.13);border-radius:14px;background:radial-gradient(circle at 1px 1px,rgba(20,22,27,.13) 1px,transparent 0) 0 0/22px 22px,#fff;overflow:hidden}.ds-map svg{display:block;width:100%;height:auto}.ds-edge{fill:none;stroke:#14161b;stroke-width:1.75}.ds-halo{fill:none;stroke:#14161b;stroke-width:1.5}.ds-label{font:11px 'Geist Mono',monospace;fill:#14161b;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Digital Garden Vault",
+    "overview": "A note vault laid out like the one the texts come from: two series with their own colour, coded entries, a properties panel as metadata, and a map that shows the real links between texts. The page proves how the author thinks by showing connections, not by decoration. It reads as a calm cool-grey (or blue-graphite) workspace in which the series colours are the only saturated things.\n\nDensity is moderate and reading-first: a 41rem article column between a sticky properties panel and a sticky rail, a 68ch prose measure, hairline rules instead of cards. ENS reads in a book serif; LAB reads in the sans; codes are the only mono.",
+    "keyCharacteristics": [
+      "Two series colours (LAB orange, ENS violet) on a cool neutral; one series accent per page via --ed-accent.",
+      "Hairline borders and one soft ambient shadow on the map; no hard offset shadows.",
+      "Codes (LAB-001, ENS-001) in tabular mono; titles in tight-tracked sans or serif.",
+      "One authored motion moment: the map draws itself once."
+    ],
+    "rules": [
+      { "name": "The Series Colour Rule", "body": "Orange means LAB, violet means ENS, and nothing else on these pages is saturated. Accents appear as text colour, 13-16% tints, thin borders and node fills, never as large filled surfaces.", "section": "colors" },
+      { "name": "The Accent Follows Series Rule", "body": "Components read --ed-accent, never a hard-coded series hue, so an element inside a data-series scope re-colours itself.", "section": "colors" },
+      { "name": "The Mono Is For Codes Rule", "body": "Geist Mono is used for entry codes, counts, map labels and code blocks. Never for headings or running copy.", "section": "typography" },
+      { "name": "The Serif Is Reading Rule", "body": "Literata appears only where an ENS text is being read or titled.", "section": "typography" },
+      { "name": "The Hairline Rule", "body": "Separation is a 1px line (line quiet, line-strong for panels and controls). No hard offset shadows, no stacked cards.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do read colour from --ed-accent and set data-series on any block that belongs to one series.",
+      "Do show codes (LAB-001, ENS-001) in Geist Mono with tabular numerals, in the accent.",
+      "Do keep text in the 68ch measure and separate entries with hairlines.",
+      "Do tint with color-mix at 13-16% for selected or linked states.",
+      "Do keep the focus ring: 2px accent outline, 3px offset."
+    ],
+    "donts": [
+      "Don't use series colours as large filled surfaces or for anything that is not series identity or state.",
+      "Don't add hard offset shadows or equal-card grids with coloured tags; the world is a vault of hairlined rows.",
+      "Don't use Geist Mono for headings or body, or Literata outside ENS reading.",
+      "Don't add a second motion moment or any animation outside prefers-reduced-motion: no-preference."
+    ]
+  }
+}
